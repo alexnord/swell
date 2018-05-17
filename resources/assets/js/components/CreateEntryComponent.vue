@@ -140,11 +140,11 @@
 					<b-form-group id=""
 								label="Direction"
 								label-for="tideCurrent">
-						<b-form-select id="tideCurrent"
-									:options="tides"
+                        <model-select :options="tides"
+									v-model="form.tideCurrent"
 									required
-									v-model="form.tideCurrent">
-                        </b-form-select>
+									placeholder='Select One'>
+						</model-select>
 					</b-form-group>
 				</b-col>
 				<b-col md="6">
@@ -271,6 +271,12 @@
 	import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 	export default {
+		props: [
+			'initiallocations',
+			'initialdirections',
+			'initialtides',
+			'initialconditions',
+		],
         data () {
     		return {
                 form: {
@@ -292,38 +298,10 @@
 
 	                checked: []
 	            },
-	            locations: [
-	                { text: 'Point Dume', value: '0' },
-	                { text: 'Silver Strand', value: '1' },
-	                { text: 'Ventura Point', value: '2' },
-	            ],
-	            directions: [
-	                { text: 'N', value: '0' },
-	                { text: 'NNW', value: '1' },
-	                { text: 'NW', value: '2' },
-	                { text: 'WNW', value: '3' },
-	                { text: 'W', value: '4' },
-	                { text: 'WSW', value: '5' },
-	                { text: 'SSW', value: '6' },
-	                { text: 'SW', value: '7' },
-	                { text: 'S', value: '8' },
-	                { text: 'SSE', value: '9' },
-	                { text: 'SE', value: '10' },
-	                { text: 'E', value: '11' },
-	                { text: 'ENE', value: '12' },
-	                { text: 'NE', value: '13' }
-	            ],
-	            conditions: [
-	                { text: 'Groomed', value: '0' },
-	                { text: 'Glassy', value: '1' },
-	                { text: 'Bumpy', value: '2' },
-	                { text: 'Blown Out', value: '3' },
-	            ],
-	            tides: [
-	            	{ text: 'Select One', value: null },
-	                { text: 'Incoming', value: '0' },
-	                { text: 'Outgoing', value: '1' },
-	            ],
+	            locations: this.$props.initiallocations,
+	            directions: this.$props.initialdirections,
+	            conditions: this.$props.initialconditions,
+	            tides: this.$props.initialtides,
 	            ratings: [
 		            { text: 'Select One', value: null },
 	                { text: '1', value: '0' },

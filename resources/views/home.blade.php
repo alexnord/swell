@@ -8,7 +8,12 @@
                 <div class="card-header">Create Entry</div>
 
                 <div class="card-body">
-                    <create-entry-component></create-entry-component>
+                    <create-entry-component
+                        :initiallocations="{{ $locations }}"
+                        :initialdirections="{{ $directions }}"
+                        :initialtides="{{ $tideDirs }}"
+                        :initialconditions="{{ $conditions }}"
+                    ></create-entry-component>
                 </div>          
             </div>
         </div>

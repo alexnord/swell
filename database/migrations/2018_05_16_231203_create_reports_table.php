@@ -17,7 +17,7 @@ class CreateReportsTable extends Migration
             $table->increments('id');
             $table->boolean('active')->default(1)->index('r_active');
             $table->date('date');
-            $table->time('date');
+            $table->time('time');
             $table->integer('location_id')->unsigned()->index('r_location_id');
             $table->integer('swell_dir_id')->unsigned()->index('r_swell_dir_id');
             $table->string('swell_angle');
