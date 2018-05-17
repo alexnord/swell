@@ -21,6 +21,7 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
-        "bootstrap-vue": "^2.0.0-rc.9"
+        "bootstrap-vue": "^2.0.0-rc.9",
+        "vue-search-select": "^2.6.1"
     }
 }
