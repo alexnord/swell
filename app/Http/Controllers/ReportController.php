@@ -71,11 +71,10 @@ class ReportController extends Controller
             'actual_surf_height' => 'required',
             'condition_id' => 'required|integer',
             'score' => 'required|integer',
-            'notes' => 'required',
         ]);
 
-        if ($validator->fails()) {
-            dd($validator->errors());
+        if ($validator->fails()) {    
+            return response()->json($validator->messages(), 200);
         }
 
         $report = Report::create([
@@ -94,12 +93,12 @@ class ReportController extends Controller
             'actual_surf_height' => $request->actual_surf_height,
             'condition_id' => $request->condition_id,
             'score' => $request->score,
-            'notes' => $request->notes,
+            'notes' => isset($request->notes) ? $request->notes : null,
         ]);
 
         return response()->json([
             'success' => true,
-            'report' => $report
+            'data' => $report,
         ]);
     }
 

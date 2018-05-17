@@ -9,6 +9,7 @@
 
                 <div class="card-body">
                     <create-entry-component
+                        :initialuserid="{{ $userId }}"
                         :initiallocations="{{ $locations }}"
                         :initialdirections="{{ $directions }}"
                         :initialtides="{{ $tideDirs }}"

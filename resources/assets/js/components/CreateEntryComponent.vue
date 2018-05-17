@@ -272,6 +272,7 @@
 
 	export default {
 		props: [
+			'initialuserid',
 			'initiallocations',
 			'initialdirections',
 			'initialtides',
@@ -298,6 +299,7 @@
 
 	                checked: []
 	            },
+	            userId: this.$props.initialuserid,
 	            locations: this.$props.initiallocations,
 	            directions: this.$props.initialdirections,
 	            conditions: this.$props.initialconditions,
@@ -315,13 +317,38 @@
 	                { text: '9', value: '8' },
 	                { text: '10', value: '9' },
 	            ],
-	            show: true
+	            show: true,
+	            submitting: false
             }
         },
         methods: {
     		onSubmit (evt) {
                 evt.preventDefault();
-                alert(JSON.stringify(this.form));
+
+                axios.post(`/reports`, {
+                	'user_id': this.userId,
+                	'date': this.form.date,
+                	'time': this.form.time,
+                	'location_id': this.form.location,
+                	'swell_dir_id': this.form.swellDir,
+                	'swell_angle': this.form.angle,
+                	'swell_height': this.form.swellHeight,
+                	'swell_period': this.form.period,
+                	'wind_dir_id': this.form.windDir,
+                	'wind_speed': this.form.windSpeed,
+                	'tide_dir_id': this.form.tideCurrent,
+                	'tide_height': this.form.tideHeight,
+                	'score': this.form.score,
+                	'actual_surf_height': this.form.actualHeight,
+                	'condition_id': this.form.conditions,
+                	'score': this.form.score,
+                	'notes': this.form.notes,
+                }).then(response => {
+					console.log(response.data);
+				}).catch(error => {
+					console.log(error);
+					alert('There was an error submitting your vote');
+				})
             },
             onReset (evt) {
                 evt.preventDefault();
