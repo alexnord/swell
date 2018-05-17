@@ -13,6 +13,7 @@ class Report extends Model
      */
     protected $fillable = [
         'active',
+        'user_id',
         'date',
         'time',
         'location_id',
@@ -29,6 +30,11 @@ class Report extends Model
         'score',
         'notes',
     ];
+
+    public function user()
+    {
+        return $this->hasOne('App\User');
+    }
 
     public function location()
     {

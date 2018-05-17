@@ -69,21 +69,17 @@ class ReportController extends Controller
             'tide_dir_id' => 'required|integer',
             'tide_height' => 'required|between:0,99.99',
             'actual_surf_height' => 'required',
-            'condition_id' => 'required|ineger',
+            'condition_id' => 'required|integer',
             'score' => 'required|integer',
             'notes' => 'required',
         ]);
 
-        dd($validator->errors());
-
         if ($validator->fails()) {
-            return redirect('post/create')
-                        ->withErrors($validator)
-                        ->withInput();
+            dd($validator->errors());
         }
 
-
         $report = Report::create([
+            'user_id' => $request->user_id,
             'date' => $request->date,
             'time' => $request->time,
             'location_id' => $request->location_id,
@@ -101,8 +97,10 @@ class ReportController extends Controller
             'notes' => $request->notes,
         ]);
 
-        dd($report);
-        return $report;
+        return response()->json([
+            'success' => true,
+            'report' => $report
+        ]);
     }
 
     /**

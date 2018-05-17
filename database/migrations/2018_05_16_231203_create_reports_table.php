@@ -22,7 +22,7 @@ class CreateReportsTable extends Migration
             $table->integer('location_id')->unsigned()->index('r_location_id');
             $table->integer('swell_dir_id')->unsigned()->index('r_swell_dir_id');
             $table->string('swell_angle');
-            $table->float('swell_height');
+            $table->float('swell_height', 3, 1);
             $table->string('swell_period');
             $table->integer('wind_dir_id')->unsigned()->index('r_wind_dir_id');
             $table->float('wind_speed', 3, 1);
