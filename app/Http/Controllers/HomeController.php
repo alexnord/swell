@@ -18,7 +18,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the create entry form.
      *
      * @return \Illuminate\Http\Response
      */

@@ -16,17 +16,18 @@ class CreateReportsTable extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('active')->default(1)->index('r_active');
+            $table->integer('user_id')->unsigned()->index('r_user_id');
             $table->date('date');
             $table->time('time');
             $table->integer('location_id')->unsigned()->index('r_location_id');
             $table->integer('swell_dir_id')->unsigned()->index('r_swell_dir_id');
             $table->string('swell_angle');
-            $table->string('swell_height');
+            $table->float('swell_height');
             $table->string('swell_period');
             $table->integer('wind_dir_id')->unsigned()->index('r_wind_dir_id');
-            $table->decimal('wind_speed', 2, 2);
+            $table->float('wind_speed', 3, 1);
             $table->integer('tide_dir_id')->unsigned()->index('r_tide_dir_id');
-            $table->decimal('tide_height', 2, 2);
+            $table->float('tide_height', 3, 1);
             $table->string('actual_surf_height');
             $table->integer('condition_id')->unsigned()->index('r_condition_id');
             $table->integer('score');
