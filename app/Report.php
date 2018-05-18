@@ -33,31 +33,31 @@ class Report extends Model
 
     public function user()
     {
-        return $this->hasOne('App\User');
+        return $this->belongsTo('App\User');
     }
 
     public function location()
     {
-        return $this->hasOne('App\Location');
+        return $this->belongsTo('App\Location');
     }
 
     public function swellDir()
     {
-        return $this->hasOne('App\Direction');
+        return $this->belongsTo('App\Direction');
     }
 
     public function windDir()
     {
-        return $this->hasOne('App\Direction');
+        return $this->belongsTo('App\Direction');
     }
 
     public function tideDir()
     {
-        return $this->hasOne('App\Tide');
+        return $this->belongsTo('App\Tide');
     }
 
     public function conditions()
     {
-        return $this->hasOne('App\Condition');
+        return $this->belongsTo('App\Condition', 'condition_id');
     }
 }

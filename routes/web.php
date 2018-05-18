@@ -12,7 +12,11 @@
 */
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/create', 'ReportController@create')->name('create');
+Route::get('/reports', 'ReportController@index')->name('reports');
 
 Auth::routes();
 
-Route::resource('reports', 'ReportController');
+Route::prefix('api')->group(function () {
+	Route::resource('reports', 'ReportController');
+});

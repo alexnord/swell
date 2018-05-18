@@ -1,5 +1,6 @@
 <template>
 	<b-container fluid id="create-form">
+
 		<b-form @submit="onSubmit" @reset="onReset" v-if="show">
 			
 			<b-row>
@@ -223,40 +224,6 @@
 					</b-form-group>
 				</b-col>
 			</b-row>
-
-			<!--
-			<b-form-group id="exampleInputGroup1"
-						label="Email address"
-						label-for="exampleInput1"
-						description="We'll never share your email with anyone else.">
-				<b-form-input id="exampleInput1"
-							type="email"
-							v-model="form.email"
-							required
-							placeholder="Enter email">
-				</b-form-input>
-			</b-form-group>
-
-			<b-form-group id="exampleInputGroup2"
-						label="Your Name"
-						label-for="exampleInput2">
-				<b-form-input id="exampleInput2"
-							type="text"
-							v-model="form.name"
-							required
-							placeholder="Enter name">
-				</b-form-input>
-			</b-form-group>
-			-->
-
-			<!--
-			<b-form-group id="exampleGroup4">
-				<b-form-checkbox-group v-model="form.checked" id="exampleChecks">
-					<b-form-checkbox value="me">Check me out</b-form-checkbox>
-					<b-form-checkbox value="that">Check that out</b-form-checkbox>
-				</b-form-checkbox-group>
-			</b-form-group>
-			-->
 			
 			<b-button type="submit" variant="primary">Submit</b-button>
 			<b-button type="reset" variant="danger">Reset</b-button>
@@ -268,7 +235,6 @@
 <script>
 	import axios from 'axios';
 	import { ModelSelect } from 'vue-search-select'
-	import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 	export default {
 		props: [
@@ -296,8 +262,6 @@
 	                conditions: null,
 	                score: null,
 	                notes: '',
-
-	                checked: []
 	            },
 	            userId: this.$props.initialuserid,
 	            locations: this.$props.initiallocations,
@@ -317,15 +281,15 @@
 	                { text: '9', value: '8' },
 	                { text: '10', value: '9' },
 	            ],
-	            show: true,
-	            submitting: false
+	            show: true
             }
         },
         methods: {
     		onSubmit (evt) {
                 evt.preventDefault();
+                this.show = false;
 
-                axios.post(`/reports`, {
+                axios.post(`/api/reports`, {
                 	'user_id': this.userId,
                 	'date': this.form.date,
                 	'time': this.form.time,
@@ -345,6 +309,7 @@
                 	'notes': this.form.notes,
                 }).then(response => {
 					console.log(response.data);
+					this.show = true;
 				}).catch(error => {
 					console.log(error);
 					alert('There was an error submitting your vote');
@@ -369,7 +334,6 @@
                 this.form.conditions = null;
                 this.form.notes = '';
 
-                this.form.checked = [];
                 /* Trick to reset/clear native browser form validation state */
                 this.show = false;
                 this.$nextTick(() => { this.show = true });

@@ -5,10 +5,21 @@ namespace App\Http\Controllers;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Report;
 
 class ReportController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +27,31 @@ class ReportController extends Controller
      */
     public function index()
     {
-        return;
+        $reports = Report::all();
+
+        $data = [];
+        foreach ($reports as $report) {
+            $data[] = [
+                'date' => $report->date,
+                'spot' => $report->location->title,
+                // 'data' => $report->date,
+                // 'time' => $report->time,
+                'dir' => $report->swellDir->title,
+                'angle' => $report->swell_angle,
+                'height' => $report->swell_height,
+                'period' => $report->swell_period,
+                'wind' => $report->windDir->title,
+                'wind_speed' => $report->wind_speed,
+                'tide' => $report->tideDir->title,
+                'tideHeight' => $report->tide_height,
+                'conditions' => $report->conditions->title,
+                'score' => $report->score,
+            ];
+        }
+
+        return view('reports')->with([
+            'reports' => json_encode($data),
+        ]);
     }
 
     /**
@@ -38,8 +73,10 @@ class ReportController extends Controller
         $conditions = DB::table('conditions')
             ->select('id as value', 'title as text')
             ->get();
+        $userId = Auth::id();
 
-        return view('home')->with([
+        return view('create')->with([
+            'userId' => $userId,
             'locations' => json_encode($locations),
             'directions' => json_encode($directions),
             'tideDirs' => json_encode($tideDirs),

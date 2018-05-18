@@ -15,11 +15,14 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-import BootstrapVue from 'bootstrap-vue'
+import BootstrapVue from 'bootstrap-vue';
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue);
 
 Vue.component('create-entry-component', require('./components/CreateEntryComponent.vue'));
+Vue.component('list-reports-component', require('./components/ListReportsComponent.vue'));
 
 const app = new Vue({
     el: '#app'
 });
+

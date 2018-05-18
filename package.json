@@ -22,6 +22,7 @@
     },
     "dependencies": {
         "bootstrap-vue": "^2.0.0-rc.9",
-        "vue-search-select": "^2.6.1"
+        "vue-search-select": "^2.6.1",
+        "vue-tables-2": "^1.4.50"
     }
 }
