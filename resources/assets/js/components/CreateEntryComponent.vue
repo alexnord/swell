@@ -1,7 +1,24 @@
 <template>
 	<b-container fluid id="create-form">
 
-		<b-form @submit="onSubmit" @reset="onReset" v-if="show">
+		<b-row class="d-flex justify-content-center">
+			<b-col>
+				<div class="alert alert-success ft-15 d-flex justify-content-center" 
+					role="alert"
+					v-if="success">
+					Record successfully created!
+				</div>
+				<div class="alert alert-danger ft-15" 
+					role="alert"
+					v-if="error">
+					An error occurred processing your request.
+				</div>
+			</b-col>
+		</b-row>
+
+
+
+		<b-form @submit="onSubmit" @reset="onReset">
 			
 			<b-row>
 				<b-col class="form-section mb-10"><h3>Location</h3></b-col>
@@ -270,24 +287,26 @@
 	            tides: this.$props.initialtides,
 	            ratings: [
 		            { text: 'Select One', value: null },
-	                { text: '1', value: '0' },
-	                { text: '2', value: '1' },
-	                { text: '3', value: '2' },
-	                { text: '4', value: '3' },
-	                { text: '5', value: '4' },
-	                { text: '6', value: '5' },
-	                { text: '7', value: '6' },
-	                { text: '8', value: '7' },
-	                { text: '9', value: '8' },
-	                { text: '10', value: '9' },
+	                { text: '1', value: '1' },
+	                { text: '2', value: '2' },
+	                { text: '3', value: '3' },
+	                { text: '4', value: '4' },
+	                { text: '5', value: '5' },
+	                { text: '6', value: '6' },
+	                { text: '7', value: '7' },
+	                { text: '8', value: '8' },
+	                { text: '9', value: '9' },
+	                { text: '10', value: '10' },
 	            ],
-	            show: true
+	            success: false,
+	            error: false,
             }
         },
         methods: {
     		onSubmit (evt) {
                 evt.preventDefault();
-                this.show = false;
+                this.success = false;
+                this.error = false;
 
                 axios.post(`/api/reports`, {
                 	'user_id': this.userId,
@@ -310,10 +329,11 @@
                 }).then(response => {
 					console.log(response.data);
 					this.resetForm();
-					this.show = true;
+					this.success = true;
 				}).catch(error => {
 					console.log(error);
 					alert('There was an error submitting your vote');
+					this.error = true;
 				})
             },
             resetForm() {
@@ -339,8 +359,9 @@
                 this.resetForm();
 
                 /* Trick to reset/clear native browser form validation state */
-                this.show = false;
-                this.$nextTick(() => { this.show = true });
+                this.success = false;
+                this.error = false;
+                this.$nextTick(() => { this.success = false });
             }
         },
         components: {

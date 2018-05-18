@@ -40,6 +40,155 @@ class LocationsTableSeeder extends Seeder
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
            ),
+            3 =>
+            array (
+                'id' => 4,
+                'active' => 1,
+                'title' => 'Mistos',
+                'lat' => 34.006696,
+                'long' => -118.793766,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+           ),
+            4 =>
+            array (
+                'id' => 5,
+                'active' => 1,
+                'title' => 'Malibu - 3rd Point',
+                'lat' => 34.036096,
+                'long' => -118.677467,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+           ),
+            5 =>
+            array (
+                'id' => 6,
+                'active' => 1,
+                'title' => 'Malibu - 2nd Point',
+                'lat' => 34.036096,
+                'long' => -118.677467,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+           ),
+            6 =>
+            array (
+                'id' => 7,
+                'active' => 1,
+                'title' => 'Malibu - 1st Point',
+                'lat' => 34.036096,
+                'long' => -118.677467,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+           ),
+            7 =>
+            array (
+                'id' => 8,
+                'active' => 1,
+                'title' => 'Zuma',
+                'lat' => 34.014158,
+                'long' => -118.822531,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+           ),
+            8 =>
+            array (
+                'id' => 9,
+                'active' => 1,
+                'title' => 'El Porto',
+                'lat' => 33.903275,
+                'long' => -118.423502,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+           ),
+            9 =>
+            array (
+                'id' => 10,
+                'active' => 1,
+                'title' => 'Venice Breakwater',
+                'lat' => 33.984722,
+                'long' => -118.475104,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+           ),
+            10 =>
+            array (
+                'id' => 11,
+                'active' => 1,
+                'title' => 'Venice Pier - Southside',
+                'lat' => 33.978074,
+                'long' => -118.468606,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+           ),
+            11 =>
+            array (
+                'id' => 12,
+                'active' => 1,
+                'title' => 'Venice Pier - Northside',
+                'lat' => 33.978074,
+                'long' => -118.468606,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+           ),
+            12 =>
+            array (
+                'id' => 13,
+                'active' => 1,
+                'title' => 'Topanga',
+                'lat' => 34.037270,
+                'long' => -118.582449,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+           ),
+            13 =>
+            array (
+                'id' => 14,
+                'active' => 1,
+                'title' => 'Mussel Shoals',
+                'lat' => 34.355055,
+                'long' => -119.442271,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+           ),
+            14 =>
+            array (
+                'id' => 15,
+                'active' => 1,
+                'title' => 'Rincon',
+                'lat' => 34.372101,
+                'long' => -119.477926,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+           ),
         ));
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

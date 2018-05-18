@@ -56,6 +56,29 @@ class ReportsTableSeeder extends Seeder
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             ),
+            2 =>
+            array (
+                'id' => 3,
+                'active' => 1,
+                'user_id' => 1,
+                'date' => "2017-10-29",
+                'time' => "08:00:00",
+                'location_id' => 2,
+                'swell_dir_id' => 3,
+                'swell_angle' => "300",
+                'swell_height' => 4,
+                'swell_period' => "19",
+                'wind_dir_id' => 3,
+                'wind_speed' => 1,
+                'tide_dir_id' => 1,
+                'tide_height' => 3,
+                'actual_surf_height' => "5",
+                'condition_id' => 2,
+                'score' => 8,
+                'notes' => 'Steep angle NW, the longer the periods the greater the difference in shoaling. Ventura was big, good on the low tide and improved as it built. LA county was 2-3ft',
+                'created_at' => "2018-05-18 21:45:30",
+                'updated_at' => "2018-05-18 21:45:30"
+            ),
         ));
     }
 }

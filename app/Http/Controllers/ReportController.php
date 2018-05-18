@@ -40,6 +40,7 @@ class ReportController extends Controller
     {
         $locations = DB::table('locations')
             ->select('id as value', 'title as text')
+            ->orderBy('title', 'asc')
             ->get();
         $directions = DB::table('directions')
             ->select('id as value', 'title as text')
