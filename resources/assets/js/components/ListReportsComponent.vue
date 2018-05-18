@@ -38,6 +38,12 @@
 		            	up:'glyphicon-chevron-up',
 		            	down:'glyphicon-chevron-down',
 		            	is:'glyphicon-sort' 
+		            },
+		            columnsDisplay: {
+		            	'date': 'min_desktop',
+		            	'tide': 'min_tablet',
+		            	'wind': 'min_tabletL',
+		            	'conditions': 'min_tabletL',
 		            }
 		        },
 	            reports: this.$props.initialreports,
