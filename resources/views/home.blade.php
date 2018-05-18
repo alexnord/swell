@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col">
             <div class="card card-default">
-                <div class="card-header">Create Entry</div>
+                <div class="card-header">Records</div>
 
                 <div class="card-body">
                     <list-reports-component

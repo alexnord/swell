@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col">
             <div class="card card-default">
-                <div class="card-header">Create Entry</div>
+                <div class="card-header">Create Record</div>
 
                 <div class="card-body">
                     <create-entry-component
