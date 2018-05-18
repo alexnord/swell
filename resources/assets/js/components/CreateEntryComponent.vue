@@ -3,20 +3,18 @@
 
 		<b-row class="d-flex justify-content-center">
 			<b-col>
-				<div class="alert alert-success ft-15 d-flex justify-content-center" 
-					role="alert"
-					v-if="success">
-					Record successfully created!
-				</div>
-				<div class="alert alert-danger ft-15" 
-					role="alert"
-					v-if="error">
-					An error occurred processing your request.
-				</div>
+				<b-alert :show="successDismissCountDown"
+						variant="success"
+						@dismissed="successDismissCountDown=0">
+					<p>Record successfully created!</p>
+				</b-alert>
+				<b-alert :show="errorDismissCountDown"
+						variant="danger"
+						@dismissed="errorDismissCountDown=0">
+					<p>An error occurred processing your request.</p>
+				</b-alert>
 			</b-col>
 		</b-row>
-
-
 
 		<b-form @submit="onSubmit" @reset="onReset">
 			
@@ -300,6 +298,10 @@
 	            ],
 	            success: false,
 	            error: false,
+	            dismissSecs: 5,
+				successDismissCountDown: 0,
+				errorDismissCountDown: 0,
+				showDismissibleAlert: false
             }
         },
         methods: {
@@ -327,12 +329,11 @@
                 	'score': this.form.score,
                 	'notes': this.form.notes,
                 }).then(response => {
-					console.log(response.data);
 					this.resetForm();
-					this.success = true;
+					this.showAlert('success');
 				}).catch(error => {
 					console.log(error);
-					alert('There was an error submitting your vote');
+					this.showAlert('error');
 					this.error = true;
 				})
             },
@@ -354,6 +355,7 @@
                 this.form.notes = '';
             },
             onReset (evt) {
+            	this.showAlert();
                 evt.preventDefault();
                 /* Reset our form values */
                 this.resetForm();
@@ -362,7 +364,11 @@
                 this.success = false;
                 this.error = false;
                 this.$nextTick(() => { this.success = false });
-            }
+            },
+			showAlert(type) {
+				if (type === 'success') this.successDismissCountDown = this.dismissSecs;
+				if (type === 'error') this.errorDismissCountDown = this.dismissSecs;
+			}
         },
         components: {
 			ModelSelect
