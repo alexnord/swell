@@ -3,12 +3,14 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10 col-sm-12">
+        <div class="col">
             <div class="card card-default">
-                <div class="card-header">Card</div>
+                <div class="card-header">Create Entry</div>
 
                 <div class="card-body">
-                    <h3><a href="/create">Create Report</a></h3>
+                    <list-reports-component
+                        :initialreports="{{ $reports }}"
+                    ></list-reports-component>
                 </div>          
             </div>
         </div>

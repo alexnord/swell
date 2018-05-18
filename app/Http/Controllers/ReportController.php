@@ -28,30 +28,7 @@ class ReportController extends Controller
      */
     public function index()
     {
-        $reports = Report::all();
-
-        $data = [];
-        foreach ($reports as $report) {
-            $date = Carbon::parse($report->date);
-            
-            $swellDir = $report->swell_angle.'° '.$report->swellDir->title;
-            $swellHeight = $report->swell_period.'s'.' '.$report->swell_height.'ft';
-            $wind = $report->wind_speed.'mph '.$report->windDir->title;
-            $tide = $report->tide_height.'ft '.$report->tideDir->title;
-            $data[] = [
-                'spot' => $report->location->title,
-                'angle' => $swellDir,
-                'height' => $swellHeight,
-                'tide' => $tide,
-                'wind' => $wind,
-                'conditions' => $report->conditions->title,
-                'score' => $report->score,
-            ];
-        }
-
-        return view('reports')->with([
-            'reports' => json_encode($data),
-        ]);
+        return Report::all();
     }
 
     /**
