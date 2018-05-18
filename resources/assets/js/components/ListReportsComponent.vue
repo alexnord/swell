@@ -22,6 +22,7 @@
         data () {
     		return {
     			columns: [
+	    			'date',
     				'spot',
     				'angle',
     				'height',
@@ -32,7 +33,12 @@
     			],
 		        tableData: this.$props.initialreports,
 		        options: {
-		            // see the options API
+		            sortIcon: {
+		            	base:'glyphicon',
+		            	up:'glyphicon-chevron-up',
+		            	down:'glyphicon-chevron-down',
+		            	is:'glyphicon-sort' 
+		            }
 		        },
 	            reports: this.$props.initialreports,
 	            show: true

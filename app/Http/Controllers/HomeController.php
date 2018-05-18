@@ -39,6 +39,7 @@ class HomeController extends Controller
             $wind = $report->wind_speed.'mph '.$report->windDir->title;
             $tide = $report->tide_height.'ft '.$report->tideDir->title;
             $data[] = [
+                'date' => $report->date,
                 'spot' => $report->location->title,
                 'angle' => $swellDir,
                 'height' => $swellHeight,
