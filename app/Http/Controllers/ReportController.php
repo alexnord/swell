@@ -6,6 +6,7 @@ use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 use App\Report;
 
 class ReportController extends Controller
@@ -31,19 +32,18 @@ class ReportController extends Controller
 
         $data = [];
         foreach ($reports as $report) {
+            $date = Carbon::parse($report->date);
+            
+            $swellDir = $report->swell_angle.'° '.$report->swellDir->title;
+            $swellHeight = $report->swell_period.'s'.' '.$report->swell_height.'ft';
+            $wind = $report->wind_speed.'mph '.$report->windDir->title;
+            $tide = $report->tide_height.'ft '.$report->tideDir->title;
             $data[] = [
-                'date' => $report->date,
                 'spot' => $report->location->title,
-                // 'data' => $report->date,
-                // 'time' => $report->time,
-                'dir' => $report->swellDir->title,
-                'angle' => $report->swell_angle,
-                'height' => $report->swell_height,
-                'period' => $report->swell_period,
-                'wind' => $report->windDir->title,
-                'wind_speed' => $report->wind_speed,
-                'tide' => $report->tideDir->title,
-                'tideHeight' => $report->tide_height,
+                'angle' => $swellDir,
+                'height' => $swellHeight,
+                'tide' => $tide,
+                'wind' => $wind,
                 'conditions' => $report->conditions->title,
                 'score' => $report->score,
             ];

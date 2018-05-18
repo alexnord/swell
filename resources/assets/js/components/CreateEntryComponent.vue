@@ -309,16 +309,15 @@
                 	'notes': this.form.notes,
                 }).then(response => {
 					console.log(response.data);
+					this.resetForm();
 					this.show = true;
 				}).catch(error => {
 					console.log(error);
 					alert('There was an error submitting your vote');
 				})
             },
-            onReset (evt) {
-                evt.preventDefault();
-                /* Reset our form values */
-                this.form.date = '';
+            resetForm() {
+            	this.form.date = '';
                 this.form.time = '';
                 this.form.location = null;
                 this.form.swellDir = null;
@@ -333,6 +332,11 @@
                 this.form.actualHeight = '';
                 this.form.conditions = null;
                 this.form.notes = '';
+            },
+            onReset (evt) {
+                evt.preventDefault();
+                /* Reset our form values */
+                this.resetForm();
 
                 /* Trick to reset/clear native browser form validation state */
                 this.show = false;

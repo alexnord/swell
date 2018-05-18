@@ -22,16 +22,11 @@
         data () {
     		return {
     			columns: [
-    				'date',
     				'spot',
-    				'dir',
     				'angle',
     				'height',
-    				'period',
-    				'wind',
-    				'wind_speed',
     				'tide',
-    				'tideHeight',
+    				'wind',
     				'conditions',
     				'score',
     			],
