@@ -19,224 +19,256 @@
 		<b-form @submit="onSubmit" @reset="onReset">
 			
 			<b-row>
-				<b-col class="form-section mb-10"><h3>Location</h3></b-col>
+				<b-col sm="12" md="6" lg="6">
+					<b-row>
+						<b-col>
+							<b-row>
+								<b-col class="form-section mb-10"><h3>Location</h3></b-col>
+							</b-row>
+							<b-row>
+								<b-col md="6">
+									<b-form-group id="date"
+				                                label="Date"
+				                                label-for="date">
+										<b-form-input id="date"
+													type="date"
+													v-model="form.date"
+													required
+													:value="todayDate"
+													placeholder="Enter date">
+										</b-form-input>
+									</b-form-group>
+								</b-col>
+								<b-col md="6">
+									<b-form-group id="time"
+				                                label="Time"
+				                                label-for="time">
+										<b-form-input id="time"
+													type="time"
+													v-model="form.time"
+													required
+													placeholder="Enter time">
+										</b-form-input>
+									</b-form-group>
+								</b-col>
+							</b-row>
+							<b-row>
+								<b-col>
+									<b-form-group id="location"
+					                                label="Location"
+					                                label-for="location-title">
+				                        <model-select :options="locations"
+													v-model="form.location"
+													required
+													placeholder='Select One'>
+										</model-select>
+									</b-form-group>
+								</b-col>
+							</b-row>
+						</b-col>
+					</b-row>
+				</b-col>
+				<b-col sm="12" md="6" lg="6">
+					<b-row>
+						<b-col>
+							<b-row>
+								<b-col class="form-section mb-10"><h3>Swell</h3></b-col>
+							</b-row>
+							<b-row>
+								<b-col md="6">
+									<b-form-group id="swell-dir"
+												label="Direction"
+												label-for="swellDir">
+				                        <model-select :options="directions"
+													v-model="form.swellDir"
+													required
+													placeholder='Select One'>
+										</model-select>
+									</b-form-group>
+								</b-col>
+								<b-col>
+									<b-form-group id=""
+											label="Angle (&#176;)"
+											label-for="angle">
+										<b-form-input id="angle"
+													type="text"
+													v-model="form.angle"
+													required
+													placeholder="210">
+				                        </b-form-input>
+									</b-form-group>
+								</b-col>
+							</b-row>
+							<b-row>
+								<b-col md="6">
+									<b-form-group id=""
+												label="Height (ft)"
+												label-for="swellHeight">
+										<b-form-input id="swellHeight"
+													type="text"
+													v-model="form.swellHeight"
+													required
+													placeholder="3.3">
+				                        </b-form-input>
+									</b-form-group>
+								</b-col>
+								<b-col md="6">
+									<b-form-group id=""
+												label="Period (seconds)"
+												label-for="period">
+										<b-form-input id="period"
+													type="text"
+													v-model="form.period"
+													required
+													placeholder="18">
+				                        </b-form-input>
+									</b-form-group>
+								</b-col>
+							</b-row>
+						</b-col>
+					</b-row>
+				</b-col>
 			</b-row>
 
 			<b-row>
-				<b-col md="6">
-					<b-form-group id="date"
-                                label="Date"
-                                label-for="date">
-						<b-form-input id="date"
-									type="date"
-									v-model="form.date"
-									required
-									placeholder="Enter date">
-						</b-form-input>
-					</b-form-group>
+				<b-col sm="12" md="6" lg="6">
+					<b-row>
+						<b-col>
+							<b-row>
+								<b-col class="form-section mb-10"><h3>Wind</h3></b-col>
+							</b-row>
+							<b-row>
+								<b-col md="6">
+									<b-form-group id=""
+												label="Direction"
+												label-for="windDir">
+				                        <model-select :options="directions"
+													v-model="form.windDir"
+													required
+													placeholder='Select One'>
+										</model-select>
+									</b-form-group>
+								</b-col>
+								<b-col md="6">
+									<b-form-group id=""
+												label="Speed (mph)"
+												label-for="windSpeed">
+										<b-form-input id="windSpeed"
+													type="text"
+													v-model="form.windSpeed"
+													required
+													placeholder="5">
+				                        </b-form-input>
+									</b-form-group>
+								</b-col>
+							</b-row>
+						</b-col>
+					</b-row>
 				</b-col>
-				<b-col md="6">
-					<b-form-group id="time"
-                                label="Time"
-                                label-for="time">
-						<b-form-input id="time"
-									type="time"
-									v-model="form.time"
-									required
-									placeholder="Enter time">
-						</b-form-input>
-					</b-form-group>
-				</b-col>
-			</b-row>
-
-			<b-row>
 				<b-col>
-					<b-form-group id="location"
-                                label="Location"
-                                label-for="location-title">
-                        <model-select :options="locations"
-									v-model="form.location"
-									required
-									placeholder='Select One'>
-						</model-select>
-					</b-form-group>
-				</b-col>
-			</b-row>
-			
-			<b-row>
-				<b-col class="form-section my-10"><h3>Swell</h3></b-col>
-			</b-row>
-
-			<b-row>
-				<b-col lg="3" md=6 sm="12">
-					<b-form-group id="swell-dir"
-								label="Direction"
-								label-for="swellDir">
-                        <model-select :options="directions"
-									v-model="form.swellDir"
-									required
-									placeholder='Select One'>
-						</model-select>
-					</b-form-group>
-				</b-col>
-				<b-col lg="3" md=6 sm="12">
-					<b-form-group id=""
-								label="Angle (&#176;)"
-								label-for="angle">
-						<b-form-input id="angle"
-									type="text"
-									v-model="form.angle"
-									required
-									placeholder="210">
-                        </b-form-input>
-					</b-form-group>
-				</b-col>
-				<b-col lg="3" md=6 sm="12">
-					<b-form-group id=""
-								label="Height (ft)"
-								label-for="swellHeight">
-						<b-form-input id="swellHeight"
-									type="text"
-									v-model="form.swellHeight"
-									required
-									placeholder="3.3">
-                        </b-form-input>
-					</b-form-group>
-				</b-col>
-				<b-col lg="3" md=6 sm="12">
-					<b-form-group id=""
-								label="Period (seconds)"
-								label-for="period">
-						<b-form-input id="period"
-									type="text"
-									v-model="form.period"
-									required
-									placeholder="18">
-                        </b-form-input>
-					</b-form-group>
+					<b-row>
+						<b-col>
+							<b-row>
+								<b-col class="form-section mb-10"><h3>Tide</h3></b-col>
+							</b-row>
+							<b-row>
+								<b-col md="6">
+									<b-form-group
+												label="Direction"
+												label-for="tideCurrent">
+				                        <model-select :options="tides"
+													v-model="form.tideCurrent"
+													required
+													placeholder='Select One'>
+										</model-select>
+									</b-form-group>
+								</b-col>
+								<b-col md="6">
+									<b-form-group id=""
+												label="Height (ft)"
+												label-for="tideHeight">
+										<b-form-input id="tideHeight"
+													type="text"
+													v-model="form.tideHeight"
+													required
+													placeholder="2.4">
+				                        </b-form-input>
+									</b-form-group>
+								</b-col>
+							</b-row>
+						</b-col>
+					</b-row>
 				</b-col>
 			</b-row>
 
 			<b-row>
-				<b-col class="form-section my-10"><h3>Wind</h3></b-col>
-			</b-row>
-
-			<b-row>
-				<b-col md="6">
-					<b-form-group id=""
-								label="Direction"
-								label-for="windDir">
-                        <model-select :options="directions"
-									v-model="form.windDir"
-									required
-									placeholder='Select One'>
-						</model-select>
-					</b-form-group>
+				<b-col sm="12" md="6" lg="6">
+					<b-row>
+						<b-col>
+							<b-row>
+								<b-col class="form-section mb-10"><h3>Actual</h3></b-col>
+							</b-row>
+							<b-row>
+								<b-col md="6">
+									<b-form-group id=""
+												label="Height (ft)"
+												label-for="actualHeight">
+										<b-form-input id="actualHeight"
+													type="text"
+													v-model="form.actualHeight"
+													required
+													placeholder="3-5">
+				                        </b-form-input>
+									</b-form-group>
+								</b-col>
+								<b-col md="6">
+									<b-form-group id=""
+												label="Conditions"
+												label-for="conditions">
+				                        <model-select :options="conditions"
+													v-model="form.conditions"
+													required
+													placeholder='Select One'>
+										</model-select>
+									</b-form-group>
+								</b-col>
+							</b-row>
+						</b-col>
+					</b-row>
 				</b-col>
-				<b-col md="6">
-					<b-form-group id=""
-								label="Speed (mph)"
-								label-for="windSpeed">
-						<b-form-input id="windSpeed"
-									type="text"
-									v-model="form.windSpeed"
-									required
-									placeholder="5">
-                        </b-form-input>
-					</b-form-group>
-				</b-col>
-			</b-row>
-
-			<b-row>
-				<b-col class="form-section my-10"><h3>Tide</h3></b-col>
-			</b-row>
-
-			<b-row>
-				<b-col md="6">
-					<b-form-group id=""
-								label="Direction"
-								label-for="tideCurrent">
-                        <model-select :options="tides"
-									v-model="form.tideCurrent"
-									required
-									placeholder='Select One'>
-						</model-select>
-					</b-form-group>
-				</b-col>
-				<b-col md="6">
-					<b-form-group id=""
-								label="Height (ft)"
-								label-for="tideHeight">
-						<b-form-input id="tideHeight"
-									type="text"
-									v-model="form.tideHeight"
-									required
-									placeholder="2.4">
-                        </b-form-input>
-					</b-form-group>
-				</b-col>
-			</b-row>
-
-			<b-row>
-				<b-col class="form-section my-10"><h3>Actual Surf</h3></b-col>
-			</b-row>
-
-			<b-row>
-				<b-col md="6">
-					<b-form-group id=""
-								label="Height (ft)"
-								label-for="actualHeight">
-						<b-form-input id="actualHeight"
-									type="text"
-									v-model="form.actualHeight"
-									required
-									placeholder="3-5">
-                        </b-form-input>
-					</b-form-group>
-				</b-col>
-				<b-col md="6">
-					<b-form-group id=""
-								label="Conditions"
-								label-for="conditions">
-                        <model-select :options="conditions"
-									v-model="form.conditions"
-									required
-									placeholder='Select One'>
-						</model-select>
-					</b-form-group>
-				</b-col>
-			</b-row>
-
-			<b-row>
-				<b-col class="form-section my-10"><h3>Rating</h3></b-col>
-			</b-row>
-
-			<b-row>
 				<b-col>
-					<b-form-group id=""
-								label="Score"
-								label-for="score">
-						<b-form-select id="score"
-									:options="ratings"
-									required
-									v-model="form.score">
-                        </b-form-select>
-					</b-form-group>
-				</b-col>
-			</b-row>
-
-			<b-row>
-				<b-col>
-					<b-form-group id=""
-								label="Notes"
-								label-for="notes">
-						<b-form-textarea id="notes"
-										v-model="form.notes"
-										placeholder="Enter something"
-										:rows="3"
-										:max-rows="6">
-						</b-form-textarea>
-					</b-form-group>
+					<b-row>
+						<b-col>
+							<b-row>
+								<b-col class="form-section mb-10"><h3>Rating</h3></b-col>
+							</b-row>
+							<b-row>
+								<b-col md="6">
+									<b-form-group id=""
+												label="Score"
+												label-for="score">
+										<b-form-select id="score"
+													:options="ratings"
+													required
+													v-model="form.score">
+				                        </b-form-select>
+									</b-form-group>
+								</b-col>
+								<b-col md="6">
+									<b-form-group id=""
+												label="Notes"
+												label-for="notes">
+										<b-form-textarea id="notes"
+														v-model="form.notes"
+														placeholder="Enter something"
+														:rows="3"
+														:max-rows="6">
+										</b-form-textarea>
+									</b-form-group>
+								</b-col>
+							</b-row>
+						</b-col>
+					</b-row>
 				</b-col>
 			</b-row>
 			
@@ -250,6 +282,7 @@
 <script>
 	import axios from 'axios';
 	import { ModelSelect } from 'vue-search-select'
+	window.moment = require('moment');
 
 	export default {
 		props: [
@@ -278,6 +311,7 @@
 	                score: null,
 	                notes: '',
 	            },
+	            todayDate: moment().format('YYYY-MM-DD'),
 	            userId: this.$props.initialuserid,
 	            locations: this.$props.initiallocations,
 	            directions: this.$props.initialdirections,
@@ -355,6 +389,15 @@
                 this.form.notes = '';
             },
             onReset (evt) {
+            	fetch('https://api.stormglass.io/forecast?lat=33.9032750&lng=-118.4235020', {
+					headers: {
+						'Authentication-Token': 'f37e50ec-5b83-11e8-a6df-0242ac120008-f37e520e-5b83-11e8-a6df-0242ac120008'
+					}
+				}).then(function(response) {
+					// Do something with response data.
+					var jsonData = response.json();
+					console.log(jsonData);
+				});
             	this.showAlert();
                 evt.preventDefault();
                 /* Reset our form values */
