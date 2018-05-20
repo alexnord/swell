@@ -18,4 +18,5 @@ Auth::routes();
 
 Route::prefix('api')->group(function () {
 	Route::resource('reports', 'ReportController');
+	Route::get('/external', 'ExternalApisController@index');
 });
