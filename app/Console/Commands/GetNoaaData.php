@@ -1,56 +1,74 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Console\Commands;
 
-use Illuminate\Http\Request;
-use Carbon\Carbon;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 use App\Noaa;
 use App\Location;
 
-class ExternalApisController extends Controller
+class GetNoaaData extends Command
 {
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'data:scrape';
 
     /**
-     * Create a new controller instance.
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Scrape data from external sources.';
+
+    /**
+     * Create a new command instance.
      *
      * @return void
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        parent::__construct();
     }
 
     /**
-     * Do something.
+     * Execute the console command.
      *
-     * @return \Illuminate\Http\Response
+     * @return mixed
      */
-    public function index(Request $request)
+    public function handle()
     {
         $locations = Location::where('active', true)->get();
         
+        $bar = $this->output->createProgressBar(count($locations));
+
         foreach ($locations as $location) {
+
+            $this->info("Scraping swell info for {$location->title}.");
+
             $lat = $location->lat;
             $long = $location->long;
             
-            $url = config('apis.stormglass.url') . '?lat=' . $lat . '&lng=' . $long;
-            $headers = ['Authentication-Token' => config('apis.stormglass.apiKey')];
-            $client = new \GuzzleHttp\Client();
-            $res = $client->request('GET', $url, [
-                'headers' => $headers
-            ]);
+            // $url = config('apis.stormglass.url') . '?lat=' . $lat . '&lng=' . $long;
+            // $headers = ['Authentication-Token' => config('apis.stormglass.apiKey')];
+            // $client = new \GuzzleHttp\Client();
+            // $res = $client->request('GET', $url, [
+            //     'headers' => $headers
+            // ]);
 
-            if ($res->getStatusCode() !== '200') {
-            } else {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Could not retrieve Stormglass data.',
-                ]);
-            }
+            // if ($res->getStatusCode() !== '200') {
+            // } else {
+            //     return response()->json([
+            //         'success' => false,
+            //         'message' => 'Could not retrieve Stormglass data.',
+            //     ]);
+            // }
 
-            $contents = json_decode($res->getBody());
-            // $contents = json_decode(Storage::get('public/rincon.json'));
+            // $contents = json_decode($res->getBody());
+            $contents = json_decode(Storage::get('public/rincon.json'));
             
             foreach ($contents->hours as $item) {
 
@@ -96,20 +114,20 @@ class ExternalApisController extends Controller
                         ]);
                     }
                 } catch(\Exception $e) {
-                    return $e->getMessage();
+
+                    $this->error($e->getMessage());
+                    continue;
                 }
             }
 
             $requestCount = $contents->meta->requestCount;
+
+            $bar->advance();
         }
 
+        $bar->finish();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Succesfully parsed and stored data.',
-            'data' => [
-                'requestCount' => $requestCount,
-            ],
-        ]);
+        $this->info('Scraped and stored swell data for each location.');
+        return;
     }
 }

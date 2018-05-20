@@ -22,6 +22,10 @@ class AddForeignKeysToReportsTable extends Migration
                 CASCADE')->onDelete('CASCADE');
             $table->foreign('condition_id', 'report_ibfk_6')->references('id')->on('conditions')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
+
+        Schema::table('noaa_data', function (Blueprint $table) {
+            $table->foreign('location_id', 'noaa_data_ibfk_1')->references('id')->on('locations')->onUpdate('CASCADE')->onDelete('CASCADE');
+        });
     }
 
     /**
@@ -38,6 +42,10 @@ class AddForeignKeysToReportsTable extends Migration
             $table->dropForeign('report_ibfk_4');
             $table->dropForeign('report_ibfk_5');
             $table->dropForeign('report_ibfk_6');
+        });
+
+        Schema::table('noaa_Data', function (Blueprint $table) {
+            $table->dropForeign('noaa_data_ibfk_1');
         });
     }
 }

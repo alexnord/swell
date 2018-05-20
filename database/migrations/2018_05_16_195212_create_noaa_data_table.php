@@ -15,7 +15,8 @@ class CreateNoaaDataTable extends Migration
     {
         Schema::create('noaa_data', function (Blueprint $table) {
             $table->increments('id');
-            $table->dateTime('timestamp')->nullable()->unique();
+            $table->dateTime('timestamp')->nullable();
+            $table->integer('location_id')->unsigned()->index('n_location_id');
             $table->float('swell_direction', 5, 2);
             $table->float('swell_height', 4, 2);
             $table->float('swell_period', 4, 2);
@@ -23,7 +24,7 @@ class CreateNoaaDataTable extends Migration
             $table->float('wave_height', 4, 2);
             $table->float('wave_period', 4, 2)->nullable();
             $table->float('wind_direction', 5, 2)->nullable();
-            $table->float('wind_speed', 4, 2)->nullable();
+            $table->float('wind_speed', 5, 2)->nullable();
             $table->timestamps();
         });
     }
