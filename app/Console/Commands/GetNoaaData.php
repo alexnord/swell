@@ -52,23 +52,20 @@ class GetNoaaData extends Command
             $lat = $location->lat;
             $long = $location->long;
             
-            // $url = config('apis.stormglass.url') . '?lat=' . $lat . '&lng=' . $long;
-            // $headers = ['Authentication-Token' => config('apis.stormglass.apiKey')];
-            // $client = new \GuzzleHttp\Client();
-            // $res = $client->request('GET', $url, [
-            //     'headers' => $headers
-            // ]);
+            try {
+                $url = config('apis.stormglass.url') . '?lat=' . $lat . '&lng=' . $long;
+                $headers = ['Authentication-Token' => config('apis.stormglass.apiKey')];
+                $client = new \GuzzleHttp\Client();
+                $res = $client->request('GET', $url, [
+                    'headers' => $headers
+                ]);
+            } catch(\Exception $e) {
+                $this->error($e->getMessage());
+                return;
+            } 
 
-            // if ($res->getStatusCode() !== '200') {
-            // } else {
-            //     return response()->json([
-            //         'success' => false,
-            //         'message' => 'Could not retrieve Stormglass data.',
-            //     ]);
-            // }
-
-            // $contents = json_decode($res->getBody());
-            $contents = json_decode(Storage::get('public/rincon.json'));
+            $contents = json_decode($res->getBody());
+            // $contents = json_decode(Storage::get('public/rincon.json'));
             
             foreach ($contents->hours as $item) {
 
