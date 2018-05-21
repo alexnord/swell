@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLocationsTable extends Migration
+class CreateNoaaStationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateLocationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('locations', function (Blueprint $table) {
+        Schema::create('noaa_stations', function (Blueprint $table) {
             $table->increments('id');
-            $table->boolean('active')->default(1)->index('l_active');
+            $table->integer('noaa_id');
             $table->string('title');
-            $table->decimal('lat', 10, 7)->nullable();
-            $table->decimal('long', 10, 7)->nullable();
-            $table->integer('noaa_station_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateLocationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('locations');
+        Schema::dropIfExists('noaa_stations');
     }
 }

@@ -44,7 +44,7 @@ class AddForeignKeysToReportsTable extends Migration
             $table->dropForeign('report_ibfk_6');
         });
 
-        Schema::table('noaa_Data', function (Blueprint $table) {
+        Schema::table('noaa_data', function (Blueprint $table) {
             $table->dropForeign('noaa_data_ibfk_1');
         });
     }
