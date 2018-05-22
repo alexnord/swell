@@ -22,7 +22,7 @@ class GetNoaaData extends Command
      *
      * @var string
      */
-    protected $description = 'Scrape data from external sources.';
+    protected $description = 'Scrape data from Stormglass for NOAA wave predictions.';
 
     /**
      * Create a new command instance.
