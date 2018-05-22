@@ -15,7 +15,7 @@ class GetNoaaData extends Command
      *
      * @var string
      */
-    protected $signature = 'data:scrape';
+    protected $signature = 'data:predictions';
 
     /**
      * The console command description.

@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('data:scrape')->daily();
+        $schedule->command('data:predictions')->daily();
     }
 
     /**
