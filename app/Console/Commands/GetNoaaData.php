@@ -47,7 +47,6 @@ class GetNoaaData extends Command
 
         foreach ($locations as $location) {
 
-
             $this->info("\nScraping swell info for {$location->title}.");
 
             $lat = $location->lat;
