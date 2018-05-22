@@ -47,7 +47,8 @@ class GetNoaaData extends Command
 
         foreach ($locations as $location) {
 
-            $this->info("Scraping swell info for {$location->title}.");
+
+            $this->info("\nScraping swell info for {$location->title}.");
 
             $lat = $location->lat;
             $long = $location->long;
@@ -124,7 +125,10 @@ class GetNoaaData extends Command
 
         $bar->finish();
 
-        $this->info('Scraped and stored swell data for each location.');
+        $this->info("\nScraped and stored swell data for each location.\n");
+
+        $this->info("{$requestCount} requests made to Stormglass.");
+
         return;
     }
 }
