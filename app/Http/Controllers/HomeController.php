@@ -51,6 +51,10 @@ class HomeController extends Controller
             ];
         }
 
+        usort($data, function ($a, $b) {
+            return $b['date'] <=> $a['date'];
+        });
+
         return view('home')->with([
             'reports' => json_encode($data),
         ]);
