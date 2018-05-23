@@ -17,7 +17,7 @@ class CreateTideDataTable extends Migration
             $table->increments('id');
             $table->dateTime('timestamp')->nullable();
             $table->string('type');
-            $table->float('measurement_type', 4, 2);
+            $table->float('height', 4, 2);
             $table->integer('noaa_station_id')->unsigned()->nullable();
             $table->timestamps();
         });

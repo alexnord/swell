@@ -9,4 +9,6 @@ return [
 
     'ndbc' => 'http://www.ndbc.noaa.gov/data/realtime2',
 
+    'tides' => 'https://tidesandcurrents.noaa.gov/api/datagetter?product=predictions&application=NOS.COOPS.TAC.WL&datum=MLLW&time_zone=GMT&units=english&interval=hilo&format=json'
+
 ];
