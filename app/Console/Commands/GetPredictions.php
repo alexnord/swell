@@ -5,10 +5,10 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
-use App\Noaa;
-use App\NoaaStations;
+use App\NoaaPrediction;
+use App\NoaaStation;
 
-class GetNoaaData extends Command
+class GetPredictions extends Command
 {
     /**
      * The name and signature of the console command.
@@ -41,7 +41,7 @@ class GetNoaaData extends Command
      */
     public function handle()
     {
-        $stations = NoaaStations::where('active', true)->get();
+        $stations = NoaaStation::where('active', true)->get();
         
         $bar = $this->output->createProgressBar(count($stations));
 
@@ -86,7 +86,7 @@ class GetNoaaData extends Command
                 $waveHeight = $item->waveHeight[1]->value * 3.28084;
 
                 try {
-                    if ($record = Noaa::where('timestamp', $itemTime)->where('noaa_station_id', $station->id)->first()) {
+                    if ($record = NoaaPrediction::where('timestamp', $itemTime)->where('noaa_station_id', $station->id)->first()) {
                         $record->swell_direction = $item->swellDirection[1]->value;
                         $record->swell_height = $swellHeight;
                         $record->swell_period = $item->swellPeriod[1]->value;
@@ -97,7 +97,7 @@ class GetNoaaData extends Command
                         $record->wind_speed = $windSpeed;
                         $record->save();
                     } else {
-                        $record = Noaa::create([
+                        $record = NoaaPrediction::create([
                             'noaa_station_id' => $station->id,
                             'timestamp' => $itemTime,
                             'swell_direction' => $item->swellDirection[1]->value,

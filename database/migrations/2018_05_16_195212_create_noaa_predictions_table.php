@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNoaaDataTable extends Migration
+class CreateNoaaPredictionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateNoaaDataTable extends Migration
      */
     public function up()
     {
-        Schema::create('noaa_data', function (Blueprint $table) {
+        Schema::create('noaa_predictions', function (Blueprint $table) {
             $table->increments('id');
             $table->dateTime('timestamp')->nullable();
             $table->integer('noaa_station_id')->unsigned()->index('n_noaa_station_id');
@@ -36,6 +36,6 @@ class CreateNoaaDataTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('noaa_data');
+        Schema::dropIfExists('noaa_predictions');
     }
 }

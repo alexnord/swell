@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class NoaaStations extends Model
+class NoaaStation extends Model
 {
 	/**
      * The table associated with the model.
