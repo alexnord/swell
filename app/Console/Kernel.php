@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('data:predictions')->daily();
-        $schedule->command('data:ndbc')->everyThirtyMinutes();
+        $schedule->command('data:ndbc')->everyTenMinutes();
     }
 
     /**
