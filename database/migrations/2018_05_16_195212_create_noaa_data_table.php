@@ -16,7 +16,7 @@ class CreateNoaaDataTable extends Migration
         Schema::create('noaa_data', function (Blueprint $table) {
             $table->increments('id');
             $table->dateTime('timestamp')->nullable();
-            $table->integer('location_id')->unsigned()->index('n_location_id');
+            $table->integer('noaa_station_id')->unsigned()->index('n_noaa_station_id');
             $table->float('swell_direction', 5, 2);
             $table->float('swell_height', 4, 2);
             $table->float('swell_period', 4, 2);

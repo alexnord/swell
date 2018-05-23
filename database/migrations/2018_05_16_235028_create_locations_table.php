@@ -18,7 +18,7 @@ class CreateLocationsTable extends Migration
             $table->boolean('active')->default(1)->index('l_active');
             $table->string('title');
             $table->decimal('lat', 10, 7)->nullable();
-            $table->decimal('long', 10, 7)->nullable();
+            $table->decimal('lng', 10, 7)->nullable();
             $table->integer('noaa_station_id')->unsigned()->nullable();
             $table->timestamps();
         });

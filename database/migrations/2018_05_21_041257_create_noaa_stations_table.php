@@ -15,8 +15,11 @@ class CreateNoaaStationsTable extends Migration
     {
         Schema::create('noaa_stations', function (Blueprint $table) {
             $table->increments('id');
+            $table->boolean('active')->default(1)->index('ns_active');
             $table->integer('noaa_id');
             $table->string('title');
+            $table->decimal('lat', 10, 7);
+            $table->decimal('lng', 10, 7);
             $table->timestamps();
         });
     }

@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use App\Noaa;
-use App\Location;
+use App\NoaaStations;
 
 class GetNoaaData extends Command
 {
@@ -41,19 +41,19 @@ class GetNoaaData extends Command
      */
     public function handle()
     {
-        $locations = Location::where('active', true)->get();
+        $stations = NoaaStations::where('active', true)->get();
         
-        $bar = $this->output->createProgressBar(count($locations));
+        $bar = $this->output->createProgressBar(count($stations));
 
-        foreach ($locations as $location) {
+        foreach ($stations as $station) {
 
-            $this->info("\nScraping swell info for {$location->title}.");
+            $this->info("\nScraping swell info for {$station->title}.");
 
-            $lat = $location->lat;
-            $long = $location->long;
+            $lat = $station->lat;
+            $lng = $station->lng;
             
             try {
-                $url = config('apis.stormglass.url') . '?lat=' . $lat . '&lng=' . $long;
+                $url = config('apis.stormglass.url') . '?lat=' . $lat . '&lng=' . $lng;
                 $headers = ['Authentication-Token' => config('apis.stormglass.apiKey')];
                 $client = new \GuzzleHttp\Client();
                 $res = $client->request('GET', $url, [
@@ -86,7 +86,7 @@ class GetNoaaData extends Command
                 $waveHeight = $item->waveHeight[1]->value * 3.28084;
 
                 try {
-                    if ($record = Noaa::where('timestamp', $itemTime)->where('location_id', $location->id)->first()) {
+                    if ($record = Noaa::where('timestamp', $itemTime)->where('noaa_station_id', $station->id)->first()) {
                         $record->swell_direction = $item->swellDirection[1]->value;
                         $record->swell_height = $swellHeight;
                         $record->swell_period = $item->swellPeriod[1]->value;
@@ -98,7 +98,7 @@ class GetNoaaData extends Command
                         $record->save();
                     } else {
                         $record = Noaa::create([
-                            'location_id' => $location->id,
+                            'noaa_station_id' => $station->id,
                             'timestamp' => $itemTime,
                             'swell_direction' => $item->swellDirection[1]->value,
                             'swell_height' => $swellHeight,
@@ -124,7 +124,7 @@ class GetNoaaData extends Command
 
         $bar->finish();
 
-        $this->info("\nScraped and stored swell data for each location.\n");
+        $this->info("\nScraped and stored swell data for each station.\n");
 
         $this->info("{$requestCount} requests made to Stormglass.");
 

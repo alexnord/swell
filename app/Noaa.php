@@ -19,7 +19,7 @@ class Noaa extends Model
      * @var array
      */
     protected $fillable = [
-    	'location_id',
+    	'noaa_station_id',
         'timestamp',
         'swell_direction',
 	    'swell_height',
