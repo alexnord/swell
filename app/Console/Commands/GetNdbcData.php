@@ -68,38 +68,36 @@ class GetNdbcData extends Command
 
             $updatedCount = 0;
             foreach ($rows as $key => $row) {
-                if ($key > 2) {
-                    preg_match("/(\d+)\s*(\d+)\s*(\d+)\s*(\d+)\s*(\d+)\s*MM\s*MM\s*MM\s*(\d+.\d+)\s*(\d+)\s*(\d+.\d+)\s*(\d+.\d+)\s*MM\s*MM\s*(\d+\d+.\d+)/", $row, $parsed);
-                    
-                    try {
-                        $dt = $parsed[1].'-'.$parsed[2].'-'.$parsed[3].' '.$parsed[4].':'.$parsed[5].':00';
-                    } catch(\Exception $e) {
-                        continue;
-                    }
-                    
-                    $timestamp = Carbon::parse($dt);
-                    $waveHeight = $parsed[6] * 3.28084; // Convert m to ft
-                    $dPeriod = $parsed[7];
-                    $aPeriod = $parsed[8];
-                    $angle = $parsed[9];
-                    $wTemp = $this->celToFah($parsed[10]);
-
-                    // Skip duplicates
-                    if (!$exists = BuoyData::where('timestamp', $timestamp)->where('buoy_id', $buoy->id)->first()) {
-                        $record = BuoyData::create([
-                            'timestamp' => $timestamp,
-                            'buoy_id' => $buoy->id,
-                            'wave_height' => $waveHeight,
-                            'dominant_period' => $dPeriod,
-                            'average_period' => $aPeriod,
-                            'angle' => $angle,
-                            'water_temp' => $wTemp,
-                        ]);
-                        $updatedCount++;
-                    }
-
-                    $bar->advance();
+                preg_match("/(\d+)\s*(\d+)\s*(\d+)\s*(\d+)\s*(\d+)\s*MM\s*MM\s*MM\s*(\d+.\d+)\s*(\d+)\s*(\d+.\d+)\s*(\d+.\d+)\s*MM\s*MM\s*(\d+\d+.\d+)/", $row, $parsed);
+                
+                try {
+                    $dt = $parsed[1].'-'.$parsed[2].'-'.$parsed[3].' '.$parsed[4].':'.$parsed[5].':00';
+                } catch(\Exception $e) {
+                    continue;
                 }
+                
+                $timestamp = Carbon::parse($dt);
+                $waveHeight = $parsed[6] * 3.28084; // Convert m to ft
+                $dPeriod = $parsed[7];
+                $aPeriod = $parsed[8];
+                $angle = $parsed[9];
+                $wTemp = $this->celToFah($parsed[10]);
+
+                // Skip duplicates
+                if (!$exists = BuoyData::where('timestamp', $timestamp)->where('buoy_id', $buoy->id)->first()) {
+                    $record = BuoyData::create([
+                        'timestamp' => $timestamp,
+                        'buoy_id' => $buoy->id,
+                        'wave_height' => $waveHeight,
+                        'dominant_period' => $dPeriod,
+                        'average_period' => $aPeriod,
+                        'angle' => $angle,
+                        'water_temp' => $wTemp,
+                    ]);
+                    $updatedCount++;
+                }
+
+                $bar->advance();
 
             }
             $this->info("\n{$updatedCount} records updated for {$buoy->title}");
