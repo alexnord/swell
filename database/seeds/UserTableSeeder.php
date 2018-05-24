@@ -22,6 +22,7 @@ class UserTableSeeder extends Seeder
             'email'          => 'alex.nordlinger@gmail.com',
             'password'       => Hash::make('password'),
             'remember_token' => null,
+            'timezone'       => 'America/Los_Angeles',
         ]);
     }
 }
