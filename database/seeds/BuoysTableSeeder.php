@@ -18,6 +18,15 @@ class BuoysTableSeeder extends Seeder
                 'station_id' => '46221',
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            ),
+            1 =>
+            array (
+                'id' => 2,
+                'active' => 1,
+                'title' => 'Anacapa Passage',
+                'station_id' => '46217',
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             )
         ));
     }

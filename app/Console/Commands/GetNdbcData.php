@@ -47,7 +47,6 @@ class GetNdbcData extends Command
     {
         $buoys = Buoy::where('active', true)->get();
         
-
         foreach ($buoys as $buoy) {
             $this->info("Scraping data for {$buoy->title}.");
 
@@ -100,11 +99,10 @@ class GetNdbcData extends Command
                 $bar->advance();
 
             }
-            $this->info("\n{$updatedCount} records updated for {$buoy->title}");
-
-            $this->info("\nFinished scraping all buoy data.");
-            
-            return;
+            $this->info("\n{$updatedCount} records updated for {$buoy->title}");   
         }
+        
+        $this->info("\nFinished scraping all buoy data.");
+        return;
     }
 }

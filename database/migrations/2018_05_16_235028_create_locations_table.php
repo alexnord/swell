@@ -20,6 +20,7 @@ class CreateLocationsTable extends Migration
             $table->decimal('lat', 10, 7)->nullable();
             $table->decimal('lng', 10, 7)->nullable();
             $table->integer('noaa_station_id')->unsigned()->nullable();
+            $table->integer('buoy_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }
