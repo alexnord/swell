@@ -19,5 +19,8 @@ class DatabaseSeeder extends Seeder
         $this->call(TidesTableSeeder::class);
         $this->call(ConditionsTableSeeder::class);
         $this->call(ReportsTableSeeder::class);
+        $this->call(TideDataTableSeeder::class);
+        $this->call(BuoyDataTableSeeder::class);
+        $this->call(WeatherDataTableSeeder::class);
     }
 }

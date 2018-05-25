@@ -74,7 +74,7 @@ class GetWeather extends Command
                 $record = WeatherData::create([
                     'timestamp' => $timestamp,
                     'location_id' => $location->id,
-                    'direction' => $dir,
+                    'angle' => $dir,
                     'speed' => $speed,
                 ]);
             } catch(\Exception $e) {

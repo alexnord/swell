@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Helpers\Helper;
 use Carbon\Carbon;
 use App\Location;
 use App\BuoyData;
@@ -68,8 +69,6 @@ class SwellController extends Controller
                 'wind' => $wind,
             ],
         ]);
-
-        // Get wind data
     }
 
     private function getTides($formattedDate, $formattedStartTime, $formattedEndTime, $stationId)
@@ -124,7 +123,7 @@ class SwellController extends Controller
         return [
             'tideAtStart' => round($tideAtStart, 1),
             'tideAtEnd' => round($tideAtEnd, 1),
-            'median' => (round($tideAtStart, 1)+round($tideAtEnd, 1))/2,
+            'median' => round((round($tideAtStart, 1)+round($tideAtEnd, 1))/2, 2),
             'dir' => $dir,
         ];
     }
@@ -137,11 +136,18 @@ class SwellController extends Controller
             ->where('buoy_id', $buoyId)
             ->orderBy('timestamp', 'asc')
             ->get()->toArray();
+
         $buoyCount = count($buoyData);
+
+        foreach ($buoyData as $key => $value) {
+            $buoyData[$key]['direction'] = Helper::getDirection($value['angle']);
+        }
+
         $avg = [
             'wave_height' => round(($buoyData[0]['wave_height'] + $buoyData[$buoyCount-1]['wave_height'])/2, 2),
             'period' => ($buoyData[0]['dominant_period'] + $buoyData[$buoyCount-1]['dominant_period'])/2,
-            'angle' => ($buoyData[0]['angle'] + $buoyData[$buoyCount-1]['angle'])/2
+            'angle' => ($buoyData[0]['angle'] + $buoyData[$buoyCount-1]['angle'])/2,
+            'direction' => Helper::getDirection(($buoyData[0]['angle'] + $buoyData[$buoyCount-1]['angle'])/2)
         ];
 
         return [
@@ -153,12 +159,16 @@ class SwellController extends Controller
 
     private function getWind($startTime, $endTime, $locationId)
     {
-        $windData = WeatherData::select('timestamp', 'direction', 'speed')
+        $windData = WeatherData::select('timestamp', 'angle', 'speed')
             ->where('timestamp', '>=', $startTime)
             ->where('timestamp', '<=', $endTime)
             ->where('location_id', $locationId)
             ->orderBy('timestamp', 'asc')
             ->get()->toArray();
+
+        foreach ($windData as $key => $value) {
+            $windData[$key]['direction'] = Helper::getDirection($value['angle']);
+        }
 
         return [
             'startWind' => $windData[0],

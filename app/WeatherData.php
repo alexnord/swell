@@ -21,7 +21,7 @@ class WeatherData extends Model
     protected $fillable = [
         'timestamp',
         'location_id',
-	    'direction',
+	    'angle',
 	    'speed',
     ];
 }

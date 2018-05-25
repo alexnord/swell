@@ -17,7 +17,7 @@ class CreateWeatherDataTable extends Migration
             $table->increments('id');
             $table->dateTime('timestamp')->nullable();
             $table->integer('location_id')->unsigned()->index('wd_location_id');
-            $table->integer('direction');
+            $table->integer('angle');
             $table->float('speed', 4, 2);
             $table->timestamps();
         });
