@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Location;
 use App\BuoyData;
 use App\TideData;
+use App\WeatherData;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class SwellController extends Controller
@@ -57,11 +58,14 @@ class SwellController extends Controller
         // Get buoy data
         $buoys = $this->getBuoyData($formattedStartTime, $formattedEndTime, $location->buoy_id);
 
+        $wind = $this->getWind($formattedStartTime, $formattedEndTime, $location->id);
+
         return response()->json([
             'success' => true,
             'data' => [
                 'tides' => $tides,
                 'buoys' => $buoys,
+                'wind' => $wind,
             ],
         ]);
 
@@ -145,6 +149,23 @@ class SwellController extends Controller
             'endBuoy' => $buoyData[$buoyCount-1],
             'average' => $avg,
         ];
+    }
+
+    private function getWind($startTime, $endTime, $locationId)
+    {
+        $windData = WeatherData::select('timestamp', 'direction', 'speed')
+            ->where('timestamp', '>=', $startTime)
+            ->where('timestamp', '<=', $endTime)
+            ->where('location_id', $locationId)
+            ->orderBy('timestamp', 'asc')
+            ->get()->toArray();
+
+        return [
+            'startWind' => $windData[0],
+            'endWind' => $windData[count($windData)-1],
+        ];
+
+        return $windData;
     }
 
 }

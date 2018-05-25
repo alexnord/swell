@@ -27,6 +27,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('data:predictions')->daily();
         $schedule->command('data:ndbc')->everyTenMinutes();
         $schedule->command('data:tides')->monthlyOn(24, '00:00');
+        $schedule->command('data:weather')->hourly(0);
     }
 
     /**
