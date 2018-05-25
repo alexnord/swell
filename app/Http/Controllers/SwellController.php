@@ -55,17 +55,15 @@ class SwellController extends Controller
         );
 
         // Get buoy data
-        $buoyData = BuoyData::select('timestamp', 'wave_height', 'dominant_period', 'angle')
-            ->where('timestamp', '>=', $formattedStartTime)
-            ->where('timestamp', '<=', $formattedEndTime)
-            ->where('buoy_id', $location->buoy_id)
-            ->orderBy('timestamp', 'asc')
-            ->get()->toArray();
-        $buoyCount = count($buoyData);
-        $buoys = [
-            'startBuoy' => $buoyData[0],
-            'endBuoy' => $buoyData[$buoyCount-1],
-        ];
+        $buoys = $this->getBuoyData($formattedStartTime, $formattedEndTime, $location->buoy_id);
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'tides' => $tides,
+                'buoys' => $buoys,
+            ],
+        ]);
 
         // Get wind data
     }
@@ -116,9 +114,36 @@ class SwellController extends Controller
             $tideBeforeEnd['height'] - $tidediffEnd : 
             $tideBeforeEnd['height'] + $tidediffEnd;
 
+        $dir = ($tideAtStart > $tideAtEnd) ? 
+            'Dropping' : 'Rising';
+
         return [
             'tideAtStart' => round($tideAtStart, 1),
             'tideAtEnd' => round($tideAtEnd, 1),
+            'median' => (round($tideAtStart, 1)+round($tideAtEnd, 1))/2,
+            'dir' => $dir,
+        ];
+    }
+
+    private function getBuoyData($startTime, $endTime, $buoyId)
+    {
+        $buoyData = BuoyData::select('timestamp', 'wave_height', 'dominant_period', 'angle')
+            ->where('timestamp', '>=', $startTime)
+            ->where('timestamp', '<=', $endTime)
+            ->where('buoy_id', $buoyId)
+            ->orderBy('timestamp', 'asc')
+            ->get()->toArray();
+        $buoyCount = count($buoyData);
+        $avg = [
+            'wave_height' => round(($buoyData[0]['wave_height'] + $buoyData[$buoyCount-1]['wave_height'])/2, 2),
+            'period' => ($buoyData[0]['dominant_period'] + $buoyData[$buoyCount-1]['dominant_period'])/2,
+            'angle' => ($buoyData[0]['angle'] + $buoyData[$buoyCount-1]['angle'])/2
+        ];
+
+        return [
+            'startBuoy' => $buoyData[0],
+            'endBuoy' => $buoyData[$buoyCount-1],
+            'average' => $avg,
         ];
     }
 
