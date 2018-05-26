@@ -37,7 +37,15 @@ class SwellController extends Controller
         $endTime = $request->input('end_time') ?: null;
 
         if (!$locationId || !$date || !$startTime || !$endTime) {
-            throw new BadRequestHttpException('Missing GET variables.');
+            return response()->json([
+                'success' => false,
+                'data' => [
+                    'location_id' => $locationId,
+                    'date' => $date,
+                    'start_time' => $startTime,
+                    'end_time' => $endTime,
+                ],
+            ], 400);
         }
 
         $userTz = Auth::user()->timezone;
@@ -49,17 +57,29 @@ class SwellController extends Controller
         $location = Location::find($locationId);
 
         // Get tide data
-        $tides = $this->getTides(
-            $formattedDate,
-            $formattedStartTime,
-            $formattedEndTime,
-            $location->station->id
-        );
+        try {
+            $tides = $this->getTides(
+                $formattedDate,
+                $formattedStartTime,
+                $formattedEndTime,
+                $location->noaa_station_id
+            );
+        } catch(\Exception $e) {
+            $tides = [];
+        } 
 
         // Get buoy data
-        $buoys = $this->getBuoyData($formattedStartTime, $formattedEndTime, $location->buoy_id);
+        try {
+            $buoys = $this->getBuoyData($formattedStartTime, $formattedEndTime, $location->buoy_id);
+        } catch(\Exception $e) {
+            $buoys = [];
+        } 
 
-        $wind = $this->getWind($formattedStartTime, $formattedEndTime, $location->id);
+        try {
+            $wind = $this->getWind($formattedStartTime, $formattedEndTime, $location->id);
+        } catch(\Exception $e) {
+            $wind = [];
+        } 
 
         return response()->json([
             'success' => true,
@@ -139,8 +159,9 @@ class SwellController extends Controller
 
         $buoyCount = count($buoyData);
 
-        foreach ($buoyData as $key => $value) {
-            $buoyData[$key]['direction'] = Helper::getDirection($value['angle']);
+        foreach ($buoyData as $key => $buoy) {
+            $buoyData[$key]['direction'] = Helper::getDirection($buoy['angle']);
+            $buoyData[$key]['wave_height'] = round($buoyData[$key]['wave_height'], 2);
         }
 
         $avg = [

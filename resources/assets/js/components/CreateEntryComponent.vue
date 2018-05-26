@@ -16,264 +16,187 @@
 			</b-col>
 		</b-row>
 
-		<b-form @submit="onSubmit" @reset="onReset">
+		<b-form @submit="onSubmitDates" @reset="onReset">
 			
 			<b-row>
-				<b-col sm="12" md="6" lg="6">
+				<b-col>
 					<b-row>
-						<b-col>
-							<b-row>
-								<b-col class="form-section mb-10"><h3>Location</h3></b-col>
-							</b-row>
-							<b-row>
-								<b-col md="6">
-									<b-form-group id="date"
-				                                label="Date"
-				                                label-for="date">
-										<b-form-input id="date"
-													type="date"
-													v-model="form.date"
-													required
-													:value="todayDate"
-													placeholder="Enter date">
-										</b-form-input>
-									</b-form-group>
-								</b-col>
-								<b-col md="6">
-									<b-form-group id="time"
-				                                label="Time"
-				                                label-for="time">
-										<b-form-input id="time"
-													type="time"
-													v-model="form.time"
-													required
-													placeholder="Enter time">
-										</b-form-input>
-									</b-form-group>
-								</b-col>
-							</b-row>
-							<b-row>
-								<b-col>
-									<b-form-group id="location"
-					                                label="Location"
-					                                label-for="location-title">
-				                        <model-select :options="locations"
-													v-model="form.location"
-													required
-													placeholder='Select One'>
-										</model-select>
-									</b-form-group>
-								</b-col>
-							</b-row>
+						<b-col md="3">
+							<b-form-group id="location"
+			                                label="Location"
+			                                label-for="location-title">
+		                        <model-select :options="locations"
+											v-model="form.location"
+											required
+											placeholder='Select One'>
+								</model-select>
+							</b-form-group>
 						</b-col>
-					</b-row>
-				</b-col>
-				<b-col sm="12" md="6" lg="6">
-					<b-row>
-						<b-col>
-							<b-row>
-								<b-col class="form-section mb-10"><h3>Swell</h3></b-col>
-							</b-row>
-							<b-row>
-								<b-col md="6">
-									<b-form-group id="swell-dir"
-												label="Direction"
-												label-for="swellDir">
-				                        <model-select :options="directions"
-													v-model="form.swellDir"
-													required
-													placeholder='Select One'>
-										</model-select>
-									</b-form-group>
-								</b-col>
-								<b-col>
-									<b-form-group id=""
-											label="Angle (&#176;)"
-											label-for="angle">
-										<b-form-input id="angle"
-													type="text"
-													v-model="form.angle"
-													required
-													placeholder="210">
-				                        </b-form-input>
-									</b-form-group>
-								</b-col>
-							</b-row>
-							<b-row>
-								<b-col md="6">
-									<b-form-group id=""
-												label="Height (ft)"
-												label-for="swellHeight">
-										<b-form-input id="swellHeight"
-													type="text"
-													v-model="form.swellHeight"
-													required
-													placeholder="3.3">
-				                        </b-form-input>
-									</b-form-group>
-								</b-col>
-								<b-col md="6">
-									<b-form-group id=""
-												label="Period (seconds)"
-												label-for="period">
-										<b-form-input id="period"
-													type="text"
-													v-model="form.period"
-													required
-													placeholder="18">
-				                        </b-form-input>
-									</b-form-group>
-								</b-col>
-							</b-row>
+						<b-col md="3">
+							<b-form-group id="date"
+		                                label="Date"
+		                                label-for="date">
+								<b-form-input id="date"
+											type="date"
+											v-model="form.date"
+											required
+											:value="form.date"
+											placeholder="Enter date">
+								</b-form-input>
+							</b-form-group>
+						</b-col>
+						<b-col md="3">
+							<b-form-group label="Start Time"
+		                                label-for="start_time">
+								<b-form-input id="start_time"
+											type="time"
+											v-model="form.startTime"
+											required
+											placeholder="Enter start time">
+								</b-form-input>
+							</b-form-group>
+						</b-col>
+						<b-col md="3">
+							<b-form-group label="End Time"
+		                                label-for="end_time">
+								<b-form-input id="end_time"
+											type="time"
+											v-model="form.endTime"
+											required
+											placeholder="Enter end time">
+								</b-form-input>
+							</b-form-group>
 						</b-col>
 					</b-row>
 				</b-col>
 			</b-row>
 
-			<b-row>
-				<b-col sm="12" md="6" lg="6">
-					<b-row>
-						<b-col>
-							<b-row>
-								<b-col class="form-section mb-10"><h3>Wind</h3></b-col>
-							</b-row>
-							<b-row>
-								<b-col md="6">
-									<b-form-group id=""
-												label="Direction"
-												label-for="windDir">
-				                        <model-select :options="directions"
-													v-model="form.windDir"
-													required
-													placeholder='Select One'>
-										</model-select>
-									</b-form-group>
-								</b-col>
-								<b-col md="6">
-									<b-form-group id=""
-												label="Speed (mph)"
-												label-for="windSpeed">
-										<b-form-input id="windSpeed"
-													type="text"
-													v-model="form.windSpeed"
-													required
-													placeholder="5">
-				                        </b-form-input>
-									</b-form-group>
-								</b-col>
-							</b-row>
-						</b-col>
-					</b-row>
-				</b-col>
-				<b-col>
-					<b-row>
-						<b-col>
-							<b-row>
-								<b-col class="form-section mb-10"><h3>Tide</h3></b-col>
-							</b-row>
-							<b-row>
-								<b-col md="6">
-									<b-form-group
-												label="Direction"
-												label-for="tideCurrent">
-				                        <model-select :options="tides"
-													v-model="form.tideCurrent"
-													required
-													placeholder='Select One'>
-										</model-select>
-									</b-form-group>
-								</b-col>
-								<b-col md="6">
-									<b-form-group id=""
-												label="Height (ft)"
-												label-for="tideHeight">
-										<b-form-input id="tideHeight"
-													type="text"
-													v-model="form.tideHeight"
-													required
-													placeholder="2.4">
-				                        </b-form-input>
-									</b-form-group>
-								</b-col>
-							</b-row>
-						</b-col>
-					</b-row>
-				</b-col>
-			</b-row>
+			<div v-show="showReportFields" class="mb-20">
+				<b-row>
+					<b-col>
+						<b-row>
+							<b-col md=12 class="text-center swell-data mb-20">
+								<b-row>
+									<b-col>
+										<b-row class="mb-20">
+											<b-col>
+												<h3>Swell</h3>
+											</b-col>
+										</b-row>
+										<b-row>
+											<b-col md=6 class="d-flex justify-content-center mb-30">
+												<div class="compass">
+													<div class="north">N</div>
+													<div class="west">W</div>
+													<div class="east">E</div>
+													<div class="south">S</div>
+													<div class="direction">
+														<p>NE<span>10 mph</span></p>
+													</div>
+													<div class="arrow ssw"></div>
+												</div>
+											</b-col>
+											<!-- <b-col md=3 class="vertical-center">
+												<font-awesome-icon :icon="icon" size="3x" rotation="270"/>
+											</b-col> -->
+											<b-col md=6 class="vertical-center mt-10 data">
+												<b-row>
+													<div>
+														<p class="heading-label">Buoys</p>
+													</div>
+													<div class="buoy-data">
+														<p class="ft-16 my-0"><span class="ft-bold">Start</span>: {{ this.swellData.buoys.start.height }}ft @ {{ this.swellData.buoys.start.period }}s - {{ this.swellData.buoys.start.angle }}&deg; {{ this.swellData.buoys.start.direction }}</p>
+														<p class="ft-16 my-0"><span class="ft-bold">End</span>: {{ this.swellData.buoys.end.height }}ft @ {{ this.swellData.buoys.end.period }}s - {{ this.swellData.buoys.end.angle }}&deg; {{ this.swellData.buoys.end.direction }}</p>
+													</div>
+												</b-row>
+												<b-row class="mt-20">
+													<div>
+														<p class="heading-label">Wind</p>
+													</div>
+													<div class="buoy-data">
+														<p class="ft-16 my-0"><span class="ft-bold">Start</span>: {{ this.swellData.wind.start.speed }}mph {{ this.swellData.wind.start.direction }}</p>
+														<p class="ft-16 my-0"><span class="ft-bold">End</span>: {{ this.swellData.wind.end.speed }}mph {{ this.swellData.wind.end.direction }}</p>
+													</div>
+												</b-row>
+												<b-row class="mt-20">
+													<div>
+														<p class="heading-label">Tide</p>
+													</div>
+													<div class="buoy-data">
+														<p class="ft-16 my-0"><span class="ft-bold">Start</span>: {{ this.swellData.tide.start }}ft</p>
+														<p class="ft-16 my-0"><span class="ft-bold">End</span>: {{ this
+														.swellData.tide.end }}ft</p>
+														<p class="ft-16 my-0"><span class="ft-bold">Direction</span>: {{ this.swellData.tide.direction }}</p>
+													</div>
+												</b-row>
+											</b-col>
+										</b-row>
+									</b-col>
+								</b-row>
+							</b-col>
+						</b-row>
+					</b-col>
+				</b-row>
+				
+				<b-row>
+					<b-col>
+						<b-row class="text-center">
+							<b-col class="form-section mb-10"><h3>Observations</h3></b-col>
+						</b-row>
+						<b-row>
+							<b-col md="3">
+								<b-form-group id=""
+											label="Height (ft)"
+											label-for="actualHeight">
+									<b-form-input id="actualHeight"
+												type="text"
+												v-model="form.actualHeight"
+												placeholder="3-5">
+			                        </b-form-input>
+								</b-form-group>
+							</b-col>
+							<b-col md="3">
+								<b-form-group id=""
+											label="Conditions"
+											label-for="conditions">
+			                        <model-select :options="conditions"
+												v-model="form.conditions"
+												placeholder='Select One'>
+									</model-select>
+								</b-form-group>
+							</b-col>
+							<b-col md="3">
+								<b-form-group id=""
+											label="Score"
+											label-for="score">
+									<b-form-select id="score"
+												:options="ratings"
+												v-model="form.score">
+			                        </b-form-select>
+								</b-form-group>
+							</b-col>
+							<b-col md="3">
+								<b-form-group id=""
+											label="Notes"
+											label-for="notes">
+									<b-form-textarea id="notes"
+													v-model="form.notes"
+													placeholder="Enter something"
+													:rows="3"
+													:max-rows="6">
+									</b-form-textarea>
+								</b-form-group>
+							</b-col>
+						</b-row>
+					</b-col>
+				</b-row>
 
-			<b-row>
-				<b-col sm="12" md="6" lg="6">
-					<b-row>
-						<b-col>
-							<b-row>
-								<b-col class="form-section mb-10"><h3>Actual</h3></b-col>
-							</b-row>
-							<b-row>
-								<b-col md="6">
-									<b-form-group id=""
-												label="Height (ft)"
-												label-for="actualHeight">
-										<b-form-input id="actualHeight"
-													type="text"
-													v-model="form.actualHeight"
-													required
-													placeholder="3-5">
-				                        </b-form-input>
-									</b-form-group>
-								</b-col>
-								<b-col md="6">
-									<b-form-group id=""
-												label="Conditions"
-												label-for="conditions">
-				                        <model-select :options="conditions"
-													v-model="form.conditions"
-													required
-													placeholder='Select One'>
-										</model-select>
-									</b-form-group>
-								</b-col>
-							</b-row>
-						</b-col>
-					</b-row>
-				</b-col>
-				<b-col>
-					<b-row>
-						<b-col>
-							<b-row>
-								<b-col class="form-section mb-10"><h3>Rating</h3></b-col>
-							</b-row>
-							<b-row>
-								<b-col md="6">
-									<b-form-group id=""
-												label="Score"
-												label-for="score">
-										<b-form-select id="score"
-													:options="ratings"
-													required
-													v-model="form.score">
-				                        </b-form-select>
-									</b-form-group>
-								</b-col>
-								<b-col md="6">
-									<b-form-group id=""
-												label="Notes"
-												label-for="notes">
-										<b-form-textarea id="notes"
-														v-model="form.notes"
-														placeholder="Enter something"
-														:rows="3"
-														:max-rows="6">
-										</b-form-textarea>
-									</b-form-group>
-								</b-col>
-							</b-row>
-						</b-col>
-					</b-row>
-				</b-col>
-			</b-row>
-			
-			<b-button type="submit" variant="primary">Submit</b-button>
-			<b-button type="reset" variant="danger">Reset</b-button>
+			</div>
+
+			<div class="mt-20">
+				<b-button type="submit" variant="primary">Submit</b-button>
+				<b-button type="reset" variant="danger">Reset</b-button>
+			</div>
 
         </b-form>
     </b-container>
@@ -282,41 +205,33 @@
 <script>
 	import axios from 'axios';
 	import { ModelSelect } from 'vue-search-select'
+	import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
+	import faLocationArrow from '@fortawesome/fontawesome-free-solid/faLocationArrow'
+
 	window.moment = require('moment');
+
 
 	export default {
 		props: [
 			'initialuserid',
 			'initiallocations',
-			'initialdirections',
-			'initialtides',
 			'initialconditions',
 		],
         data () {
     		return {
                 form: {
-	                date: '',
-	                time: '',
+	                date: moment().format('YYYY-MM-DD'),
+	                startTime: '',
+	                endTime: '',
 	                location: null,
-	                swellDir: null,
-	                angle: '',
-	                period: '',
-	                swellHeight: '',
-	                windDir: null,
-	                windSpeed: '',
-	                tideCurrent: null,
-	                tideHeight: '',
 	                actualHeight: '',
 	                conditions: null,
 	                score: null,
 	                notes: '',
 	            },
-	            todayDate: moment().format('YYYY-MM-DD'),
 	            userId: this.$props.initialuserid,
 	            locations: this.$props.initiallocations,
-	            directions: this.$props.initialdirections,
 	            conditions: this.$props.initialconditions,
-	            tides: this.$props.initialtides,
 	            ratings: [
 		            { text: 'Select One', value: null },
 	                { text: '1', value: '1' },
@@ -335,71 +250,81 @@
 	            dismissSecs: 5,
 				successDismissCountDown: 0,
 				errorDismissCountDown: 0,
-				showDismissibleAlert: false
+				showDismissibleAlert: false,
+				showReportFields: true,
+
+				swellData: {
+					buoys: {
+						start: {
+							height: '',
+							period: '',
+							angle: '',
+							direction: '',
+						},
+						end:  {
+							height: '',
+							period: '',
+							angle: '',
+							direction: '',
+						},
+					},
+					wind: {
+						start: {
+							speed: '',
+							direction: '',
+						},
+						end: {
+							speed: '',
+							direction: '',
+						}
+					},
+					tide: {
+						start: '',
+						end: '',
+						direction: '',
+					}
+				}
             }
         },
         methods: {
-    		onSubmit (evt) {
-                evt.preventDefault();
+    		onSubmitDates (e) {
+                e.preventDefault();
                 this.success = false;
                 this.error = false;
 
-                axios.post(`/api/reports`, {
-                	'user_id': this.userId,
-                	'date': this.form.date,
-                	'time': this.form.time,
-                	'location_id': this.form.location,
-                	'swell_dir_id': this.form.swellDir,
-                	'swell_angle': this.form.angle,
-                	'swell_height': this.form.swellHeight,
-                	'swell_period': this.form.period,
-                	'wind_dir_id': this.form.windDir,
-                	'wind_speed': this.form.windSpeed,
-                	'tide_dir_id': this.form.tideCurrent,
-                	'tide_height': this.form.tideHeight,
-                	'score': this.form.score,
-                	'actual_surf_height': this.form.actualHeight,
-                	'condition_id': this.form.conditions,
-                	'score': this.form.score,
-                	'notes': this.form.notes,
+                axios.get(`/api/swell`, {
+                	params: {
+	                	'user_id': this.userId,
+	                	'date': this.form.date,
+	                	'start_time': this.form.startTime,
+	                	'end_time': this.form.endTime,
+	                	'location_id': this.form.location,
+                	}
                 }).then(response => {
-					this.resetForm();
 					this.showAlert('success');
+					this.setSwellValues(response.data.data);
+					this.showReportFields = true;
 				}).catch(error => {
 					console.log(error);
 					this.showAlert('error');
 					this.error = true;
 				})
             },
+            onSubmitReport(e) {
+            	return;
+            },
             resetForm() {
             	this.form.date = '';
-                this.form.time = '';
+                this.form.startTime = '';
+                this.form.endTime = '';
                 this.form.location = null;
-                this.form.swellDir = null;
-                this.form.angle = '';
-                this.form.period = '';
-                this.form.swellHeight = '';
-                this.form.windDir = null;
-                this.form.windSpeed = '';
-                this.form.tideCurrent = null;
-                this.form.tideHeight = '';
                 this.form.score = null;
                 this.form.actualHeight = '';
                 this.form.conditions = null;
                 this.form.notes = '';
             },
-            onReset (evt) {
-            	fetch('https://api.stormglass.io/forecast?lat=34.3721010&lng=-119.4779260', {
-					headers: {
-						'Authentication-Token': 'f37e50ec-5b83-11e8-a6df-0242ac120008-f37e520e-5b83-11e8-a6df-0242ac120008'
-					}
-				}).then(function(response) {
-					// Do something with response data.
-					var jsonData = response.json();
-					console.log(jsonData);
-				});
-                evt.preventDefault();
-                /* Reset our form values */
+            onReset (e) {
+                e.preventDefault();
                 this.resetForm();
 
                 /* Trick to reset/clear native browser form validation state */
@@ -410,10 +335,38 @@
 			showAlert(type) {
 				if (type === 'success') this.successDismissCountDown = this.dismissSecs;
 				if (type === 'error') this.errorDismissCountDown = this.dismissSecs;
+			},
+			setSwellValues(data) {
+				console.log(data);
+				this.swellData.buoys.start.height = data.buoys.startBuoy.wave_height;
+				this.swellData.buoys.start.period = data.buoys.startBuoy.dominant_period;
+				this.swellData.buoys.start.angle = data.buoys.startBuoy.angle;
+				this.swellData.buoys.start.direction = data.buoys.startBuoy.direction;
+
+				this.swellData.buoys.end.height = data.buoys.endBuoy.wave_height;
+				this.swellData.buoys.end.period = data.buoys.endBuoy.dominant_period;
+				this.swellData.buoys.end.angle = data.buoys.endBuoy.angle;
+				this.swellData.buoys.end.direction = data.buoys.endBuoy.direction;
+
+				this.swellData.wind.start.speed = data.wind.startWind.speed;
+				this.swellData.wind.start.direction = data.wind.startWind.direction;
+
+				this.swellData.wind.end.speed = data.wind.endWind.speed;
+				this.swellData.wind.end.direction = data.wind.endWind.direction;
+
+				this.swellData.tide.start = data.tides.tideAtStart;
+				this.swellData.tide.end = data.tides.tideAtEnd;
+				this.swellData.tide.direction = data.tides.dir;
 			}
         },
+        computed: {
+			icon () {
+				return faLocationArrow
+			}
+		},
         components: {
-			ModelSelect
+			ModelSelect,
+			FontAwesomeIcon
 	    }
 	}
 </script>
