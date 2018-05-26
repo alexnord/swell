@@ -93,7 +93,9 @@
 													<div class="direction">
 														<p>{{ this.swellData.buoys.average.angle }}&deg; {{ this.swellData.buoys.average.direction }}<span>{{ this.swellData.buoys.average.height }}ft @ {{ this.swellData.buoys.end.period }}s</span></p>
 													</div>
-													<div class="arrow ssw"></div>
+													<div class="arrow"
+														v-bind:class="this.swellData.buoys.average.direction.toLowerCase().trim()">
+													</div>
 												</div>
 											</b-col>
 											<!-- <b-col md=3 class="vertical-center">
