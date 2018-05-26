@@ -16,7 +16,7 @@
 			</b-col>
 		</b-row>
 
-		<b-form @submit="onSubmitForm" @reset="onReset">
+		<b-form @submit="onSubmitRequest">
 			
 			<b-row>
 				<b-col>
@@ -71,134 +71,141 @@
 				</b-col>
 			</b-row>
 
-			<div v-show="showReportFields" class="mb-20">
-				<b-row>
-					<b-col>
-						<b-row>
-							<b-col md=12 class="text-center swell-data mb-20">
-								<b-row>
-									<b-col>
-										<b-row class="mb-20">
-											<b-col>
-												<h3>Swell</h3>
-											</b-col>
-										</b-row>
-										<b-row>
-											<b-col md=6 class="d-flex justify-content-center mb-30">
-												<div class="compass">
-													<div class="north">N</div>
-													<div class="west">W</div>
-													<div class="east">E</div>
-													<div class="south">S</div>
-													<div class="direction">
-														<p>{{ this.swellData.buoys.average.angle }}&deg; {{ this.swellData.buoys.average.direction }}<span>{{ this.swellData.buoys.average.height }}ft @ {{ this.swellData.buoys.end.period }}s</span></p>
-													</div>
-													<div class="arrow"
-														v-bind:class="this.swellData.buoys.average.direction.toLowerCase().trim()">
-													</div>
-												</div>
-											</b-col>
-											<!-- <b-col md=3 class="vertical-center">
-												<font-awesome-icon :icon="icon" size="3x" rotation="270"/>
-											</b-col> -->
-											<b-col md=6 class="vertical-center mt-10">
-												<b-row>
-													<div>
-														<p class="heading-label">Buoys</p>
-													</div>
-													<div class="buoy-data">
-														<p class="ft-16 my-0"><span class="ft-bold">Start</span>: {{ this.swellData.buoys.start.height }}ft @ {{ this.swellData.buoys.start.period }}s - {{ this.swellData.buoys.start.angle }}&deg; {{ this.swellData.buoys.start.direction }}</p>
-														<p class="ft-16 my-0"><span class="ft-bold">End</span>: {{ this.swellData.buoys.end.height }}ft @ {{ this.swellData.buoys.end.period }}s - {{ this.swellData.buoys.end.angle }}&deg; {{ this.swellData.buoys.end.direction }}</p>
-													</div>
-												</b-row>
-												<b-row class="mt-20">
-													<div>
-														<p class="heading-label">Wind</p>
-													</div>
-													<div class="buoy-data">
-														<p class="ft-16 my-0"><span class="ft-bold">Start</span>: {{ this.swellData.wind.start.speed }}mph {{ this.swellData.wind.start.direction }}</p>
-														<p class="ft-16 my-0"><span class="ft-bold">End</span>: {{ this.swellData.wind.end.speed }}mph {{ this.swellData.wind.end.direction }}</p>
-													</div>
-												</b-row>
-												<b-row class="mt-20">
-													<div>
-														<p class="heading-label">Tide</p>
-													</div>
-													<div class="buoy-data">
-														<p class="ft-16 my-0"><span class="ft-bold">Start</span>: {{ this.swellData.tide.start }}ft</p>
-														<p class="ft-16 my-0"><span class="ft-bold">End</span>: {{ this
-														.swellData.tide.end }}ft</p>
-														<p class="ft-16 my-0"><span class="ft-bold">Direction</span>: {{ this.swellData.tide.direction }}</p>
-													</div>
-												</b-row>
-											</b-col>
-										</b-row>
-									</b-col>
-								</b-row>
-							</b-col>
-						</b-row>
-					</b-col>
-				</b-row>
-				
-				<b-row>
-					<b-col>
-						<b-row class="text-center">
-							<b-col class="form-section mb-10"><h3>Observations</h3></b-col>
-						</b-row>
-						<b-row>
-							<b-col md="3">
-								<b-form-group id=""
-											label="Height (ft)"
-											label-for="actualHeight">
-									<b-form-input id="actualHeight"
-												type="text"
-												v-model="form.actualHeight"
-												placeholder="3-5">
-			                        </b-form-input>
-								</b-form-group>
-							</b-col>
-							<b-col md="3">
-								<b-form-group id=""
-											label="Conditions"
-											label-for="conditions">
-			                        <model-select :options="conditions"
-												v-model="form.conditions"
-												placeholder='Select One'>
-									</model-select>
-								</b-form-group>
-							</b-col>
-							<b-col md="3">
-								<b-form-group id=""
-											label="Score"
-											label-for="score">
-									<b-form-select id="score"
-												:options="ratings"
-												v-model="form.score">
-			                        </b-form-select>
-								</b-form-group>
-							</b-col>
-							<b-col md="3">
-								<b-form-group id=""
-											label="Notes"
-											label-for="notes">
-									<b-form-textarea id="notes"
-													v-model="form.notes"
-													placeholder="Enter something"
-													:rows="3"
-													:max-rows="6">
-									</b-form-textarea>
-								</b-form-group>
-							</b-col>
-						</b-row>
-					</b-col>
-				</b-row>
+			<b-row>
+				<div class="mt-20">
+					<b-button type="submit" variant="primary" block class="uppercase">request swell data</b-button>
+				</div>
+			</b-row>
 
-			</div>
+		</b-form>
+
+		<b-form @submit="onSubmitReport" v-show="showReportFields" class="mb-20">
+
+			<b-row>
+				<b-col>
+					<b-row>
+						<b-col md=12 class="text-center swell-data mb-20">
+							<b-row>
+								<b-col>
+									<b-row class="mb-20">
+										<b-col>
+											<h3>Swell</h3>
+										</b-col>
+									</b-row>
+									<b-row>
+										<b-col md=6 class="d-flex justify-content-center mb-30">
+											<div class="compass">
+												<div class="north">N</div>
+												<div class="west">W</div>
+												<div class="east">E</div>
+												<div class="south">S</div>
+												<div class="direction">
+													<p>{{ this.swellData.buoys.average.angle }}&deg; {{ this.swellData.buoys.average.direction }}<span>{{ this.swellData.buoys.average.height }}ft @ {{ this.swellData.buoys.end.period }}s</span></p>
+												</div>
+												<div class="arrow"
+													v-bind:class="this.swellData.buoys.average.direction.toLowerCase().trim()">
+												</div>
+											</div>
+										</b-col>
+										<!-- <b-col md=3 class="vertical-center">
+											<font-awesome-icon :icon="icon" size="3x" rotation="270"/>
+										</b-col> -->
+										<b-col md=6 class="vertical-center mt-10">
+											<b-row>
+												<div>
+													<p class="heading-label">Buoys</p>
+												</div>
+												<div class="buoy-data">
+													<p class="ft-16 my-0"><span class="ft-bold">Start</span>: {{ this.swellData.buoys.start.height }}ft @ {{ this.swellData.buoys.start.period }}s - {{ this.swellData.buoys.start.angle }}&deg; {{ this.swellData.buoys.start.direction }}</p>
+													<p class="ft-16 my-0"><span class="ft-bold">End</span>: {{ this.swellData.buoys.end.height }}ft @ {{ this.swellData.buoys.end.period }}s - {{ this.swellData.buoys.end.angle }}&deg; {{ this.swellData.buoys.end.direction }}</p>
+												</div>
+											</b-row>
+											<b-row class="mt-20">
+												<div>
+													<p class="heading-label">Wind</p>
+												</div>
+												<div class="buoy-data">
+													<p class="ft-16 my-0"><span class="ft-bold">Start</span>: {{ this.swellData.wind.start.speed }}mph {{ this.swellData.wind.start.direction }}</p>
+													<p class="ft-16 my-0"><span class="ft-bold">End</span>: {{ this.swellData.wind.end.speed }}mph {{ this.swellData.wind.end.direction }}</p>
+												</div>
+											</b-row>
+											<b-row class="mt-20">
+												<div>
+													<p class="heading-label">Tide</p>
+												</div>
+												<div class="buoy-data">
+													<p class="ft-16 my-0"><span class="ft-bold">Start</span>: {{ this.swellData.tide.start }}ft</p>
+													<p class="ft-16 my-0"><span class="ft-bold">End</span>: {{ this
+													.swellData.tide.end }}ft</p>
+													<p class="ft-16 my-0"><span class="ft-bold">Direction</span>: {{ this.swellData.tide.direction }}</p>
+												</div>
+											</b-row>
+										</b-col>
+									</b-row>
+								</b-col>
+							</b-row>
+						</b-col>
+					</b-row>
+				</b-col>
+			</b-row>
+			
+			<b-row>
+				<b-col>
+					<b-row class="text-center">
+						<b-col class="form-section mb-10"><h3>Observations</h3></b-col>
+					</b-row>
+					<b-row>
+						<b-col md="3">
+							<b-form-group id=""
+										label="Height (ft)"
+										label-for="actualHeight">
+								<b-form-input id="actualHeight"
+											type="text"
+											v-model="form.actualHeight"
+											placeholder="3-5">
+		                        </b-form-input>
+							</b-form-group>
+						</b-col>
+						<b-col md="3">
+							<b-form-group id=""
+										label="Conditions"
+										label-for="conditions">
+		                        <model-select :options="conditions"
+											v-model="form.conditions"
+											placeholder='Select One'>
+								</model-select>
+							</b-form-group>
+						</b-col>
+						<b-col md="3">
+							<b-form-group id=""
+										label="Score"
+										label-for="score">
+								<b-form-select id="score"
+											:options="ratings"
+											v-model="form.score">
+		                        </b-form-select>
+							</b-form-group>
+						</b-col>
+						<b-col md="3">
+							<b-form-group id=""
+										label="Notes"
+										label-for="notes">
+								<b-form-textarea id="notes"
+												v-model="form.notes"
+												placeholder="Enter something"
+												:rows="3"
+												:max-rows="6">
+								</b-form-textarea>
+							</b-form-group>
+						</b-col>
+					</b-row>
+				</b-col>
+			</b-row>
 
 			<div class="mt-20">
-				<b-button type="submit" variant="primary" block class="uppercase">{{ this.submitButtonText }}</b-button>
+				<b-button type="submit" variant="primary" block class="uppercase">submit report</b-button>
 			</div>
-
+			
         </b-form>
     </b-container>
 </template>
@@ -253,7 +260,6 @@
 				errorDismissCountDown: 0,
 				showDismissibleAlert: false,
 				showReportFields: false,
-				submitButtonText: 'request swell data',
 
 				swellData: {
 					buoys: {
@@ -295,48 +301,44 @@
             }
         },
         methods: {
-    		onSubmitForm (e) {
+    		onSubmitRequest (e) {
                 e.preventDefault();
                 this.success = false;
                 this.error = false;
-
-                if (!this.showReportFields) {
-                	axios.get(`/api/swell`, {
-                	params: {
-	                	'user_id': this.userId,
-	                	'date': this.form.date,
-	                	'start_time': this.form.startTime,
-	                	'end_time': this.form.endTime,
-	                	'location_id': this.form.location,
-                	}
-	                }).then(response => {
-						this.setSwellValues(response.data.data);
-						this.showReportFields = true;
-					}).catch(error => {
-						console.log(error);
-						this.showAlert('error');
-						this.error = true;
-					})
-                } else {
-                	axios.post(`/api/report`, {
-	                	'user_id': this.userId,
-	                	'date': this.form.date,
-	                	'start_time': this.form.startTime,
-	                	'end_time': this.form.endTime,
-	                	'location_id': this.form.location,
-
-	                }).then(response => {
-		                this.showAlert('success');
-					}).catch(error => {
-						console.log(error);
-						this.showAlert('error');
-						this.error = true;
-					})
-                }
-
+            	axios.get(`/api/swell`, {
+            	params: {
+                	'user_id': this.userId,
+                	'date': this.form.date,
+                	'start_time': this.form.startTime,
+                	'end_time': this.form.endTime,
+                	'location_id': this.form.location,
+            	}
+                }).then(response => {
+					this.setSwellValues(response.data.data);
+					this.showReportFields = true;
+				}).catch(error => {
+					console.log(error);
+					this.showAlert('error');
+					this.error = true;
+				})
             },
             onSubmitReport(e) {
+            	e.preventDefault();
             	return;
+    //         	axios.post(`/api/report`, {
+    //             	'user_id': this.userId,
+    //             	'date': this.form.date,
+    //             	'start_time': this.form.startTime,
+    //             	'end_time': this.form.endTime,
+    //             	'location_id': this.form.location,
+
+    //             }).then(response => {
+	   //              this.showAlert('success');
+				// }).catch(error => {
+				// 	console.log(error);
+				// 	this.showAlert('error');
+				// 	this.error = true;
+				// })
             },
             resetForm() {
             	this.form.date = '';
@@ -387,8 +389,6 @@
 				this.swellData.tide.start = data.tides.tideAtStart;
 				this.swellData.tide.end = data.tides.tideAtEnd;
 				this.swellData.tide.direction = data.tides.dir;
-
-				this.submitButtonText = 'submit report' ;
 			}
         },
         computed: {
