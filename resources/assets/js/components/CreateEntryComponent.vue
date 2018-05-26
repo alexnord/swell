@@ -16,7 +16,7 @@
 			</b-col>
 		</b-row>
 
-		<b-form @submit="onSubmitDates" @reset="onReset">
+		<b-form @submit="onSubmitForm" @reset="onReset">
 			
 			<b-row>
 				<b-col>
@@ -91,7 +91,7 @@
 													<div class="east">E</div>
 													<div class="south">S</div>
 													<div class="direction">
-														<p>NE<span>10 mph</span></p>
+														<p>{{ this.swellData.buoys.average.angle }}&deg; {{ this.swellData.buoys.average.direction }}<span>{{ this.swellData.buoys.average.height }}ft @ {{ this.swellData.buoys.end.period }}s</span></p>
 													</div>
 													<div class="arrow ssw"></div>
 												</div>
@@ -99,7 +99,7 @@
 											<!-- <b-col md=3 class="vertical-center">
 												<font-awesome-icon :icon="icon" size="3x" rotation="270"/>
 											</b-col> -->
-											<b-col md=6 class="vertical-center mt-10 data">
+											<b-col md=6 class="vertical-center mt-10">
 												<b-row>
 													<div>
 														<p class="heading-label">Buoys</p>
@@ -194,8 +194,7 @@
 			</div>
 
 			<div class="mt-20">
-				<b-button type="submit" variant="primary">Submit</b-button>
-				<b-button type="reset" variant="danger">Reset</b-button>
+				<b-button type="submit" variant="primary" block class="uppercase">{{ this.submitButtonText }}</b-button>
 			</div>
 
         </b-form>
@@ -251,7 +250,8 @@
 				successDismissCountDown: 0,
 				errorDismissCountDown: 0,
 				showDismissibleAlert: false,
-				showReportFields: true,
+				showReportFields: false,
+				submitButtonText: 'request swell data',
 
 				swellData: {
 					buoys: {
@@ -267,6 +267,12 @@
 							angle: '',
 							direction: '',
 						},
+						average: {
+							height: '',
+							period: '',
+							angle: '',
+							direction: '',
+						}
 					},
 					wind: {
 						start: {
@@ -287,12 +293,13 @@
             }
         },
         methods: {
-    		onSubmitDates (e) {
+    		onSubmitForm (e) {
                 e.preventDefault();
                 this.success = false;
                 this.error = false;
 
-                axios.get(`/api/swell`, {
+                if (!this.showReportFields) {
+                	axios.get(`/api/swell`, {
                 	params: {
 	                	'user_id': this.userId,
 	                	'date': this.form.date,
@@ -300,15 +307,31 @@
 	                	'end_time': this.form.endTime,
 	                	'location_id': this.form.location,
                 	}
-                }).then(response => {
-					this.showAlert('success');
-					this.setSwellValues(response.data.data);
-					this.showReportFields = true;
-				}).catch(error => {
-					console.log(error);
-					this.showAlert('error');
-					this.error = true;
-				})
+	                }).then(response => {
+						this.setSwellValues(response.data.data);
+						this.showReportFields = true;
+					}).catch(error => {
+						console.log(error);
+						this.showAlert('error');
+						this.error = true;
+					})
+                } else {
+                	axios.post(`/api/report`, {
+	                	'user_id': this.userId,
+	                	'date': this.form.date,
+	                	'start_time': this.form.startTime,
+	                	'end_time': this.form.endTime,
+	                	'location_id': this.form.location,
+
+	                }).then(response => {
+		                this.showAlert('success');
+					}).catch(error => {
+						console.log(error);
+						this.showAlert('error');
+						this.error = true;
+					})
+                }
+
             },
             onSubmitReport(e) {
             	return;
@@ -348,6 +371,11 @@
 				this.swellData.buoys.end.angle = data.buoys.endBuoy.angle;
 				this.swellData.buoys.end.direction = data.buoys.endBuoy.direction;
 
+				this.swellData.buoys.average.height = data.buoys.average.wave_height;
+				this.swellData.buoys.average.period = data.buoys.average.dominant_period;
+				this.swellData.buoys.average.angle = data.buoys.average.angle;
+				this.swellData.buoys.average.direction = data.buoys.average.direction;
+
 				this.swellData.wind.start.speed = data.wind.startWind.speed;
 				this.swellData.wind.start.direction = data.wind.startWind.direction;
 
@@ -357,6 +385,8 @@
 				this.swellData.tide.start = data.tides.tideAtStart;
 				this.swellData.tide.end = data.tides.tideAtEnd;
 				this.swellData.tide.direction = data.tides.dir;
+
+				this.submitButtonText = 'submit report' ;
 			}
         },
         computed: {
