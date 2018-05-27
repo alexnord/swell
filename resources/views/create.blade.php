@@ -11,8 +11,6 @@
                     <create-entry-component
                         :initialuserid="{{ $userId }}"
                         :initiallocations="{{ $locations }}"
-                        :initialdirections="{{ $directions }}"
-                        :initialtides="{{ $tideDirs }}"
                         :initialconditions="{{ $conditions }}"
                     ></create-entry-component>
                 </div>          

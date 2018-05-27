@@ -71,15 +71,13 @@
 				</b-col>
 			</b-row>
 
-			<b-row>
-				<div class="mt-20">
-					<b-button type="submit" variant="primary" block class="uppercase">request swell data</b-button>
-				</div>
-			</b-row>
+			<div class="mt-20 d-flex justify-content-end">
+				<b-button type="submit" variant="primary" class="uppercase">request swell data</b-button>
+			</div>
 
 		</b-form>
 
-		<b-form @submit="onSubmitReport" v-show="showReportFields" class="mb-20">
+		<b-form @submit="onSubmitReport" v-show="showReportFields" class="my-20">
 
 			<b-row>
 				<b-col>
@@ -100,7 +98,7 @@
 												<div class="east">E</div>
 												<div class="south">S</div>
 												<div class="direction">
-													<p>{{ this.swellData.buoys.average.angle }}&deg; {{ this.swellData.buoys.average.direction }}<span>{{ this.swellData.buoys.average.height }}ft @ {{ this.swellData.buoys.end.period }}s</span></p>
+													<p>{{ this.swellData.buoys.average.angle }}&deg; {{ this.swellData.buoys.average.direction }}<span>{{ this.swellData.buoys.average.height }}ft @ {{ this.swellData.buoys.average.period }}s</span></p>
 												</div>
 												<div class="arrow"
 													v-bind:class="this.swellData.buoys.average.direction.toLowerCase().trim()">
@@ -202,8 +200,12 @@
 				</b-col>
 			</b-row>
 
-			<div class="mt-20">
-				<b-button type="submit" variant="primary" block class="uppercase">submit report</b-button>
+			<div class="mt-20 d-flex justify-content-end">
+				<b-button type="submit"
+					variant="primary"
+					class="uppercase">
+					submit report
+				</b-button>
 			</div>
 			
         </b-form>
@@ -324,40 +326,47 @@
             },
             onSubmitReport(e) {
             	e.preventDefault();
-            	return;
-    //         	axios.post(`/api/report`, {
-    //             	'user_id': this.userId,
-    //             	'date': this.form.date,
-    //             	'start_time': this.form.startTime,
-    //             	'end_time': this.form.endTime,
-    //             	'location_id': this.form.location,
+            	axios.post(`/api/reports`, {
+                	'user_id': this.userId,
+                	'date': this.form.date,
 
-    //             }).then(response => {
-	   //              this.showAlert('success');
-				// }).catch(error => {
-				// 	console.log(error);
-				// 	this.showAlert('error');
-				// 	this.error = true;
-				// })
-            },
-            resetForm() {
-            	this.form.date = '';
-                this.form.startTime = '';
-                this.form.endTime = '';
-                this.form.location = null;
-                this.form.score = null;
-                this.form.actualHeight = '';
-                this.form.conditions = null;
-                this.form.notes = '';
-            },
-            onReset (e) {
-                e.preventDefault();
-                this.resetForm();
+                	'start_time': this.form.startTime,
+                	'end_time': this.form.endTime,
 
-                /* Trick to reset/clear native browser form validation state */
-                this.success = false;
-                this.error = false;
-                this.$nextTick(() => { this.success = false });
+                	'location_id': this.form.location,
+
+                	'start_swell_dir': this.swellData.buoys.start.direction,
+					'start_swell_angle': this.swellData.buoys.start.angle,
+					'start_swell_height': this.swellData.buoys.start.height,
+					'start_swell_period': this.swellData.buoys.start.period,
+
+					'end_swell_dir': this.swellData.buoys.end.direction,
+					'end_swell_angle': this.swellData.buoys.end.angle,
+					'end_swell_height': this.swellData.buoys.end.height,
+					'end_swell_period': this.swellData.buoys.end.period,
+
+					'start_wind_dir': this.swellData.wind.start.direction,
+					'start_wind_speed': this.swellData.wind.start.speed,
+
+					'end_wind_dir': this.swellData.wind.end.direction,
+					'end_wind_speed': this.swellData.wind.end.speed,
+
+					'tide_dir': this.swellData.tide.direction,
+		            'start_tide_height': this.swellData.tide.start,
+		            'end_tide_height': this.swellData.tide.end,
+
+		            'actual_surf_height': this.form.actualHeight,
+		            'condition_id': this.form.conditions,
+		            'score': this.form.score,
+		            'notes': this.form.notes,
+
+                }).then(response => {
+	                this.showAlert('success');
+				}).catch(error => {
+					console.log(error);
+					this.showAlert('error');
+					this.error = true;
+				})
             },
 			showAlert(type) {
 				if (type === 'success') this.successDismissCountDown = this.dismissSecs;
@@ -376,7 +385,7 @@
 				this.swellData.buoys.end.direction = data.buoys.endBuoy.direction;
 
 				this.swellData.buoys.average.height = data.buoys.average.wave_height;
-				this.swellData.buoys.average.period = data.buoys.average.dominant_period;
+				this.swellData.buoys.average.period = data.buoys.average.period;
 				this.swellData.buoys.average.angle = data.buoys.average.angle;
 				this.swellData.buoys.average.direction = data.buoys.average.direction;
 

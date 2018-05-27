@@ -15,16 +15,32 @@ class Report extends Model
         'active',
         'user_id',
         'date',
-        'time',
+
+        'start_time',
+        'end_time',
+
         'location_id',
-        'swell_dir_id',
-        'swell_angle',
-        'swell_height',
-        'swell_period',
-        'wind_dir_id',
-        'wind_speed',
-        'tide_dir_id',
-        'tide_height',
+
+        'start_swell_dir',
+        'start_swell_angle',
+        'start_swell_height',
+        'start_swell_period',
+
+        'end_swell_dir',
+        'end_swell_angle',
+        'end_swell_height',
+        'end_swell_period',
+
+        'start_wind_dir',
+        'start_wind_speed',
+
+        'end_wind_dir',
+        'end_wind_speed',
+
+        'tide_dir',
+        'start_tide_height',
+        'end_tide_height',
+
         'actual_surf_height',
         'condition_id',
         'score',
@@ -39,21 +55,6 @@ class Report extends Model
     public function location()
     {
         return $this->belongsTo('App\Location');
-    }
-
-    public function swellDir()
-    {
-        return $this->belongsTo('App\Direction');
-    }
-
-    public function windDir()
-    {
-        return $this->belongsTo('App\Direction');
-    }
-
-    public function tideDir()
-    {
-        return $this->belongsTo('App\Tide');
     }
 
     public function conditions()

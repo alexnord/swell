@@ -42,12 +42,6 @@ class ReportController extends Controller
             ->select('id as value', 'title as text')
             ->orderBy('title', 'asc')
             ->get();
-        $directions = DB::table('directions')
-            ->select('id as value', 'title as text')
-            ->get();
-        $tideDirs = DB::table('tides')
-            ->select('id as value', 'title as text')
-            ->get();
         $conditions = DB::table('conditions')
             ->select('id as value', 'title as text')
             ->get();
@@ -56,8 +50,6 @@ class ReportController extends Controller
         return view('create')->with([
             'userId' => $userId,
             'locations' => json_encode($locations),
-            'directions' => json_encode($directions),
-            'tideDirs' => json_encode($tideDirs),
             'conditions' => json_encode($conditions),
         ]);
     }
@@ -73,16 +65,32 @@ class ReportController extends Controller
         $validator = Validator::make($request->all(), [
             'user_id' => 'required|integer',
             'date' => 'required|date',
-            'time' => 'required',
+
+            'start_time' => 'required',
+            'end_time' => 'required',
+
             'location_id' => 'required|integer',
-            'swell_dir_id' => 'required|integer',
-            'swell_angle' => 'required|integer',
-            'swell_height' => 'required|between:0,99.99',
-            'swell_period' => 'required|integer',
-            'wind_dir_id' => 'required|integer',
-            'wind_speed' => 'required|between:0,99.99',
-            'tide_dir_id' => 'required|integer',
-            'tide_height' => 'required|between:0,99.99',
+
+            'start_swell_dir' => 'required',
+            'start_swell_angle' => 'required',
+            'start_swell_height' => 'required',
+            'start_swell_period' => 'required',
+
+            'end_swell_dir' => 'required',
+            'end_swell_angle' => 'required',
+            'end_swell_height' => 'required',
+            'end_swell_period' => 'required',
+
+            'start_wind_dir' => 'required',
+            'start_wind_speed' => 'required|between:0,99.99',
+
+            'end_wind_dir' => 'required',
+            'end_wind_speed' => 'required|between:0,99.99',
+
+            'tide_dir' => 'required',
+            'start_tide_height' => 'required|between:0,99.99',
+            'end_tide_height' => 'required|between:0,99.99',
+
             'actual_surf_height' => 'required',
             'condition_id' => 'required|integer',
             'score' => 'required|integer',
@@ -95,16 +103,32 @@ class ReportController extends Controller
         $report = Report::create([
             'user_id' => $request->user_id,
             'date' => $request->date,
-            'time' => $request->time,
+
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time,
+
             'location_id' => $request->location_id,
-            'swell_dir_id' => $request->swell_dir_id,
-            'swell_angle' => $request->swell_angle,
-            'swell_height' => $request->swell_height,
-            'swell_period' => $request->swell_period,
-            'wind_dir_id' => $request->wind_dir_id,
-            'wind_speed' => $request->wind_speed,
-            'tide_dir_id' => $request->tide_dir_id,
-            'tide_height' => $request->tide_height,
+
+            'start_swell_dir' => $request->start_swell_dir,
+            'start_swell_angle' => $request->start_swell_angle,
+            'start_swell_height' => $request->start_swell_height,
+            'start_swell_period' => $request->start_swell_period,
+
+            'end_swell_dir' => $request->end_swell_dir,
+            'end_swell_angle' => $request->end_swell_angle,
+            'end_swell_height' => $request->end_swell_height,
+            'end_swell_period' => $request->end_swell_period,
+
+            'start_wind_dir' => $request->start_wind_dir,
+            'start_wind_speed' => $request->start_wind_speed,
+
+            'end_wind_dir' => $request->end_wind_dir,
+            'end_wind_speed' => $request->end_wind_speed,
+
+            'tide_dir' => $request->tide_dir,
+            'start_tide_height' => $request->start_tide_height,
+            'end_tide_height' => $request->end_tide_height,
+
             'actual_surf_height' => $request->actual_surf_height,
             'condition_id' => $request->condition_id,
             'score' => $request->score,

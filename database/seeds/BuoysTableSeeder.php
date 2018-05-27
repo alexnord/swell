@@ -27,6 +27,15 @@ class BuoysTableSeeder extends Seeder
                 'station_id' => '46217',
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            ),
+            2 =>
+            array (
+                'id' => 3,
+                'active' => 1,
+                'title' => 'San Pedro',
+                'station_id' => '46222',
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             )
         ));
     }
