@@ -287,10 +287,12 @@
 					wind: {
 						start: {
 							speed: '',
+							angle: '',
 							direction: '',
 						},
 						end: {
 							speed: '',
+							angle: '',
 							direction: '',
 						}
 					},
@@ -346,9 +348,11 @@
 					'end_swell_period': this.swellData.buoys.end.period,
 
 					'start_wind_dir': this.swellData.wind.start.direction,
+					'start_wind_angle': this.swellData.wind.start.angle,
 					'start_wind_speed': this.swellData.wind.start.speed,
 
 					'end_wind_dir': this.swellData.wind.end.direction,
+					'end_wind_angle': this.swellData.wind.end.angle,
 					'end_wind_speed': this.swellData.wind.end.speed,
 
 					'tide_dir': this.swellData.tide.direction,
@@ -390,9 +394,11 @@
 				this.swellData.buoys.average.direction = data.buoys.average.direction;
 
 				this.swellData.wind.start.speed = data.wind.startWind.speed;
+				this.swellData.wind.start.angle = data.wind.startWind.angle;
 				this.swellData.wind.start.direction = data.wind.startWind.direction;
 
 				this.swellData.wind.end.speed = data.wind.endWind.speed;
+				this.swellData.wind.end.angle = data.wind.endWind.angle;
 				this.swellData.wind.end.direction = data.wind.endWind.direction;
 
 				this.swellData.tide.start = data.tides.tideAtStart;

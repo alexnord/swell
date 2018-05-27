@@ -35,9 +35,11 @@ class CreateReportsTable extends Migration
             $table->float('end_swell_period', 3, 1)->nullable();
 
             $table->string('start_wind_dir');
+            $table->float('start_wind_angle', 4, 1)->nullable();
             $table->float('start_wind_speed', 3, 1);
 
             $table->string('end_wind_dir')->nullable();
+            $table->float('end_wind_angle', 4, 1)->nullable();
             $table->float('end_wind_speed', 3, 1)->nullable();
 
             $table->string('tide_dir');

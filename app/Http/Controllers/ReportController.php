@@ -82,9 +82,11 @@ class ReportController extends Controller
             'end_swell_period' => 'required',
 
             'start_wind_dir' => 'required',
+            'start_wind_angle' => 'required',
             'start_wind_speed' => 'required|between:0,99.99',
 
             'end_wind_dir' => 'required',
+            'end_wind_angle' => 'required',
             'end_wind_speed' => 'required|between:0,99.99',
 
             'tide_dir' => 'required',
@@ -120,9 +122,11 @@ class ReportController extends Controller
             'end_swell_period' => $request->end_swell_period,
 
             'start_wind_dir' => $request->start_wind_dir,
+            'start_wind_angle' => $request->start_wind_angle,
             'start_wind_speed' => $request->start_wind_speed,
 
             'end_wind_dir' => $request->end_wind_dir,
+            'end_wind_angle' => $request->end_wind_angle,
             'end_wind_speed' => $request->end_wind_speed,
 
             'tide_dir' => $request->tide_dir,

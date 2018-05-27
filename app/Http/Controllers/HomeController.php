@@ -6,6 +6,7 @@ use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Helpers\Helper;
 use Carbon\Carbon;
 use App\Report;
 
@@ -32,12 +33,37 @@ class HomeController extends Controller
 
         $data = [];
         foreach ($reports as $report) {
+
+            // Date
             $date = Carbon::parse($report->date);
-            
-            $swellDir = $report->swell_angle.'° '.$report->swellDir->title;
-            $swellHeight = $report->swell_period.'s'.' '.$report->swell_height.'ft';
-            $wind = $report->wind_speed.'mph '.$report->windDir->title;
-            $tide = $report->tide_height.'ft '.$report->tideDir->title;
+
+            // Swell
+            $avgSwellAngle = $report->end_swell_angle ?
+                ($report->start_swell_angle + $report->end_swell_angle)/2 :
+                $report->start_swell_angle;
+            $avgSwellDir = Helper::getDirection($avgSwellAngle);
+            $swellDir = $avgSwellAngle.'° '.$avgSwellDir;
+            $avgSwellHeight = $report->end_swell_height ? 
+                ($report->start_swell_height + $report->end_swell_height)/2 :
+                $report->start_swell_height;
+            $avgSwellPeriod = $report->end_swell_period ? 
+                ($report->start_swell_period + $report->end_swell_period)/2 :
+                $report->start_swell_period;
+            $swellHeight = $avgSwellPeriod .'s'.' '.$avgSwellHeight.'ft';
+
+            // Wind
+            $avgWindSpeed = $report->end_wind_speed ? 
+                ($report->start_wind_speed + $report->end_wind_speed)/2 :
+                $report->start_wind_speed;
+            $avgWindAngle = $report->end_wind_angle? 
+                ($report->start_wind_angle + $report->end_wind_angle)/2 :
+                $report->start_wind_angle;
+            $avgWindDir = Helper::getDirection($avgWindAngle);
+            $wind = $avgWindSpeed.'mph '.$avgWindDir;
+
+            // Tide
+            $tide = $report->tide_dir;
+
             $data[] = [
                 'id' => $report->id,
                 'date' => $report->date,

@@ -33,9 +33,11 @@ class ReportsTableSeeder extends Seeder
                 'end_swell_period' => null,
 
                 'start_wind_dir' => 'ese',
+                'start_wind_angle' => null,
                 'start_wind_speed' => 0,
 
                 'end_wind_dir' => null,
+                'end_wind_angle' => null,
                 'end_wind_speed' => null,
 
                 'tide_dir' => 'Rising',
@@ -72,9 +74,11 @@ class ReportsTableSeeder extends Seeder
                 'end_swell_period' => null,
 
                 'start_wind_dir' => 'ene',
+                'start_wind_angle' => null,
                 'start_wind_speed' => 6.0,
 
                 'end_wind_dir' => null,
+                'end_wind_angle' => null,
                 'end_wind_speed' => null,
 
                 'tide_dir' => 'Rising',
@@ -111,9 +115,11 @@ class ReportsTableSeeder extends Seeder
                 'end_swell_period' => null,
 
                 'start_wind_dir' => 'nw',
+                'start_wind_angle' => null,
                 'start_wind_speed' => 1,
 
                 'end_wind_dir' => null,
+                'end_wind_angle' => null,
                 'end_wind_speed' => null,
 
                 'tide_dir' => 'Rising',
@@ -150,9 +156,11 @@ class ReportsTableSeeder extends Seeder
                 'end_swell_period' => null,
 
                 'start_wind_dir' => 'ese',
+                'start_wind_angle' => null,
                 'start_wind_speed' => 1,
 
                 'end_wind_dir' => null,
+                'end_wind_angle' => null,
                 'end_wind_speed' => null,
 
                 'tide_dir' => 'Rising',
@@ -189,9 +197,11 @@ class ReportsTableSeeder extends Seeder
                 'end_swell_period' => null,
 
                 'start_wind_dir' => 'ese',
+                'start_wind_angle' => null,
                 'start_wind_speed' => 4,
 
                 'end_wind_dir' => null,
+                'end_wind_angle' => null,
                 'end_wind_speed' => null,
 
                 'tide_dir' => 'Dropping',
@@ -228,9 +238,11 @@ class ReportsTableSeeder extends Seeder
                 'end_swell_period' => null,
 
                 'start_wind_dir' => 'ese',
+                'start_wind_angle' => null,
                 'start_wind_speed' => 3,
 
                 'end_wind_dir' => null,
+                'end_wind_angle' => null,
                 'end_wind_speed' => null,
 
                 'tide_dir' => 'Dropping',
@@ -267,9 +279,11 @@ class ReportsTableSeeder extends Seeder
                 'end_swell_period' => 14,
 
                 'start_wind_dir' => 'wsw',
+                'start_wind_angle' => null,
                 'start_wind_speed' => 18,
 
                 'end_wind_dir' => 'wsw',
+                'end_wind_angle' => null,
                 'end_wind_speed' => 18,
 
                 'tide_dir' => 'Rising',

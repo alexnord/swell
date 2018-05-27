@@ -32,9 +32,11 @@ class Report extends Model
         'end_swell_period',
 
         'start_wind_dir',
+        'start_wind_angle',
         'start_wind_speed',
 
         'end_wind_dir',
+        'end_wind_angle',
         'end_wind_speed',
 
         'tide_dir',

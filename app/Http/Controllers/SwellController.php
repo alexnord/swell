@@ -187,13 +187,22 @@ class SwellController extends Controller
             ->orderBy('timestamp', 'asc')
             ->get()->toArray();
 
+        $windCount = count($windData);
+
         foreach ($windData as $key => $value) {
             $windData[$key]['direction'] = Helper::getDirection($value['angle']);
         }
 
+        $avg = [
+            'angle' => ($windData[0]['angle'] + $windData[$windCount-1]['angle'])/2,
+            'direction' => Helper::getDirection(($windData[0]['angle'] + $windData[$windCount-1]['angle'])/2),
+            'speed' => ($windData[0]['speed'] + $windData[$windCount-1]['speed'])/2,
+        ];
+
         return [
             'startWind' => $windData[0],
             'endWind' => $windData[count($windData)-1],
+            'average' => $avg,
         ];
 
         return $windData;
