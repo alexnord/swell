@@ -1,5 +1,6 @@
 <template>
 	<b-container fluid id="create-form">
+		
 		<b-row v-if="fullList">
 			<b-col>
 				<v-client-table 
@@ -10,6 +11,7 @@
 				</v-client-table>
 			</b-col>
 		</b-row>
+
 		<b-row v-if="!fullList">
 			<b-col>
 				<div>
@@ -17,6 +19,7 @@
 				</div>
 			</b-col>
 		</b-row>
+		
     </b-container>
 </template>
 
@@ -71,7 +74,7 @@
     		onRowClick(e) {
     			axios.get(`/api/reports/${e.row.id}`)
 				.then(response => {
-					// this.showRecord(response.data);
+					this.showRecord(response.data);
 				}).catch(error => {
 					console.log(error);
 				})

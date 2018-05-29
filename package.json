@@ -28,6 +28,7 @@
         "bootstrap-vue": "^2.0.0-rc.9",
         "font-awesome": "^4.7.0",
         "moment": "^2.22.1",
+        "vue-router": "^3.0.1",
         "vue-search-select": "^2.6.1",
         "vue-tables-2": "^1.4.50"
     }

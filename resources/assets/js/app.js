@@ -16,13 +16,37 @@ window.Vue = require('vue');
  */
 
 import BootstrapVue from 'bootstrap-vue';
+import VueRouter from 'vue-router';
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+Vue.use(VueRouter);
 Vue.use(BootstrapVue);
+
+import App from './views/App'
+import Hello from './views/Hello'
+import Home from './views/Home'
+
+const router = new VueRouter({
+    mode: 'history',
+    routes: [
+        {
+            path: '/',
+            name: 'home',
+            component: Home
+        },
+        {
+            path: '/hello',
+            name: 'hello',
+            component: Hello,
+        },
+    ],
+});
 
 Vue.component('create-entry-component', require('./components/CreateEntryComponent.vue'));
 Vue.component('list-reports-component', require('./components/ListReportsComponent.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    components: { App },
+    router,
 });
 
