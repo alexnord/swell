@@ -90,56 +90,9 @@
 											<h3>Swell</h3>
 										</b-col>
 									</b-row>
-									<b-row>
-										<b-col md=6 class="d-flex justify-content-center mb-30">
-											<div class="compass">
-												<div class="north">N</div>
-												<div class="west">W</div>
-												<div class="east">E</div>
-												<div class="south">S</div>
-												<div class="direction">
-													<p>{{ this.swellData.buoys.average.angle }}&deg; {{ this.swellData.buoys.average.direction }}<span>{{ this.swellData.buoys.average.height }}ft @ {{ this.swellData.buoys.average.period }}s</span></p>
-												</div>
-												<div class="arrow"
-													v-bind:class="this.swellData.buoys.average.direction.toLowerCase().trim()">
-												</div>
-											</div>
-										</b-col>
-										<!-- <b-col md=3 class="vertical-center">
-											<font-awesome-icon :icon="icon" size="3x" rotation="270"/>
-										</b-col> -->
-										<b-col md=6 class="vertical-center mt-10">
-											<b-row>
-												<div>
-													<p class="heading-label">Buoys</p>
-												</div>
-												<div class="buoy-data">
-													<p class="ft-16 my-0"><span class="ft-bold">Start</span>: {{ this.swellData.buoys.start.height }}ft @ {{ this.swellData.buoys.start.period }}s - {{ this.swellData.buoys.start.angle }}&deg; {{ this.swellData.buoys.start.direction }}</p>
-													<p class="ft-16 my-0"><span class="ft-bold">End</span>: {{ this.swellData.buoys.end.height }}ft @ {{ this.swellData.buoys.end.period }}s - {{ this.swellData.buoys.end.angle }}&deg; {{ this.swellData.buoys.end.direction }}</p>
-												</div>
-											</b-row>
-											<b-row class="mt-20">
-												<div>
-													<p class="heading-label">Wind</p>
-												</div>
-												<div class="buoy-data">
-													<p class="ft-16 my-0"><span class="ft-bold">Start</span>: {{ this.swellData.wind.start.speed }}mph {{ this.swellData.wind.start.direction }}</p>
-													<p class="ft-16 my-0"><span class="ft-bold">End</span>: {{ this.swellData.wind.end.speed }}mph {{ this.swellData.wind.end.direction }}</p>
-												</div>
-											</b-row>
-											<b-row class="mt-20">
-												<div>
-													<p class="heading-label">Tide</p>
-												</div>
-												<div class="buoy-data">
-													<p class="ft-16 my-0"><span class="ft-bold">Start</span>: {{ this.swellData.tide.start }}ft</p>
-													<p class="ft-16 my-0"><span class="ft-bold">End</span>: {{ this
-													.swellData.tide.end }}ft</p>
-													<p class="ft-16 my-0"><span class="ft-bold">Direction</span>: {{ this.swellData.tide.direction }}</p>
-												</div>
-											</b-row>
-										</b-col>
-									</b-row>
+									<swell-component
+										v-bind:initialdata="this.swellData"
+									></swell-component>
 								</b-col>
 							</b-row>
 						</b-col>
@@ -215,11 +168,9 @@
 <script>
 	import axios from 'axios';
 	import { ModelSelect } from 'vue-search-select'
-	import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
-	import faLocationArrow from '@fortawesome/fontawesome-free-solid/faLocationArrow'
+	import SwellComponent from './SwellComponent.vue';
 
 	window.moment = require('moment');
-
 
 	export default {
 		props: [
@@ -406,14 +357,9 @@
 				this.swellData.tide.direction = data.tides.dir;
 			}
         },
-        computed: {
-			icon () {
-				return faLocationArrow
-			}
-		},
         components: {
 			ModelSelect,
-			FontAwesomeIcon
+			SwellComponent
 	    }
 	}
 </script>
