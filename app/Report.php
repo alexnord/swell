@@ -53,6 +53,8 @@ class Report extends Model
 
     protected $appends = [
         'formatted_date',
+        'formatted_start_time',
+        'formatted_end_time',
 
         'avg_swell_angle',
         'avg_swell_dir',
@@ -68,6 +70,18 @@ class Report extends Model
     {   
         Carbon::setToStringFormat('l, F jS Y');
         return Carbon::parse($this->date);
+    }
+
+    public function getFormattedStartTimeAttribute($value)
+    {   
+        $t = Carbon::parse($this->start_time);
+        return $t->format('g:i A');
+    }
+
+    public function getFormattedEndTimeAttribute($value)
+    {   
+        $t = Carbon::parse($this->end_time);
+        return $t->format('g:i A');
     }
 
     public function getAvgSwellAngleAttribute($value)
