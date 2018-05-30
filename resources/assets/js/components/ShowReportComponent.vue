@@ -26,31 +26,31 @@
 							height: this.$props.initialdata.start_swell_height,
 							period: this.$props.initialdata.start_swell_period,
 							angle: this.$props.initialdata.start_swell_angle,
-							direction: this.$props.initialdata.start_swell_dir,
+							direction: this.$props.initialdata.start_swell_dir.toUpperCase(),
 						},
 						end:  {
 							height: this.$props.initialdata.end_swell_height,
 							period: this.$props.initialdata.end_swell_period,
 							angle: this.$props.initialdata.end_swell_angle,
-							direction: this.$props.initialdata.end_swell_dir,
+							direction: this.$props.initialdata.end_swell_dir.toUpperCase(),
 						},
 						average: {
 							height: this.$props.initialdata.avg_swell_height,
 							period: this.$props.initialdata.avg_swell_period,
 							angle: this.$props.initialdata.avg_swell_angle,
-							direction: this.$props.initialdata.avg_swell_dir,
+							direction: this.$props.initialdata.avg_swell_dir.toUpperCase(),
 						}
 					},
 					wind: {
 						start: {
 							speed: this.$props.initialdata.start_wind_speed,
 							angle: this.$props.initialdata.start_wind_angle,
-							direction: this.$props.initialdata.start_wind_dir,
+							direction: this.$props.initialdata.start_wind_dir.toUpperCase(),
 						},
 						end: {
 							speed: this.$props.initialdata.end_wind_speed,
 							angle: this.$props.initialdata.end_wind_angle,
-							direction: this.$props.initialdata.end_wind_dir,
+							direction: this.$props.initialdata.end_wind_dir.toUpperCase(),
 						}
 					},
 					tide: {
