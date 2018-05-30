@@ -29,7 +29,7 @@
 							direction: this.$props.initialdata.start_swell_dir,
 						},
 						end:  {
-							height: this.$props.initialdata.end_swell_angle,
+							height: this.$props.initialdata.end_swell_height,
 							period: this.$props.initialdata.end_swell_period,
 							angle: this.$props.initialdata.end_swell_angle,
 							direction: this.$props.initialdata.end_swell_dir,
