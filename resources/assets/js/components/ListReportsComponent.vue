@@ -1,6 +1,6 @@
 <template>
 	<b-container fluid id="create-form">
-		<b-row v-if="fullList">
+		<b-row>
 			<b-col>
 				<v-client-table 
 					:data="tableData" 
@@ -8,13 +8,6 @@
 					:options="options"
 					@row-click="onRowClick">
 				</v-client-table>
-			</b-col>
-		</b-row>
-		<b-row v-if="!fullList">
-			<b-col>
-				<div>
-					<h1>{{ singleData.id }}</h1>
-				</div>
 			</b-col>
 		</b-row>
     </b-container>
@@ -63,23 +56,11 @@
 
 		        },
 	            reports: this.$props.initialreports,
-	            fullList: true,
-	            singleData: null,
             }
         },
         methods: {
     		onRowClick(e) {
-    			axios.get(`/api/reports/${e.row.id}`)
-				.then(response => {
-					// this.showRecord(response.data);
-				}).catch(error => {
-					console.log(error);
-				})
-            },
-            showRecord(data) {
-            	console.log(data);
-            	this.fullList = false;
-            	this.singleData = data;
+    			window.location = `/report/${e.row.id}`;
             }
         },
 

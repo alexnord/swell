@@ -21,6 +21,7 @@ Vue.use(BootstrapVue);
 
 Vue.component('create-entry-component', require('./components/CreateEntryComponent.vue'));
 Vue.component('list-reports-component', require('./components/ListReportsComponent.vue'));
+Vue.component('show-report-component', require('./components/ShowReportComponent.vue'));
 
 const app = new Vue({
     el: '#app'

@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Helpers\Helper;
+use Carbon\Carbon;
 
 class Report extends Model
 {
@@ -48,6 +50,81 @@ class Report extends Model
         'score',
         'notes',
     ];
+
+    protected $appends = [
+        'formatted_date',
+
+        'avg_swell_angle',
+        'avg_swell_dir',
+        'avg_swell_height',
+        'avg_swell_period',
+
+        'avg_wind_speed',
+        'avg_wind_angle',
+        'avg_wind_dir',
+    ];
+
+    public function getFormattedDateAttribute($value)
+    {   
+        Carbon::setToStringFormat('l, F jS Y');
+        return Carbon::parse($this->date);
+    }
+
+    public function getAvgSwellAngleAttribute($value)
+    {
+        $avgSwellAngle = $this->end_swell_angle ?
+                ($this->start_swell_angle + $this->end_swell_angle)/2 :
+                $this->start_swell_angle;
+            $avgSwellDir = Helper::getDirection($avgSwellAngle);
+        
+        return $avgSwellAngle;
+    }
+
+    public function getAvgSwellDirAttribute($value)
+    {
+        return Helper::getDirection($this->avg_swell_angle);
+    }
+
+    public function getAvgSwellHeightAttribute($value)
+    {
+        $avgSwellHeight = $this->end_swell_height ? 
+                ($this->start_swell_height + $this->end_swell_height)/2 :
+                $this->start_swell_height;
+
+        return $avgSwellHeight;
+    }
+
+    public function getAvgSwellPeriodAttribute($value)
+    {
+        $avgSwellPeriod = $this->end_swell_period ? 
+                ($this->start_swell_period + $this->end_swell_period)/2 :
+                $this->start_swell_period;
+
+        return $avgSwellPeriod;
+    }
+
+    public function getAvgWindSpeedAttribute($value)
+    {
+        $avgWindSpeed = $this->end_wind_speed ? 
+                ($this->start_wind_speed + $this->end_wind_speed)/2 :
+                $this->start_wind_speed;
+        
+        return $avgWindSpeed;
+    }
+
+    public function getAvgWindAngleAttribute($value)
+    {
+        $avgWindAngle = $this->end_wind_angle? 
+                ($this->start_wind_angle + $this->end_wind_angle)/2 :
+                $this->start_wind_angle;
+        
+        return $avgWindAngle;
+    }
+
+    public function getAvgWindDirAttribute($value)
+    {
+        return Helper::getDirection($this->avg_wind_angle);
+    }
 
     public function user()
     {
