@@ -68,8 +68,8 @@ class Report extends Model
 
     public function getFormattedDateAttribute($value)
     {   
-        Carbon::setToStringFormat('l, F jS Y');
-        return Carbon::parse($this->date);
+        $dt = Carbon::parse($this->date);
+        return $dt->format('l, F jS Y');  
     }
 
     public function getFormattedStartTimeAttribute($value)
