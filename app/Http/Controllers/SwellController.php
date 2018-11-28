@@ -99,7 +99,7 @@ class SwellController extends Controller
                             ->orderBy('timestamp', 'desc')
                             ->first()->toArray();
         $tideAfterStart = TideData::select('height', 'timestamp')
-                            ->where('timestamp', '>=', $formattedEndTime)
+                            ->where('timestamp', '>=', $formattedStartTime)
                             ->where('noaa_station_id', $stationId)
                             ->orderBy('timestamp', 'asc')
                             ->first()->toArray();
