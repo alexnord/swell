@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Backpack\CRUD\CrudTrait;
 use Spatie\Permission\Traits\HasRoles;
+use Backpack\Base\app\Notifications\ResetPasswordNotification as ResetPasswordNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -34,5 +35,16 @@ class User extends Authenticatable
     public function report()
     {
         return $this->belongsTo('App\Report');
+    }
+
+    /**
+    * Send the password reset notification.
+    *
+    * @param  string  $token
+    * @return void
+    */
+    public function sendPasswordResetNotification($token)
+    {
+      $this->notify(new ResetPasswordNotification($token));
     }
 }
