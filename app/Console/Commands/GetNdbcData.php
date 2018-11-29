@@ -4,8 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Carbon\Carbon;
-use App\Buoy;
-use App\BuoyData;
+use App\Models\Buoy;
+use App\Models\BuoyData;
 
 class GetNdbcData extends Command
 {

@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Carbon\Carbon;
 use App\Location;
-use App\WeatherData;
+use App\Models\WeatherData;
 
 class GetWeather extends Command
 {

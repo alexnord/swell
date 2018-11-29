@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Helpers\Helper;
 use Carbon\Carbon;
 use App\Location;
-use App\BuoyData;
-use App\TideData;
-use App\WeatherData;
+use App\Models\BuoyData;
+use App\Models\TideData;
+use App\Models\WeatherData;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class SwellController extends Controller
