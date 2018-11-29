@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Carbon\Carbon;
 use App\NoaaStation;
-use App\TideData;
+use App\Models\TideData;
 
 class GetTides extends Command
 {

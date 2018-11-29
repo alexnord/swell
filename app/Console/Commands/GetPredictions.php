@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
-use App\NoaaPrediction;
+use App\Models\NoaaPrediction;
 use App\NoaaStation;
 
 class GetPredictions extends Command
