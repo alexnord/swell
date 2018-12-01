@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use App\Models\NoaaPrediction;
-use App\NoaaStation;
+use App\Models\NoaaStation;
 
 class GetPredictions extends Command
 {

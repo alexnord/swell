@@ -8,6 +8,6 @@ class Location extends Model
 {
 	public function station()
     {
-        return $this->hasOne('App\NoaaStation', 'id');
+        return $this->hasOne('App\Models\NoaaStation', 'id');
     }
 }

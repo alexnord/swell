@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
 
-class Buoy extends Model
+class NoaaStation extends Model
 {
     use CrudTrait;
 
@@ -15,12 +15,15 @@ class Buoy extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'buoys';
+    protected $table = 'noaa_stations';
     public $timestamps = true;
     protected $fillable = [
         'active',
+        'noaa_id',
         'title',
-        'station_id',
+        'lat',
+        'lng',
+        'timezone',
     ];
     // protected $hidden = [];
     // protected $dates = [];
