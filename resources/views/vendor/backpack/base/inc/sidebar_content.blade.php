@@ -14,6 +14,15 @@
 		<li>
 			<a href='{{ backpack_url('buoy') }}'><i class='fa fa-tag'></i> <span>Buoys</span></a>
 		</li>
+		<li>
+			<a href='{{ backpack_url('noaaStation') }}'><i class='fa fa-tag'></i> <span>NOAA Stations</span></a>
+		</li>
+		<li>
+			<a href='{{ backpack_url('location') }}'><i class='fa fa-tag'></i> <span>Locations</span></a>
+		</li>
+		<li>
+			<a href='{{ backpack_url('condition') }}'><i class='fa fa-tag'></i> <span>Condition Types</span></a>
+		</li>
 	</ul>
 </li>
 
@@ -33,4 +42,3 @@
   </li>
 </ul>
 </li>
-<li><a href='{{ backpack_url('noaaStation') }}'><i class='fa fa-tag'></i> <span>Noaa Stations</span></a></li>

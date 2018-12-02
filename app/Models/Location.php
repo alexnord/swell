@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
 
-class NoaaStation extends Model
+class Location extends Model
 {
     use CrudTrait;
 
@@ -15,15 +15,15 @@ class NoaaStation extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'noaa_stations';
+    protected $table = 'locations';
     public $timestamps = true;
     protected $fillable = [
         'active',
-        'noaa_id',
         'title',
         'lat',
         'lng',
-        'timezone',
+        'noaa_station_id',
+        'buoy_id'
     ];
     // protected $hidden = [];
     // protected $dates = [];
@@ -40,9 +40,14 @@ class NoaaStation extends Model
     |--------------------------------------------------------------------------
     */
 
-    public function locations()
+    public function station()
     {
-        return $this->hasMany('App\Models\Location');
+        return $this->belongsTo('App\Models\NoaaStation', 'noaa_station_id');
+    }
+
+    public function buoy()
+    {
+        return $this->belongsTo('App\Models\Buoy', 'buoy_id');
     }
 
     /*

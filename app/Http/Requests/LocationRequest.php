@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
-class BuoyRequest extends FormRequest
+class LocationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,7 +28,10 @@ class BuoyRequest extends FormRequest
         return [
             'active' => 'required|boolean',
             'title' => 'required|string',
-            'station_id' => 'required|integer',
+            'lat' => 'required',
+            'lng' => 'required',
+            'noaa_station_id' => 'required|integer',
+            'buoy_id' => 'required|integer',
         ];
     }
 

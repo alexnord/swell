@@ -152,6 +152,6 @@ class Report extends Model
 
     public function conditions()
     {
-        return $this->belongsTo('App\Condition', 'condition_id');
+        return $this->belongsTo('App\Models\Condition', 'condition_id');
     }
 }

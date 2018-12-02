@@ -13,4 +13,6 @@ Route::group([
 ], function () { // custom admin routes
     CRUD::resource('buoy', 'BuoyCrudController');
     CRUD::resource('noaaStation', 'NoaaStationCrudController');
+    CRUD::resource('condition', 'ConditionCrudController');
+    CRUD::resource('location', 'LocationCrudController');
 }); // this should be the absolute last line of this file

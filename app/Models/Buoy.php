@@ -37,6 +37,11 @@ class Buoy extends Model
     |--------------------------------------------------------------------------
     */
 
+    public function locations()
+    {
+        return $this->hasMany('App\Models\Location');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES
