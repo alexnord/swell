@@ -26,8 +26,10 @@
         "@fortawesome/fontawesome-free-solid": "^5.0.13",
         "@fortawesome/vue-fontawesome": "0.0.22",
         "bootstrap-vue": "^2.0.0-rc.9",
+        "chart.js": "^2.7.3",
         "font-awesome": "^4.7.0",
         "moment": "^2.22.1",
+        "vue-chartjs": "^3.4.0",
         "vue-search-select": "^2.6.1",
         "vue-tables-2": "^1.4.50"
     }

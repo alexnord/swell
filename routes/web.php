@@ -13,6 +13,7 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/create', 'ReportController@create')->name('create');
+Route::get('/reports', 'ReportController@all')->name('all');
 Route::get('/report/{id}', 'ReportController@show')->name('show');
 
 Auth::routes();

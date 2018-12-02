@@ -24,4 +24,9 @@ class TideData extends Model
         'height',
     	'noaa_station_id',
     ];
+
+    public function station()
+    {
+        return $this->belongsTo('App\Models\NoaaStation', 'noaa_station_id');
+    }
 }

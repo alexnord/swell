@@ -22,6 +22,9 @@ Vue.use(BootstrapVue);
 Vue.component('create-entry-component', require('./components/CreateEntryComponent.vue'));
 Vue.component('list-reports-component', require('./components/ListReportsComponent.vue'));
 Vue.component('show-report-component', require('./components/ShowReportComponent.vue'));
+Vue.component('dashboard-component', require('./components/DashboardComponent.vue'));
+Vue.component('compass-component', require('./components/CompassComponent.vue'));
+Vue.component('tide-chart-component', require('./components/TideChart.vue'));
 
 const app = new Vue({
     el: '#app'

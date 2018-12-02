@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Helpers\Helper;
+use Carbon\Carbon;
 
 class BuoyData extends Model
 {
@@ -27,4 +29,30 @@ class BuoyData extends Model
 	    'angle',
 	    'water_temp',
     ];
+
+    protected $casts = [
+        'swell_direction' => 'string',
+    ];
+
+    protected $appends = [
+        'swell_direction',
+        'observation_time',
+    ];
+
+    public function buoy()
+    {
+        return $this->belongsTo('App\Models\Buoy', 'buoy_id');
+    }
+
+    public function getSwellDirectionAttribute()
+    {
+        return $this->attributes['swell_direction'] = Helper::getDirection($this->angle);
+    }
+
+    public function getObservationTimeAttribute()
+    {
+        $cb = new Carbon($this->timestamp);
+        $cb->tz = 'America/Los_Angeles';
+        return $this->attributes['obsevation_time'] =$cb->toDayDateTimeString();
+    }
 }

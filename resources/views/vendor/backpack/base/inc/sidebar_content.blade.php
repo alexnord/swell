@@ -9,16 +9,16 @@
 
 <!-- Swell Data -->
 <li class="treeview">
-	<a href="#"><i class="fa fa-group"></i> <span>Swell Data</span> <i class="fa fa-angle-left pull-right"></i></a>
+	<a href="#"><i class="fa fa-info-circle"></i> <span>Swell Data</span> <i class="fa fa-angle-left pull-right"></i></a>
 	<ul class="treeview-menu">
 		<li>
-			<a href='{{ backpack_url('buoy') }}'><i class='fa fa-tag'></i> <span>Buoys</span></a>
+			<a href='{{ backpack_url('buoy') }}'><i class='fa fa-map-pin'></i> <span>Buoys</span></a>
 		</li>
 		<li>
-			<a href='{{ backpack_url('noaaStation') }}'><i class='fa fa-tag'></i> <span>NOAA Stations</span></a>
+			<a href='{{ backpack_url('noaaStation') }}'><i class='fa fa-map-signs'></i> <span>NOAA Stations</span></a>
 		</li>
 		<li>
-			<a href='{{ backpack_url('location') }}'><i class='fa fa-tag'></i> <span>Locations</span></a>
+			<a href='{{ backpack_url('location') }}'><i class='fa fa-map-o'></i> <span>Locations</span></a>
 		</li>
 		<li>
 			<a href='{{ backpack_url('condition') }}'><i class='fa fa-tag'></i> <span>Condition Types</span></a>

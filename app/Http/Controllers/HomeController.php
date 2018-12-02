@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\Helper;
 use Carbon\Carbon;
-use App\Report;
+use App\Models\BuoyData;
+use App\Models\TideData;
 
 class HomeController extends Controller
 {
@@ -29,60 +30,39 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $reports = Report::all();
+        $buoy = BuoyData::whereHas('buoy', function ($query) {
+                $query->where('id', '=', 1);
+            })
+            ->orderBy('timestamp', 'desc')
+            ->first();
 
-        $data = [];
-        foreach ($reports as $report) {
+        $todayDate = (new Carbon())->format('Ymd');
+        $tomorrowDate = (new Carbon())->addDays(1)->format('Ymd');
 
-            // Date
-            $date = Carbon::parse($report->date);
+        $tides = TideData::whereHas('station', function ($query) {
+                $query->where('id', '=', 1);
+            })
+            ->where('timestamp', '>=', $todayDate)
+            ->where('timestamp', '<', $tomorrowDate)
+            ->orderBy('timestamp', 'asc')
+            ->limit(4)
+            ->get();
 
-            // Swell
-            $avgSwellAngle = $report->end_swell_angle ?
-                ($report->start_swell_angle + $report->end_swell_angle)/2 :
-                $report->start_swell_angle;
-            $avgSwellDir = Helper::getDirection($avgSwellAngle);
-            $swellDir = $avgSwellAngle.'° '.$avgSwellDir;
-            $avgSwellHeight = $report->end_swell_height ? 
-                ($report->start_swell_height + $report->end_swell_height)/2 :
-                $report->start_swell_height;
-            $avgSwellPeriod = $report->end_swell_period ? 
-                ($report->start_swell_period + $report->end_swell_period)/2 :
-                $report->start_swell_period;
-            $swellHeight = $avgSwellPeriod .'s'.' '.$avgSwellHeight.'ft';
+        $tidesArray = [];
+        foreach ($tides as $tide) {
+            $ta = $tide->toArray();
+            $ta['converted_time'] = (new Carbon($tide->timestamp))->format('g:i A');
+            $tidesArray[] = $ta;
 
-            // Wind
-            $avgWindSpeed = $report->end_wind_speed ? 
-                ($report->start_wind_speed + $report->end_wind_speed)/2 :
-                $report->start_wind_speed;
-            $avgWindAngle = $report->end_wind_angle? 
-                ($report->start_wind_angle + $report->end_wind_angle)/2 :
-                $report->start_wind_angle;
-            $avgWindDir = Helper::getDirection($avgWindAngle);
-            $wind = $avgWindSpeed.'mph '.$avgWindDir;
-
-            // Tide
-            $tide = $report->tide_dir;
-
-            $data[] = [
-                'id' => $report->id,
-                'date' => $report->date,
-                'spot' => $report->location->title,
-                'angle' => $swellDir,
-                'height' => $swellHeight,
-                'tide' => $tide,
-                'wind' => $wind,
-                'conditions' => $report->conditions->title,
-                'score' => $report->score,
-            ];
         }
 
-        usort($data, function ($a, $b) {
-            return $b['date'] <=> $a['date'];
-        });
+        $data = [
+            'buoy' => $buoy->toArray(),
+            'tides' => $tidesArray,
+        ];
 
         return view('home')->with([
-            'reports' => json_encode($data),
+            'data' => json_encode($data),
         ]);
     }
 }

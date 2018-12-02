@@ -1,18 +1,9 @@
 <template>
 	<b-row>
 		<b-col md=6 class="d-flex justify-content-center mb-30">
-			<div class="compass">
-				<div class="north">N</div>
-				<div class="west">W</div>
-				<div class="east">E</div>
-				<div class="south">S</div>
-				<div class="direction">
-					<p>{{ this.data.buoys.average.angle }}&deg; {{ this.data.buoys.average.direction }}<span>{{ this.data.buoys.average.height }}ft @ {{ this.data.buoys.average.period }}s</span></p>
-				</div>
-				<div class="arrow"
-					v-bind:class="this.data.buoys.average.direction.toLowerCase().trim()">
-				</div>
-			</div>
+			<compass-component
+				v-bind:initialdata="this.data.buoys.average"
+			></compass-component>
 		</b-col>
 		<b-col md=6 class="vertical-center mt-10">
 			<b-row>
@@ -47,15 +38,13 @@
 		</b-col>
 	</b-row>
 
-	<!-- <b-col md=3 class="vertical-center">
-		<font-awesome-icon :icon="icon" size="3x" rotation="270"/>
-	</b-col> -->
-
 </template>
 
 <script>
 	import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
 	import faLocationArrow from '@fortawesome/fontawesome-free-solid/faLocationArrow'
+	import SwellComponent from './SwellComponent.vue';
+	import CompassComponent from './CompassComponent.vue';
 
 	export default {
 		created() {
@@ -81,6 +70,7 @@
 		},
         components: {
         	FontAwesomeIcon,
+        	CompassComponent,
         }
 	}
 </script>
