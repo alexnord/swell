@@ -87,14 +87,7 @@
 				},
 				chartData: {
 			        labels: [],
-			        datasets: [
-						{
-							label: 'Tide',
-							backgroundColor: 'rgba(24, 125, 160, .3)',
-							borderColor: 'rgba(24, 125, 160, 1)',
-							data: [1, 4, 2, 5]
-						}
-					]
+			        datasets: [],
 				},
 				chartOptions: {
 					responsive: true,
@@ -118,6 +111,14 @@
 	        		heights.push(Math.round(value.height));
 				}
 				this.chartData.labels = labels;
+				this.chartData.datasets = [
+					{
+						label: 'Tide',
+						backgroundColor: 'rgba(24, 125, 160, .3)',
+						borderColor: 'rgba(24, 125, 160, 1)',
+						data: heights,
+					}
+				]
         	},
 
         },
