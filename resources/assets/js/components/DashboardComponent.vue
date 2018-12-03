@@ -19,19 +19,23 @@
 							v-bind:initialdata="this.compassData"
 						></compass-component> -->
 
-				        <p class="card-text">
-				        	<h3>{{this.buoy.wave_height }}ft &#64; {{this.buoy.dominant_period}}s</h3>
-					        <h3>{{this.buoy.angle}}&deg; {{ this.buoy.swell_direction }}</h3>
-				        </p>
-				        <p class="card-text mt-1">On {{this.buoy.observation_time}}</p>
-			        	<!-- <div class="float-left">
-			        		<div><img src="../../../assets/images/icons/buoy.svg" height="25" alt="Buoy icon" /></div>
-			        	</div>
-			        	<div class="float-right">
-					        <h3>{{this.buoy.wave_height }}ft &#64; {{this.buoy.dominant_period}}s</h3>
-					        <h3>{{this.buoy.angle}}&deg; {{ this.buoy.swell_direction }}</h3>
-			        	</div>
-			        	<div class="clearfix"></div> -->
+				        <div class="d-flex align-items-center">
+					        <div class="d-flex align-items-center">
+					        	<div class="dashboard-swell-direction">
+					        		<div><i
+						        			class="fa fa-arrow-down"
+						        			v-bind:class="this.buoy.swell_direction.toLowerCase().trim()">
+						        		</i>
+						        	</div>
+					        	</div>
+					        	<div class="">
+							        <h3>{{this.buoy.wave_height }}ft &#64; {{this.buoy.dominant_period}}s</h3>
+							        <h3>{{this.buoy.angle}}&deg; {{ this.buoy.swell_direction }}</h3>
+					        	</div>
+					        </div>
+					    </div>
+			        	<div class="clearfix"></div>
+			        	<p class="card-text mt-1">On {{this.buoy.observation_time}}</p>
 			        </div>
 			        <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
 			      </div>
@@ -42,10 +46,26 @@
 			      <div class="card-body">
 			        <h5 class="card-title"><img src="../../../assets/images/icons/tide.svg" height="25" alt="Tide icon" /> Tide</h5>
 			        
-			        <tide-chart-component
-			        	v-bind:chartdata="this.chartData"
-			        	v-bind:chartoptions="this.chartOptions"
-			        />
+		        	<div class=""><p>{{this.$props.initialdata.date}}</p></div>
+
+			        <div class="">
+				        <tide-chart-component
+				        	v-bind:chartdata="this.chartData"
+				        	v-bind:chartoptions="this.chartOptions"
+				        />
+				    </div>
+
+				    <div class="mt-4">
+						<table class="table table-sm table-bordered">
+							<tbody>
+								<tr v-for="tide in tides">
+									<th scope="row">{{tide.type}}</th>
+									<td>{{tide.height}}ft</td>
+									<td>{{tide.converted_time}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 
 			      </div>
 			    </div>
@@ -68,10 +88,6 @@
 	import TideChart from './TideChart.vue';
 
 	export default {
-		created() {
-			// console.log(this.buoy);
-			// console.log(this.tides);
-		},
 		props: [
 			'initialdata',
 		],
@@ -91,7 +107,8 @@
 				},
 				chartOptions: {
 					responsive: true,
-					maintainAspectRatio: false,
+					maintainAspectRatio: true,
+					aspectRatio: 1,
 					legend: {
 						display: false
 					}
@@ -105,10 +122,10 @@
         	setChartData() {
         		const labels  = [];
         		const heights = [];
+        		const table   = [];
 	        	for (var value of this.tides) {
-	        		console.log(value);
 	        		labels.push(value.converted_time); 
-	        		heights.push(Math.round(value.height));
+	        		heights.push(value.height.toFixed(1));
 				}
 				this.chartData.labels = labels;
 				this.chartData.datasets = [
@@ -122,6 +139,10 @@
         	},
 
         },
+        mounted() {
+        	// console.log(this.buoy);
+        	console.log(this.tides);
+        },
         components: {
         	CompassComponent,
         }
@@ -129,6 +150,9 @@
 </script>
 
 <style lang="scss" scoped>
+.card {
+	margin-bottom: 15px;
+}
 .card-title {
 	img {
 		margin-right: 5px;

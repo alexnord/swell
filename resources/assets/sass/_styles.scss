@@ -1,3 +1,24 @@
+.dashboard-swell-direction {
+	font-size: 55px;
+	i {
+		&.nne { transform: rotate(22.5deg); }
+		&.ne { transform: rotate(45deg); }
+		&.ene { transform: rotate(67.5deg); }
+		&.e { transform: rotate(90deg); }
+		&.ese { transform: rotate(112.5deg); }
+		&.se { transform: rotate(135deg); }
+		&.sse { transform: rotate(157.5deg); }
+		&.s { transform: rotate(180deg); }
+		&.ssw { transform: rotate(202.5deg); }
+		&.sw { transform: rotate(-135deg); }
+		&.wsw { transform: rotate(-114.5deg); }
+		&.w { transform: rotate(-90deg); }
+		&.wnw { transform: rotate(-69.5deg); }
+		&.nw { transform: rotate(-45deg); }
+		&.nnw { transform: rotate(-24.5deg);}
+	}
+}
+
 .nav-item {
 	margin-top: 5px;
 
