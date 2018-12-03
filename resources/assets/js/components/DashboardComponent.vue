@@ -29,7 +29,7 @@
 					        	</div>
 				        	</div>
 				        	<div class="" style="font-size: 24px; position: relative; top: 8px;">
-						        <div style="margin-bottom: -8px;">{{this.buoy.wave_height }}ft &#64; {{this.buoy.dominant_period}}s</div>
+						        <div style="margin-bottom: -8px;">{{this.buoy.wave_height.toFixed(1) }}ft &#64; {{this.buoy.dominant_period}}s</div>
 						        <div>{{this.buoy.angle}}&deg; {{ this.buoy.swell_direction }}</div>
 				        	</div>
 					    </div>
