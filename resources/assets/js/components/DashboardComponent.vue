@@ -4,11 +4,12 @@
 			<b-col cols="12">
 				<div class="mb-4">
 					<h1>Dashboard</h1>
+					<h4><i class="fa fa-map-marker"></i> <span style="margin-left: 5px;">Santa Monica, CA</span></h4>
 				</div>
 			</b-col>
 		</b-row>
 		<b-row>
-			<b-col cols="12 "lg="4" md="4">
+			<b-col cols="12" md="6">
 				<div class="card">
 			      <div class="card-body">
 			        <!-- <h5 class="card-title">Buoy</h5> -->
@@ -19,37 +20,36 @@
 							v-bind:initialdata="this.compassData"
 						></compass-component> -->
 
-				        <div class="d-flex align-items-center">
-					        <div class="d-flex align-items-center">
-					        	<div class="dashboard-swell-direction">
-					        		<div><i
-						        			class="fa fa-arrow-down"
-						        			v-bind:class="this.buoy.swell_direction.toLowerCase().trim()">
-						        		</i>
-						        	</div>
+				        <div class="d-flex justify-content-center">
+				        	<div class="dashboard-swell-direction" style="margin-right: 20px;">
+				        		<div><i
+					        			class="fa fa-arrow-down"
+					        			v-bind:class="this.buoy.swell_direction.toLowerCase().trim()">
+					        		</i>
 					        	</div>
-					        	<div class="">
-							        <h3>{{this.buoy.wave_height }}ft &#64; {{this.buoy.dominant_period}}s</h3>
-							        <h3>{{this.buoy.angle}}&deg; {{ this.buoy.swell_direction }}</h3>
-					        	</div>
-					        </div>
+				        	</div>
+				        	<div class="" style="font-size: 24px; position: relative; top: 8px;">
+						        <div style="margin-bottom: -8px;">{{this.buoy.wave_height }}ft &#64; {{this.buoy.dominant_period}}s</div>
+						        <div>{{this.buoy.angle}}&deg; {{ this.buoy.swell_direction }}</div>
+				        	</div>
 					    </div>
 			        	<div class="clearfix"></div>
-			        	<p class="card-text mt-1">On {{this.buoy.observation_time}}</p>
+			        	<p class="card-text mt-1 text-center">On {{this.buoy.observation_time}}</p>
 			        </div>
-			        <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
+
 			      </div>
 			    </div>
 			</b-col>
-			<b-col cols="12 "lg="4" md="6">
+			<b-col cols="12" md="6">
 				<div class="card">
 			      <div class="card-body">
 			        <h5 class="card-title"><img src="../../../assets/images/icons/tide.svg" height="25" alt="Tide icon" /> Tide</h5>
 			        
 		        	<div class=""><p>{{this.$props.initialdata.date}}</p></div>
 
-			        <div class="">
+			        <div style="">
 				        <tide-chart-component
+				        	:width="200" :height="150"
 				        	v-bind:chartdata="this.chartData"
 				        	v-bind:chartoptions="this.chartOptions"
 				        />
@@ -67,14 +67,6 @@
 						</table>
 					</div>
 
-			      </div>
-			    </div>
-			</b-col>
-			<b-col cols="12 "lg="4" md="6">
-				<div class="card">
-			      <div class="card-body">
-			        <h5 class="card-title">Wind</h5>
-			        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
 			      </div>
 			    </div>
 			</b-col>
@@ -106,9 +98,9 @@
 			        datasets: [],
 				},
 				chartOptions: {
-					responsive: true,
-					maintainAspectRatio: true,
-					aspectRatio: 1,
+					// responsive: true,
+					maintainAspectRatio: false,
+					// aspectRatio: 2,
 					legend: {
 						display: false
 					}
