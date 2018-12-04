@@ -68,55 +68,38 @@
 
 			        <carousel
 			        	:perPage="1"
-			        	:paginationEnabled="false"
+			        	:paginationEnabled="true"
 			        >
-						<slide>
-						    <div class=""><p>{{this.$props.initialdata.date}}</p></div>
 
-					        <div style="">
+				        <slide
+				        	v-for="data in weekTideData"
+				        	v-bind:key="weekTideData.index"
+				        >
+				        	<div class=""><p>{{data.day}}</p></div>
+
+				        	<div style="">
 						        <tide-chart-component
 						        	:width="200" :height="150"
-						        	v-bind:chartdata="this.chartData"
-						        	v-bind:chartoptions="this.chartOptions"
+						        	v-bind:chartdata="data.chartdata"
+						        	v-bind:chartoptions="data.chartoptions"
 						        />
 						    </div>
 
 						    <div class="mt-4">
 								<table class="table table-sm table-bordered">
 									<tbody>
-										<tr v-for="tide in tides">
-											<th scope="row">{{tide.type}}</th>
-											<td>{{tide.height}}ft</td>
-											<td>{{tide.converted_time}}</td>
+										<th></th>
+										<th>Height</th>
+										<th>Time</th>
+										<tr v-for="items in data.tableData">
+											<th scope="row">{{items.type}}</th>
+											<td>{{items.height}}ft</td>
+											<td>{{items.time}}</td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
-						</slide>
-
-						<slide>
-						    <div class=""><p>{{this.$props.initialdata.date}}</p></div>
-
-					        <div style="">
-						        <tide-chart-component
-						        	:width="200" :height="150"
-						        	v-bind:chartdata="this.chartData"
-						        	v-bind:chartoptions="this.chartOptions"
-						        />
-						    </div>
-
-						    <div class="mt-4">
-								<table class="table table-sm table-bordered">
-									<tbody>
-										<tr v-for="tide in tides">
-											<th scope="row">{{tide.type}}</th>
-											<td>{{tide.height}}ft</td>
-											<td>{{tide.converted_time}}</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</slide>
+				        </slide>
 
 					</carousel>
 
@@ -142,10 +125,7 @@
 	            buoy: this.$props.initialdata.buoy,
 	            tides: this.$props.initialdata.tides,
 	            weather: this.$props.initialdata.weather,
-				chartData: {
-			        labels: [],
-			        datasets: [],
-				},
+	            weekTideData: [],
 				chartOptions: {
 					maintainAspectRatio: false,
 					legend: {
@@ -161,22 +141,56 @@
         },
         methods: {
         	setChartData() {
-        		const labels  = [];
-        		const heights = [];
-        		const table   = [];
-	        	for (var value of this.tides) {
-	        		labels.push(value.converted_time); 
-	        		heights.push(value.height.toFixed(1));
-				}
-				this.chartData.labels = labels;
-				this.chartData.datasets = [
-					{
-						label: 'Tide',
-						backgroundColor: 'rgba(24, 125, 160, .3)',
-						borderColor: 'rgba(24, 125, 160, 1)',
-						data: heights,
+
+        		const tideData = [];
+        		for (var dayData of this.tides) {
+        			
+        			let day = dayData.day;
+
+    				let labels  = [];
+	        		let heights = [];
+	        		let tableData = [];
+
+        			for (var tide of dayData.data) {
+		        		labels.push(tide.converted_time); 
+		        		heights.push(tide.height.toFixed(1));
+		        		tableData.push({
+		        			time: tide.converted_time,
+		        			type: tide.type,
+		        			height: tide.height.toFixed(1),
+		        		});
 					}
-				]
+
+					let chartdata = {
+						labels: labels,
+						datasets: [
+							{
+								label: 'Tide',
+								backgroundColor: 'rgba(24, 125, 160, .3)',
+								borderColor: 'rgba(24, 125, 160, 1)',
+								data: heights,
+							}
+						]
+					};
+
+					let chartoptions = {
+						maintainAspectRatio: false,
+						legend: {
+							display: false
+						}
+					};
+
+					let data = {
+						day,
+						chartdata,
+						chartoptions,
+						tableData,
+					}
+
+					tideData.push(data);
+				}
+
+				this.weekTideData = tideData;
         	},
         	onSlideStart (slide) {
 				this.sliding = true

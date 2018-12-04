@@ -11,17 +11,21 @@ use Carbon\Carbon;
 use App\Models\BuoyData;
 use App\Models\TideData;
 use App\Models\WeatherData;
+use App\Services\TideService;
 
 class HomeController extends Controller
 {
+    private $tideService;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(TideService $tideService)
     {
         $this->middleware('auth');
+        $this->tideService = $tideService;
     }
 
     /**
@@ -31,29 +35,22 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $userTz = Auth::user()->timezone;
-
-        $todayYearForUser  = Carbon::now($userTz)->format('Y');
-        $todayMonthForUser = Carbon::now($userTz)->format('m');
-        $todayDayForUser   = Carbon::now($userTz)->format('d');
-
-        $midnightTodayUser = Carbon::create($todayYearForUser, $todayMonthForUser, $todayDayForUser, 0, 0, 0, 'America/Los_Angeles');
-        $midnightTodayUser2 = Carbon::create($todayYearForUser, $todayMonthForUser, $todayDayForUser, 0, 0, 0, 'America/Los_Angeles');
-
-        $midinightTomorrowUser = $midnightTodayUser->addHours(24);
-        
-        $utcToday    = $midnightTodayUser2->setTimezone('UTC');
-        $utcTomorrow = $midinightTomorrowUser->setTimezone('UTC');
+        $tz = Auth::user()->timezone;
+        $stationId = 1;
 
         $buoy    = $this->getBuoyData();
-        $weather = $this->getWeatherData($userTz);
-        $tides   = $this->getTides($utcToday, $utcTomorrow, $userTz);
+        $weather = $this->getWeatherData($tz);
+        // Get the high and lows for a given week
+        $days = [];
+        for ($i=0; $i < 7 ; $i++) { 
+            $days[] = Carbon::now($tz)->startOfDay()->addDays($i);
+        }
+        $tides = $this->tideService->getTidesForWeek($days, $tz, $stationId);
 
         $data = [
             'buoy' => $buoy,
             'weather' => $weather,
             'tides' => $tides,
-            'date' => $midnightTodayUser->toFormattedDateString(),
         ];
 
         return view('home')->with([
@@ -72,7 +69,7 @@ class HomeController extends Controller
         return $buoy->toArray();
     }
 
-    private function getWeatherData($userTz)
+    private function getWeatherData($tz)
     {
         $data = WeatherData::whereHas('location', function ($query) {
                 $query->where('id', '=', 7);
@@ -81,26 +78,5 @@ class HomeController extends Controller
             ->first();
 
         return $data->toArray();
-    }
-
-    private function getTides($utcToday, $utcTomorrow, $userTz)
-    {
-        $tides = TideData::whereHas('station', function ($query) {
-                $query->where('id', '=', 1);
-            })
-            ->where('timestamp', '>=', $utcToday)
-            ->where('timestamp', '<=', $utcTomorrow)
-            ->orderBy('timestamp', 'asc')
-            ->limit(4)
-            ->get();
-
-        $tidesArray = [];
-        foreach ($tides as $tide) {
-            $ta = $tide->toArray();
-            $ta['converted_time'] = (new Carbon($tide->timestamp))->setTimezone($userTz)->format('g:i A');
-            $tidesArray[] = $ta;
-        }
-
-        return $tidesArray;
     }
 }
