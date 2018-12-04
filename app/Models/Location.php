@@ -26,6 +26,7 @@ class Location extends Model
         'slug',
         'lat',
         'lng',
+        'timezone',
         'noaa_station_id',
         'buoy_id'
     ];

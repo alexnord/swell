@@ -64,6 +64,5 @@ class BuoyData extends Model
         } else {
             return '';
         }
-        // return $this->attributes['buoy_name'] = $this->buoy->title;
     }
 }

@@ -36,7 +36,7 @@ class LocationController extends Controller
     {
         $location = $this->locationService->getLocationBySlug($location);
 
-        dd($location);
+        dd($location->timezone);
 
         return view('location')->with([
             'data' => json_encode([]),

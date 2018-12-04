@@ -59,6 +59,7 @@ class LocationCrudController extends CrudController
         $this->crud->addField(['name' => 'lat', 'type' => 'number', 'label' => 'Latitude', 'attributes' => ["step" => "any"]]);
         $this->crud->addField(['name' => 'lng', 'type' => 'number', 'label' => 'Longitude', 'attributes' 
             => ["step" => "any"]]);
+        $this->crud->addField(['name' => 'timezone', 'type' => 'text', 'label' => 'Timezone']);
         $this->crud->addField([  
             'label' => 'NOAA Station',
             'type' => 'select',

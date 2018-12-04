@@ -31,6 +31,7 @@ class LocationRequest extends FormRequest
             'slug' => 'required|string',
             'lat' => 'required',
             'lng' => 'required',
+            'timezone' => 'required|string',
             'noaa_station_id' => 'required|integer',
             'buoy_id' => 'required|integer',
         ];
