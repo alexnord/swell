@@ -53,11 +53,19 @@ class GetPredictions extends Command
             $lng = $station->lng;
             
             try {
-                $url = config('apis.stormglass.url') . '?lat=' . $lat . '&lng=' . $lng;
+                $url = config('apis.stormglass.url');
+                $params = [
+                    'lat' => $lat,
+                    'lng' => $lng,
+                    'params' => 'swellDirection,swellHeight,swellPeriod,waterTemperature,waveDirection,waveHeight,wavePeriod,windDirection,windSpeed',
+                    'source' => 'noaa',
+                ];
                 $headers = ['Authentication-Token' => config('apis.stormglass.apiKey')];
+
                 $client = new \GuzzleHttp\Client();
                 $res = $client->request('GET', $url, [
-                    'headers' => $headers
+                    'headers' => $headers,
+                    'query' => $params
                 ]);
             } catch(\Exception $e) {
                 $this->error($e->getMessage());
@@ -65,32 +73,31 @@ class GetPredictions extends Command
             } 
 
             $contents = json_decode($res->getBody());
-            // $contents = json_decode(Storage::get('public/rincon.json'));
             
             foreach ($contents->hours as $item) {
 
                 $now = new Carbon();
-                $tomorrow = $now->addDay();
+                $sevenDays = $now->addDays(7);
 
                 $itemTime = Carbon::parse($item->time);
 
-                if ($itemTime > $tomorrow) {
+                if ($itemTime > $sevenDays) {
                     break;
                 }
 
-                $wavePeriod = isset($item->wavePeriod[1]->value) ? $item->wavePeriod[1]->value : null;
-                $windDirection = isset($item->windDirection[1]->value) ? $item->windDirection[1]->value : null;
+                $wavePeriod = isset($item->wavePeriod[0]->value) ? $item->wavePeriod[0]->value : null;
+                $windDirection = isset($item->windDirection[0]->value) ? $item->windDirection[0]->value : null;
 
-                $windSpeed = isset($item->windSpeed[1]->value) ? $item->windSpeed[1]->value * 2.23694 : null;
-                $swellHeight = $item->swellHeight[1]->value * 3.28084;
-                $waveHeight = $item->waveHeight[1]->value * 3.28084;
+                $windSpeed = isset($item->windSpeed[0]->value) ? $item->windSpeed[0]->value * 2.23694 : null;
+                $swellHeight = $item->swellHeight[0]->value * 3.28084;
+                $waveHeight = $item->waveHeight[0]->value * 3.28084;
 
                 try {
                     if ($record = NoaaPrediction::where('timestamp', $itemTime)->where('noaa_station_id', $station->id)->first()) {
-                        $record->swell_direction = $item->swellDirection[1]->value;
+                        $record->swell_direction = $item->swellDirection[0]->value;
                         $record->swell_height = $swellHeight;
-                        $record->swell_period = $item->swellPeriod[1]->value;
-                        $record->wave_direction = $item->waveDirection[1]->value;
+                        $record->swell_period = $item->swellPeriod[0]->value;
+                        $record->wave_direction = $item->waveDirection[0]->value;
                         $record->wave_height = $waveHeight;
                         $record->wave_period = $wavePeriod;
                         $record->wind_direction = $windDirection;
@@ -100,10 +107,10 @@ class GetPredictions extends Command
                         $record = NoaaPrediction::create([
                             'noaa_station_id' => $station->id,
                             'timestamp' => $itemTime,
-                            'swell_direction' => $item->swellDirection[1]->value,
+                            'swell_direction' => $item->swellDirection[0]->value,
                             'swell_height' => $swellHeight,
-                            'swell_period' => $item->swellPeriod[1]->value,
-                            'wave_direction' => $item->waveDirection[1]->value,
+                            'swell_period' => $item->swellPeriod[0]->value,
+                            'wave_direction' => $item->waveDirection[0]->value,
                             'wave_height' => $waveHeight,
                             'wave_period' => $wavePeriod,
                             'wind_direction' => $windDirection,

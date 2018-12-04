@@ -30,7 +30,7 @@ class TideService
         for ($i=0; $i < 7 ; $i++) {
             $hourlyForDay = $this->getHourlyBreakdown($dayMidnight->copy()->addDays($i), $tz, $stationId);
             $data[] = [
-                'date' => $dayMidnight->copy()->toDayDateTimeString(),
+                'date' => $dayMidnight->copy()->addDays($i)->toDayDateTimeString(),
                 'data' => $hourlyForDay
             ];
         }
@@ -75,8 +75,8 @@ class TideService
                 // 'carbon_date' => $hour,
                 // 'timestamp_utc' => $hour->copy()->toDayDateTimeString(),
                 // 'timestamp_local' => $hour->copy()->setTimezone($tz)->toDayDateTimeString(),
-                'time_utc' => $hour->copy()->format('h:i:s A'),
-                'time_local' => $hour->copy()->setTimezone($tz)->format('h:i:s A'),
+                'time_utc' => $hour->copy()->format('g:i A'),
+                'time_local' => $hour->copy()->setTimezone($tz)->format('g:i A'),
                 'height' => round($height, 2),
             ];
         }

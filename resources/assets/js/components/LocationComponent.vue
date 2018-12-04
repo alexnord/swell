@@ -9,38 +9,26 @@
 			</b-col>
 		</b-row>
 		<b-row>
-			<b-col cols="12" md="6">
-				<div class="card">
-			      <div class="card-body">
-		        	<h5 class="card-title">Conditions</h5>
-
-			      </div>
-			    </div>
-			</b-col>
-
-			<b-col cols="12" md="6">
+			<b-col cols="12">
 				<div class="card">
 			      <div class="card-body">
 			        <h5 class="card-title">Tides</h5>
-				        <!-- <div>
-					        <tide-chart-component
-					        	:width="200" :height="150"
-					        	v-bind:chartdata="this.chartData"
-					        	v-bind:chartoptions="this.chartOptions"
-					        />
-					    </div>
-
 					    <div class="mt-4">
 							<table class="table table-sm table-bordered">
 								<tbody>
-									<tr v-for="tide in tides">
-										<th scope="row">{{tide.type}}</th>
-										<td>{{tide.height}}ft</td>
-										<td>{{tide.converted_time}}</td>
+									<tr>
+										<th></th>
+										<th>Tide</th>
+										<th>Wind</th>
+									</tr>
+									<tr v-for="tide in tides[0].data">
+										<th scope="row">{{tide.time_local}}</th>
+										<td>{{tide.height}}ft {{tide.direction}}</td>
+										<td>4mph NNE</td>
 									</tr>
 								</tbody>
 							</table>
-						</div> -->
+						</div>
 			      </div>
 			    </div>
 			</b-col>
@@ -58,15 +46,15 @@
 		],
         data () {
     		return {
-	            buoy: this.$props.initialdata.buoy,
+	            // buoy: this.$props.initialdata.buoy,
 	            tides: this.$props.initialdata.tides,
-	            weather: this.$props.initialdata.weather,
+	            // weather: this.$props.initialdata.weather,
             }
         },
         created () {},
         methods: {},
         mounted() {
-        	console.log(this.$props.initialdata);
+        	console.log(this.$props.initialdata.tides);
         },
         components: {}
 	}

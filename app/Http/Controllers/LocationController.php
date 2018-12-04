@@ -43,20 +43,13 @@ class LocationController extends Controller
         $todayMidnight = $now->startOfDay();
 
         $hourlyBreakdownForWeek = $this->tideService->getHourlyBreakdownForWeek($todayMidnight, $tz, $stationId);
-        dd($hourlyBreakdownForWeek);
 
-        // $hourlyBreakdown = $this->tideService->getHourlyBreakdown($todayMidnight, $tz, $stationId);
-
-        // // Get the high and lows for a given week
-        // $days = [];
-        // for ($i=0; $i < 7 ; $i++) { 
-        //     $days[] = Carbon::now($tz)->startOfDay()->addDays($i);
-        // }
-        // $weeklyTides = $this->tideService->getTidesForWeek($days, $tz, $stationId);
-
+        $data = [
+            'tides' => $hourlyBreakdownForWeek
+        ];
 
         return view('location')->with([
-            'data' => json_encode([]),
+            'data' => json_encode($data),
         ]);
     }
 }
