@@ -11,17 +11,20 @@ use App\Models\BuoyData;
 use App\Models\TideData;
 use App\Models\WeatherData;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use App\Services\TideService;
 
 class SwellController extends Controller
 {
+    private $tideService;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(TideService $tideService)
     {
         $this->middleware('auth');
+        $this->tideService = $tideService;
     }
 
     /**
@@ -69,17 +72,17 @@ class SwellController extends Controller
         } 
 
         // Get buoy data
-        try {
+        // try {
             $buoys = $this->getBuoyData($formattedStartTime, $formattedEndTime, $location->buoy_id);
-        } catch(\Exception $e) {
-            $buoys = [];
-        } 
+        // } catch(\Exception $e) {
+        //     $buoys = [];
+        // } 
 
-        try {
+        // try {
             $wind = $this->getWind($formattedStartTime, $formattedEndTime, $location->id);
-        } catch(\Exception $e) {
-            $wind = [];
-        } 
+        // } catch(\Exception $e) {
+        //     $wind = [];
+        // } 
 
         return response()->json([
             'success' => true,
@@ -114,28 +117,21 @@ class SwellController extends Controller
                             ->orderBy('timestamp', 'asc')
                             ->first()->toArray();
 
-        // Calculate start tide
-        $startDiff = Carbon::parse($tideBeforeStart['timestamp'])->diffInMinutes(Carbon::parse($tideAfterStart['timestamp']));
-        $startChange = abs($tideBeforeStart['height'] - $tideAfterStart['height']);
-        $startFtPerMin = $startChange / $startDiff;
-        $startTideStartTimeDiff = $formattedStartTime->diffInMinutes(Carbon::parse($tideBeforeStart['timestamp']));
-        $tidediffStart = $startTideStartTimeDiff * $startFtPerMin;
-        
-        $tideAtStart = ($tideBeforeStart > $tideAfterStart) ? 
-            $tideBeforeStart['height'] - $tidediffStart : 
-            $tideBeforeStart['height'] + $tidediffStart;
+        $tideAtStart = $this->tideService->getTideHeight(
+            $tideBeforeStart['timestamp'],
+            $tideBeforeStart['height'],
+            $tideAfterStart['timestamp'],
+            $tideAfterStart['height'],
+            $formattedStartTime
+        );
 
-        // Calculate end tide
-        $endDiff = Carbon::parse($tideBeforeEnd['timestamp'])->diffInMinutes(Carbon::parse($tideAfterEnd['timestamp']));
-        $endChange = abs($tideBeforeEnd['height'] - $tideAfterEnd['height']);
-        $endFtPerMin = $endChange / $endDiff;
-
-        $endTideEndTimeDiff = $formattedEndTime->diffInMinutes(Carbon::parse($tideBeforeEnd['timestamp']));
-        $tidediffEnd = $endTideEndTimeDiff * $endFtPerMin;
-
-        $tideAtEnd = ($tideBeforeEnd > $tideAfterEnd) ? 
-            $tideBeforeEnd['height'] - $tidediffEnd : 
-            $tideBeforeEnd['height'] + $tidediffEnd;
+        $tideAtEnd = $this->tideService->getTideHeight(
+            $tideBeforeEnd['timestamp'],
+            $tideBeforeEnd['height'],
+            $tideAfterEnd['timestamp'],
+            $tideAfterEnd['height'],
+            $formattedEndTime
+        );
 
         $dir = ($tideAtStart > $tideAtEnd) ? 
             'Dropping' : 'Rising';

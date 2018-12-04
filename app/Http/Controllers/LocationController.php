@@ -34,7 +34,9 @@ class LocationController extends Controller
      */
     public function index($location)
     {
-        $this->locationService->getLocationBySlug('hey');
+        $location = $this->locationService->getLocationBySlug($location);
+
+        dd($location);
 
         return view('location')->with([
             'data' => json_encode([]),

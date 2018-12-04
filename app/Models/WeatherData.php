@@ -52,6 +52,10 @@ class WeatherData extends Model
 
     public function getLocationNameAttribute()
     {
-        return $this->attributes['location_name'] = $this->location->title;
+        if (isset($this->location->title)) {
+            return $this->attributes['location_name'] = $this->location->title;
+        } else {
+            return '';
+        }
     }
 }

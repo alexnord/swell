@@ -59,6 +59,11 @@ class BuoyData extends Model
 
     public function getBuoyNameAttribute()
     {
-        return $this->attributes['buoy_name'] = $this->buoy->title;
+        if (isset($this->buoy->title)) {
+            return $this->attributes['buoy_name'] = $this->buoy->title;
+        } else {
+            return '';
+        }
+        // return $this->attributes['buoy_name'] = $this->buoy->title;
     }
 }

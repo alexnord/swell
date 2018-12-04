@@ -25,20 +25,17 @@ class LocationService
     }
 
     /**
-     * Show the location view.
+     * Get a location by slug.
      *
      * @return \Illuminate\Http\Response
      */
     public function getLocationBySlug($slug)
     {
-        if (!$location = Location::where('slug', '=', $slug)->first()) {
+        if (!$location = Location::where('slug', $slug)
+                ->with('buoy')->with('station')->first()) {
             throw new \Illuminate\Database\Eloquent\ModelNotFoundException;
         }
 
-        
-
-        return view('location')->with([
-            'data' => json_encode([]),
-        ]);
+        return $location;
     }
 }
