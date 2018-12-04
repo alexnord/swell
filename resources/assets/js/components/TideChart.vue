@@ -1,4 +1,3 @@
-// TideChart.js
 <script>
 import { Line } from 'vue-chartjs'
 
@@ -17,7 +16,6 @@ export default {
     }
   },
   mounted () {
-    // Overwriting base render method with actual data.
     this.renderChart(this.$props.chartdata, this.$props.chartoptions);
   }
 }

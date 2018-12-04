@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Helpers\Helper;
+use Carbon\Carbon;
 
 class WeatherData extends Model
 {
@@ -24,4 +26,32 @@ class WeatherData extends Model
 	    'angle',
 	    'speed',
     ];
+
+    protected $appends = [
+        'wind_direction',
+        'observation_time',
+        'location_name'
+    ];
+
+    public function location()
+    {
+        return $this->belongsTo('App\Models\Location', 'location_id');
+    }
+
+    public function getWindDirectionAttribute()
+    {
+        return $this->attributes['wind_direction'] = Helper::getDirection($this->angle);
+    }
+
+    public function getObservationTimeAttribute()
+    {
+        $cb = new Carbon($this->timestamp);
+        $cb->tz = 'America/Los_Angeles';
+        return $this->attributes['observation_time'] =$cb->toDayDateTimeString();
+    }
+
+    public function getLocationNameAttribute()
+    {
+        return $this->attributes['location_name'] = $this->location->title;
+    }
 }

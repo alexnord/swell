@@ -37,6 +37,7 @@ class BuoyData extends Model
     protected $appends = [
         'swell_direction',
         'observation_time',
+        'buoy_name'
     ];
 
     public function buoy()
@@ -53,6 +54,11 @@ class BuoyData extends Model
     {
         $cb = new Carbon($this->timestamp);
         $cb->tz = 'America/Los_Angeles';
-        return $this->attributes['obsevation_time'] =$cb->toDayDateTimeString();
+        return $this->attributes['observation_time'] =$cb->toDayDateTimeString();
+    }
+
+    public function getBuoyNameAttribute()
+    {
+        return $this->attributes['buoy_name'] = $this->buoy->title;
     }
 }

@@ -6,7 +6,7 @@
 		<div class="east">E</div>
 		<div class="south">S</div>
 		<div class="direction">
-			<p>{{ this.data.angle }}&deg; {{ this.data.direction }}<span>{{ this.data.height }}ft @ {{ this.data.period }}s</span></p>
+			<p>{{ this.data.angle }}&deg; {{ this.data.direction }}<span>{{ this.data.height.toFixed(1) }}ft @ {{ this.data.period }}s</span></p>
 		</div>
 		<div class="arrow"
 			v-bind:class="this.data.direction.toLowerCase().trim()">
@@ -18,7 +18,7 @@
 <script>
 	export default {
 		created() {
-			console.log(this.$props.initialdata);
+			// console.log(this.$props.initialdata);
 		},
 		props: [
 			'initialdata',

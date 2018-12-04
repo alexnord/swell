@@ -10,6 +10,7 @@ use App\Helpers\Helper;
 use Carbon\Carbon;
 use App\Models\BuoyData;
 use App\Models\TideData;
+use App\Models\WeatherData;
 
 class HomeController extends Controller
 {
@@ -44,11 +45,13 @@ class HomeController extends Controller
         $utcToday    = $midnightTodayUser2->setTimezone('UTC');
         $utcTomorrow = $midinightTomorrowUser->setTimezone('UTC');
 
-        $buoy  = $this->getBuoyData();
-        $tides = $this->getTIdes($utcToday, $utcTomorrow, $userTz);
+        $buoy    = $this->getBuoyData();
+        $weather = $this->getWeatherData($userTz);
+        $tides   = $this->getTIdes($utcToday, $utcTomorrow, $userTz);
 
         $data = [
             'buoy' => $buoy,
+            'weather' => $weather,
             'tides' => $tides,
             'date' => $midnightTodayUser->toFormattedDateString(),
         ];
@@ -67,6 +70,17 @@ class HomeController extends Controller
             ->first();
 
         return $buoy->toArray();
+    }
+
+    private function getWeatherData($userTz)
+    {
+        $data = WeatherData::whereHas('location', function ($query) {
+                $query->where('id', '=', 7);
+            })
+            ->orderBy('timestamp', 'desc')
+            ->first();
+
+        return $data->toArray();
     }
 
     private function getTides($utcToday, $utcTomorrow, $userTz)

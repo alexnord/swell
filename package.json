@@ -29,6 +29,7 @@
         "chart.js": "^2.7.3",
         "font-awesome": "^4.7.0",
         "moment": "^2.22.1",
+        "vue-carousel": "^0.16.0",
         "vue-chartjs": "^3.4.0",
         "vue-search-select": "^2.6.1",
         "vue-tables-2": "^1.4.50"
