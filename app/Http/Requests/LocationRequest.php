@@ -28,6 +28,7 @@ class LocationRequest extends FormRequest
         return [
             'active' => 'required|boolean',
             'title' => 'required|string',
+            'slug' => 'required|string',
             'lat' => 'required',
             'lng' => 'required',
             'noaa_station_id' => 'required|integer',

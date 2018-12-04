@@ -12,30 +12,28 @@
 			<b-col cols="12" md="6">
 				<div class="card">
 			      <div class="card-body">
-			        <div>
-			        	<h5 class="card-title"> Conditions</h5>
+		        	<h5 class="card-title">Conditions</h5>
 
-				        <div class="d-flex justify-content-center">
-				        	<div
-					        	style="top: 18px;position: relative;margin-right: 50px;"
-				        	>
-				        		<img src="../../../assets/images/icons/buoy.svg" height="50" alt="Buoy icon" />
-				        	</div>
+			        <div class="d-flex justify-content-center">
+			        	<div
+				        	style="top: 18px;position: relative;margin-right: 50px;"
+			        	>
+			        		<img src="../../../assets/images/icons/buoy.svg" height="50" alt="Buoy icon" />
+			        	</div>
 
-				        	<div class="dashboard-swell-direction" style="margin-right: 20px;">
-				        		<div><i
-					        			class="fa fa-arrow-down"
-					        			v-bind:class="this.buoy.swell_direction.toLowerCase().trim()">
-					        		</i>
-					        	</div>
+			        	<div class="dashboard-swell-direction" style="margin-right: 20px;">
+			        		<div><i
+				        			class="fa fa-arrow-down"
+				        			v-bind:class="this.buoy.swell_direction.toLowerCase().trim()">
+				        		</i>
 				        	</div>
-				        	<div class="" style="font-size: 24px; position: relative; top: 8px;">
-						        <div style="margin-bottom: -8px;">{{this.buoy.wave_height.toFixed(1) }}ft &#64; {{this.buoy.dominant_period}}s</div>
-						        <div>{{this.buoy.angle}}&deg; {{ this.buoy.swell_direction }}</div>
-				        	</div>
-					    </div>
-			        	<p class="card-text mt-1 text-center">{{this.buoy.buoy_name}} Buoy - {{this.buoy.observation_time}}</p>
-			        </div>
+			        	</div>
+			        	<div class="" style="font-size: 24px; position: relative; top: 8px;">
+					        <div style="margin-bottom: -8px;">{{this.buoy.wave_height.toFixed(1) }}ft &#64; {{this.buoy.dominant_period}}s</div>
+					        <div>{{this.buoy.angle}}&deg; {{ this.buoy.swell_direction }}</div>
+			        	</div>
+				    </div>
+		        	<p class="card-text mt-1 text-center">{{this.buoy.buoy_name}} Buoy - {{this.buoy.observation_time}}</p>
 
 			        <div class="d-flex justify-content-center">
 			        		<div
@@ -66,7 +64,7 @@
 			<b-col cols="12" md="6">
 				<div class="card">
 			      <div class="card-body">
-			        <h5 class="card-title"><img src="../../../assets/images/icons/tide.svg" height="0" alt="Tide icon" /> Tides</h5>
+			        <h5 class="card-title">Tides</h5>
 
 			        <carousel
 			        	:perPage="1"
@@ -144,12 +142,6 @@
 	            buoy: this.$props.initialdata.buoy,
 	            tides: this.$props.initialdata.tides,
 	            weather: this.$props.initialdata.weather,
-	            compassData: {
-					height: this.$props.initialdata.buoy.wave_height,
-					period: this.$props.initialdata.buoy.dominant_period,
-					angle: this.$props.initialdata.buoy.angle,
-					direction: this.$props.initialdata.buoy.swell_direction,
-				},
 				chartData: {
 			        labels: [],
 			        datasets: [],
@@ -195,7 +187,8 @@
         },
         mounted() {
         	// console.log(this.buoy);
-        	console.log(this.weather);
+        	// console.log(this.tides);
+        	// console.log(this.weather);
         },
         components: {
 			Carousel,
@@ -207,15 +200,5 @@
 <style lang="scss" scoped>
 .card {
 	margin-bottom: 15px;
-}
-.card-title {
-	img {
-		margin-right: 5px;
-	}
-}
-.details {
-	position: absolute;
-	bottom: -10px;
-	right: 10px;
 }
 </style>

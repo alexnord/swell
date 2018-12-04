@@ -25,6 +25,7 @@ Vue.component('show-report-component', require('./components/ShowReportComponent
 Vue.component('dashboard-component', require('./components/DashboardComponent.vue'));
 Vue.component('compass-component', require('./components/CompassComponent.vue'));
 Vue.component('tide-chart-component', require('./components/TideChart.vue'));
+Vue.component('location-component', require('./components/LocationComponent.vue'));
 
 const app = new Vue({
     el: '#app'

@@ -1,3 +1,18 @@
+.dropdown-toggle::after {
+	position: relative;
+    top: 1px;
+}
+
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+}
+
 .dashboard-swell-direction {
 	font-size: 55px;
 	i {

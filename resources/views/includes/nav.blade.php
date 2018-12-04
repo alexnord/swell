@@ -13,11 +13,24 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/"><i class="fa fa-tachometer"></i> <span>Dashboard</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/create"><i class="fa fa-plus"></i> <span>Create</span></a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-map"></i> <span>Locations</span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/locations/ventura-point">Ventura Point</a>
+                        <a class="dropdown-item" href="/locations/point-dume">Point Dume</a>
+                        <a class="dropdown-item" href="/locations/el-porto">El Porto</a>
+                    </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/reports"><i class="fa fa-tint"></i> <span>Reports</span></a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-tint"></i> <span>Reports</span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/create">Create</a>
+                        <a class="dropdown-item" href="/reports">List</a>
+                    </div>
                 </li>
             </ul>
 

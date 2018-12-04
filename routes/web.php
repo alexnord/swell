@@ -16,6 +16,8 @@ Route::get('/create', 'ReportController@create')->name('create');
 Route::get('/reports', 'ReportController@all')->name('all');
 Route::get('/report/{id}', 'ReportController@show')->name('show');
 
+Route::get('locations/{location}', 'LocationController@index');
+
 Auth::routes();
 
 Route::prefix('api')->group(function () {

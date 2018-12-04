@@ -55,6 +55,7 @@ class LocationCrudController extends CrudController
         // Fields
         $this->crud->addField(['name' => 'active', 'type' => 'checkbox', 'label' => 'Active']);
         $this->crud->addField(['name' => 'title', 'type' => 'text', 'label' => 'Name']);
+        $this->crud->addField(['name' => 'slug', 'type' => 'text', 'label' => 'Slug']);
         $this->crud->addField(['name' => 'lat', 'type' => 'number', 'label' => 'Latitude', 'attributes' => ["step" => "any"]]);
         $this->crud->addField(['name' => 'lng', 'type' => 'number', 'label' => 'Longitude', 'attributes' 
             => ["step" => "any"]]);

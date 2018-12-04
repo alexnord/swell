@@ -13,7 +13,8 @@
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "5.6.*",
         "laravel/scout": "^4.0",
-        "laravel/tinker": "^1.0"
+        "laravel/tinker": "^1.0",
+        "spatie/laravel-sluggable": "^2.1"
     },
     "require-dev": {
         "backpack/generators": "^1.2",
