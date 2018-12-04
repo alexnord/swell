@@ -47,7 +47,7 @@ class HomeController extends Controller
 
         $buoy    = $this->getBuoyData();
         $weather = $this->getWeatherData($userTz);
-        $tides   = $this->getTIdes($utcToday, $utcTomorrow, $userTz);
+        $tides   = $this->getTides($utcToday, $utcTomorrow, $userTz);
 
         $data = [
             'buoy' => $buoy,

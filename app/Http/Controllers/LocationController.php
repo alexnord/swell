@@ -2,28 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use Validator;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use App\Helpers\Helper;
 use Carbon\Carbon;
-use App\Models\BuoyData;
-use App\Models\TideData;
-use App\Models\WeatherData;
 use App\Services\LocationService;
+use App\Services\TideService;
 
 class LocationController extends Controller
 {
     private $locationService;
+    private $tideService;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(LocationService $locationService)
+    public function __construct(
+        LocationService $locationService,
+        TideService $tideService
+    )
     {
         $this->locationService = $locationService;
+        $this->tideService = $tideService;
         $this->middleware('auth');
     }
 
@@ -35,8 +36,20 @@ class LocationController extends Controller
     public function index($location)
     {
         $location = $this->locationService->getLocationBySlug($location);
+        $tz = $location->timezone;
+        $stationId = $location->station->id;
 
-        dd($location->timezone);
+        $now = Carbon::now($tz);
+        $todayMidnight = $now->startOfDay();
+
+        $days = [];
+        for ($i=0; $i < 7 ; $i++) { 
+            $days[] = Carbon::now($tz)->startOfDay()->addDays($i);
+        }
+
+        $weeklyTides = $this->tideService->getTidesForWeek($days, $tz, $stationId);
+
+        dd($weeklyTides);
 
         return view('location')->with([
             'data' => json_encode([]),
