@@ -147,7 +147,7 @@ class Report extends Model
 
     public function location()
     {
-        return $this->belongsTo('App\Location');
+        return $this->belongsTo('App\Models\Location');
     }
 
     public function conditions()

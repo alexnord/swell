@@ -18,13 +18,15 @@
 								<tbody>
 									<tr>
 										<th></th>
+										<th>Swell</th>
 										<th>Tide</th>
 										<th>Wind</th>
 									</tr>
-									<tr v-for="tide in tides[0].data">
-										<th scope="row">{{tide.time_local}}</th>
-										<td>{{tide.height}}ft {{tide.direction}}</td>
-										<td>4mph NNE</td>
+									<tr v-for="datum in data[0].data">
+										<th scope="row">{{datum.time_local}}</th>
+										<td>{{datum.swell.swell_height}}ft &#64; {{datum.swell.swell_period.toFixed(0)}}s - {{datum.swell.swell_direction.toFixed(0)}}&deg; {{datum.swell.angle}}</td>
+										<td>{{datum.tide.height}}ft {{datum.tide.direction}}</td>
+										<td>{{datum.wind.wind_speed.toFixed(0)}}mph {{datum.wind.angle}}</td>
 									</tr>
 								</tbody>
 							</table>
@@ -46,15 +48,13 @@
 		],
         data () {
     		return {
-	            // buoy: this.$props.initialdata.buoy,
-	            tides: this.$props.initialdata.tides,
-	            // weather: this.$props.initialdata.weather,
+	            data: this.$props.initialdata,
             }
         },
         created () {},
         methods: {},
         mounted() {
-        	console.log(this.$props.initialdata.tides);
+        	// console.log(this.$props.initialdata);
         },
         components: {}
 	}

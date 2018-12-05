@@ -39,6 +39,44 @@ class TideService
     }
 
     /**
+     * Get the height for a tide at a given hour.
+     *
+     * @param Carbon $hour
+     * @param string $tz
+     * @param string $stationId
+     * @return array
+     */
+    public function getHeightAtHour(Carbon $hour, $tz, $stationId) : array
+    {        
+        $tideBeforeStart = TideData::select('height', 'timestamp')
+            ->where('timestamp', '<=', $hour)
+            ->where('noaa_station_id', $stationId)
+            ->orderBy('timestamp', 'desc')
+            ->first()->toArray();
+        $tideAfterStart = TideData::select('height', 'timestamp')
+            ->where('timestamp', '>=', $hour)
+            ->where('noaa_station_id', $stationId)
+            ->orderBy('timestamp', 'asc')
+            ->first()->toArray();
+
+        $height = $this->getTideHeight(
+            $tideBeforeStart['timestamp'],
+            $tideBeforeStart['height'],
+            $tideAfterStart['timestamp'],
+            $tideAfterStart['height'],
+            $hour
+        );
+
+        $data = [
+            'time_utc' => $hour->copy()->format('g:i A'),
+            'time_local' => $hour->copy()->setTimezone($tz)->format('g:i A'),
+            'height' => round($height, 2),
+        ];
+
+        return $data;
+    }
+
+    /**
      * Get the hourly breakdown of tide data for a given day.
      *
      * @param Carbon $dayMidnight

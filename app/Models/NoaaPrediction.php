@@ -30,4 +30,9 @@ class NoaaPrediction extends Model
 	    'wind_direction',
 	    'wind_speed',
     ];
+
+    public function station()
+    {
+        return $this->belongsTo('App\Models\NoaaStation', 'noaa_station_id');
+    }
 }

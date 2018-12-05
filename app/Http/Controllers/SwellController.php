@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\Helper;
 use Carbon\Carbon;
-use App\Location;
+use App\Models\Location;
 use App\Models\BuoyData;
 use App\Models\TideData;
 use App\Models\WeatherData;
