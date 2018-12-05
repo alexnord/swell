@@ -108,7 +108,21 @@ class LocationService
         $hours = [];
         for ($i=0; $i <24 ; $i++) { 
             $hour = $start->copy()->addHours($i);
-            $hours[] = $hour;
+
+
+            if ($hour->copy()->setTimezone($tz)->format('H:i:s') === '00:00:00'
+                || $hour->copy()->setTimezone($tz)->format('H:i:s') === '01:00:00'
+                || $hour->copy()->setTimezone($tz)->format('H:i:s') === '02:00:00'
+                || $hour->copy()->setTimezone($tz)->format('H:i:s') === '03:00:00'
+                || $hour->copy()->setTimezone($tz)->format('H:i:s') === '21:00:00'
+                || $hour->copy()->setTimezone($tz)->format('H:i:s') === '22:00:00'
+                || $hour->copy()->setTimezone($tz)->format('H:i:s') === '23:00:00'
+            ) {
+                continue;
+            } else {
+                $hours[] = $hour;
+            }
+
         }
 
         return $hours;

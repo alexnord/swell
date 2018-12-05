@@ -25,7 +25,7 @@ class LocationController extends Controller
     {
         $this->locationService = $locationService;
         $this->tideService = $tideService;
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
