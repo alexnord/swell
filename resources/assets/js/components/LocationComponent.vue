@@ -8,7 +8,30 @@
 				</div>
 			</b-col>
 		</b-row>
-		<b-row class="mx-auto">
+		<b-row>
+			<b-col cols="4">
+				<div class="card">
+					<div class="card-body">
+						<h3 class="card-title">Tides</h3>
+					</div>
+				</div>
+			</b-col>
+			<b-col cols="4">
+				<div class="card">
+					<div class="card-body">
+						<h3 class="card-title">Conditions</h3>
+					</div>
+				</div>
+			</b-col>
+			<b-col cols="4">
+				<div class="card">
+					<div class="card-body">
+						<h3 class="card-title">Wind</h3>
+					</div>
+				</div>
+			</b-col>
+		</b-row>
+		<b-row>
 			<b-col cols="12">
 				<div class="card">
 			      <div class="card-body">
@@ -23,17 +46,17 @@
 					        >
 					        	<h5>{{items.date}}</h5>
 							    <div class="mt-4">
-									<table class="table table-sm table-bordered">
+									<table class="table table-bordered table-striped">
 										<tbody>
-											<tr>
+											<tr class="">
 												<th></th>
-												<th>Swell</th>
+												<th>Waves</th>
 												<th>Tide</th>
 												<th>Wind</th>
 											</tr>
 											<tr v-for="datum in items.data">
 												<th scope="row">{{datum.time_local}}</th>
-												<td>{{datum.swell.wave_height}}ft &#64; {{datum.swell.wave_period}}s - {{datum.swell.swell_direction}}&deg; {{datum.swell.angle}}</td>
+												<td>{{datum.swell.wave_height}}ft &#64; {{datum.swell.wave_period}}s - {{datum.swell.swell_direction}}&deg; {{datum.swell.angle}} (Swell: {{datum.swell.swell_height.toFixed(1)}}ft &#64; {{datum.swell.swell_period}}s)</td>
 												<td>{{datum.tide.height}}ft {{datum.tide.direction}}</td>
 												<td>{{datum.wind.wind_speed}}mph {{datum.wind.angle}}</td>
 											</tr>
@@ -42,27 +65,6 @@
 								</div>
 							</slide>
 						</carousel>
-
-						<!-- <h5>{{data[0].date}}</h5>
-					    <div class="mt-4">
-							<table class="table table-sm table-bordered">
-								<tbody>
-									<tr>
-										<th></th>
-										<th>Swell</th>
-										<th>Tide</th>
-										<th>Wind</th>
-									</tr>
-									<tr v-for="datum in data[0].data">
-										<th scope="row">{{datum.time_local}}</th>
-										<td>{{datum.swell.swell_height}}ft &#64; {{datum.swell.swell_period}}s - {{datum.swell.swell_direction}}&deg; {{datum.swell.angle}}</td>
-										<td>{{datum.tide.height}}ft {{datum.tide.direction}}</td>
-										<td>{{datum.wind.wind_speed}}mph {{datum.wind.angle}}</td>
-									</tr>
-								</tbody>
-							</table>
-						</div> -->
-
 			      </div>
 			    </div>
 			</b-col>
