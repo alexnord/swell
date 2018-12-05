@@ -3,16 +3,47 @@
 		<b-row>
 			<b-col cols="12">
 				<div class="mb-4">
-					<h1>Dashboard</h1>
-					<h4><i class="fa fa-map-marker"></i> <span style="margin-left: 5px;">Santa Monica, CA</span></h4>
+					<h1>Location</h1>
+					<h4><i class="fa fa-map-marker"></i> <span style="margin-left: 5px;">Point Dume, CA</span></h4>
 				</div>
 			</b-col>
 		</b-row>
-		<b-row>
+		<b-row class="mx-auto">
 			<b-col cols="12">
 				<div class="card">
 			      <div class="card-body">
-			        <h5 class="card-title">Tides</h5>
+			        <h3 class="card-title">Predicted Conditions</h3>
+			        	<carousel
+				        	:perPage="1"
+				        	:paginationEnabled="true"
+				        >
+					        <slide
+					        	v-for="items in data"
+					        	v-bind:key="data.index"
+					        >
+					        	<h5>{{items.date}}</h5>
+							    <div class="mt-4">
+									<table class="table table-sm table-bordered">
+										<tbody>
+											<tr>
+												<th></th>
+												<th>Swell</th>
+												<th>Tide</th>
+												<th>Wind</th>
+											</tr>
+											<tr v-for="datum in items.data">
+												<th scope="row">{{datum.time_local}}</th>
+												<td>{{datum.swell.wave_height}}ft &#64; {{datum.swell.wave_period}}s - {{datum.swell.swell_direction}}&deg; {{datum.swell.angle}}</td>
+												<td>{{datum.tide.height}}ft {{datum.tide.direction}}</td>
+												<td>{{datum.wind.wind_speed}}mph {{datum.wind.angle}}</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</slide>
+						</carousel>
+
+						<!-- <h5>{{data[0].date}}</h5>
 					    <div class="mt-4">
 							<table class="table table-sm table-bordered">
 								<tbody>
@@ -24,13 +55,14 @@
 									</tr>
 									<tr v-for="datum in data[0].data">
 										<th scope="row">{{datum.time_local}}</th>
-										<td>{{datum.swell.swell_height}}ft &#64; {{datum.swell.swell_period.toFixed(0)}}s - {{datum.swell.swell_direction.toFixed(0)}}&deg; {{datum.swell.angle}}</td>
+										<td>{{datum.swell.swell_height}}ft &#64; {{datum.swell.swell_period}}s - {{datum.swell.swell_direction}}&deg; {{datum.swell.angle}}</td>
 										<td>{{datum.tide.height}}ft {{datum.tide.direction}}</td>
-										<td>{{datum.wind.wind_speed.toFixed(0)}}mph {{datum.wind.angle}}</td>
+										<td>{{datum.wind.wind_speed}}mph {{datum.wind.angle}}</td>
 									</tr>
 								</tbody>
 							</table>
-						</div>
+						</div> -->
+
 			      </div>
 			    </div>
 			</b-col>
@@ -40,7 +72,7 @@
 </template>
 
 <script>
-	import TideChart from './TideChart.vue';
+	import { Carousel, Slide } from 'vue-carousel';
 
 	export default {
 		props: [
@@ -56,7 +88,10 @@
         mounted() {
         	// console.log(this.$props.initialdata);
         },
-        components: {}
+        components: {
+        	Carousel,
+			Slide
+		},
 	}
 </script>
 

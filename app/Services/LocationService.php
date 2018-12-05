@@ -54,11 +54,12 @@ class LocationService
         $data = [];
         for ($i=0; $i < 7 ; $i++) {
 
-            $hours = $this->getHours($dayMidnight, $tz, $stationId);
+            $hours = $this->getHours($dayMidnight->copy()->addDays($i), $tz, $stationId);
 
             $hourData = [];
             foreach ($hours as $hour) {
                 $hourlyData['time_utc'] = $hour->copy()->format('g:i A');
+                $hourlyData['time_local'] = $hour->copy()->setTimezone($tz)->format('g:i A');
                 $hourlyData['time_local'] = $hour->copy()->setTimezone($tz)->format('g:i A');
 
                 $tideHeight = $this->tideService->getHeightAtHour($hour, $tz, $stationId);
@@ -84,7 +85,7 @@ class LocationService
             }
 
             $data[] = [
-                'date' => $dayMidnight->copy()->addDays($i)->toDayDateTimeString(),
+                'date' => $dayMidnight->copy()->addDays($i)->format('l, F jS Y'),
                 'data' => $hourData
             ];
         }

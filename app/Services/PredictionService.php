@@ -38,6 +38,7 @@ class PredictionService
             'wave_height', 
             'wave_period', 
         ];
+
         $prediction = NoaaPrediction::select($selectFields)
             ->where('timestamp', '=', $hour)
             ->where('noaa_station_id', $stationId)
@@ -46,6 +47,7 @@ class PredictionService
         $prediction['time_utc'] = $hour->copy()->format('g:i A');
         $prediction['time_local'] = $hour->copy()->setTimezone($tz)->format('g:i A');
         $prediction['angle'] = Helper::getDirection($prediction['swell_direction']);
+        $prediction['wave_height'] = round($prediction['wave_height'], 1);
 
         return $prediction;
     }
@@ -64,6 +66,7 @@ class PredictionService
             'wind_direction', 
             'wind_speed'
         ];
+
         $prediction = NoaaPrediction::select($selectFields)
             ->where('timestamp', '=', $hour)
             ->where('noaa_station_id', $stationId)
@@ -72,6 +75,7 @@ class PredictionService
         $prediction['time_utc'] = $hour->copy()->format('g:i A');
         $prediction['time_local'] = $hour->copy()->setTimezone($tz)->format('g:i A');
         $prediction['angle'] = Helper::getDirection($prediction['wind_direction']);
+        $prediction['wind_speed'] = round($prediction['wind_speed'], 0);
 
         return $prediction;
     }
