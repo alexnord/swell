@@ -61,6 +61,10 @@ body {
 	margin-top: 20px !important;
 }
 
+.mt-40 {
+	margin-top: 40px !important;
+}
+
 .mb-10 {
 	margin-bottom: 10px !important;
 }
@@ -84,7 +88,7 @@ body {
 
 .card-small {
 	padding: .75rem .75rem .25rem .75rem !important;
-	height: 122px;
+	height: 140px;
 	overflow: hidden;
 	transition: height 0.3s ease-out;
 
@@ -104,6 +108,10 @@ body {
 
 .ft-sm {
 	font-size: 10px;
+}
+
+img#water-temp {
+	height: 20px;
 }
 
 .card-small {

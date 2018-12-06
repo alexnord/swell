@@ -15,11 +15,11 @@
 						class="card-body card-small"
 						v-bind:class="{ open: isOpen.buoy }"
 					>
-						<b-row>
-							<b-col style="position:absolute;top:10px;left:0px;">
-								<img src="../../../assets/images/icons/buoy.svg" height="30" alt="Buoy icon" />
-							</b-col>
-							<b-col cols="12" class="card-details">
+						<div style="position:absolute;top:10px;left:10px;">
+							<img src="../../../assets/images/icons/buoy.svg" height="30" alt="Buoy icon" />
+						</div>
+						<div class="card-details-wrapper">
+							<div class="card-details">
 								<div class="d-flex justify-content-center">
 					        		<div
 					        			class="swell-direction ft-lg mr-15"
@@ -36,22 +36,28 @@
 										</div>
 										<div
 											class="ft-md"
-											style="position: relative; top: -5px;"
+											style="position:relative;top:-5px;"
 										>
 											{{data.buoy[0].angle}}&deg; {{data.buoy[0].direction}}
 										</div>
 									</div>
 								</div>
-							</b-col>
-						</b-row>
-						<div class="text-center ft-sm">
-							<div>{{data.buoy[0].name}} Buoy - {{data.buoy[0].time_local}}</div>
+							</div>
+							<div class="text-center ft-md">
+								<div class="d-block d-md-none">
+									<div>{{data.buoy[0].name}} Buoy</div>
+									<div>{{data.buoy[0].time_local}}</div>
+								</div>
+								<div class="d-none d-md-block">
+									<div>{{data.buoy[0].name}} Buoy - {{data.buoy[0].time_local}}</div>
+								</div>
+							</div>
 						</div>
 						<div
-							class="text-right ft-sm"
+							class="ft-sm"
 							v-on:click="expandCard"
 						>
-							<div><a id="buoy" href="#">Historical</a></div>
+							<div class="card-expand"><a id="buoy" href="#">Historical</a></div>
 						</div>
 					</div>
 				</div>
@@ -63,11 +69,11 @@
 						class="card-body card-small"
 						v-bind:class="{ open: isOpen.tide }"
 					>
-						<b-row>
-							<b-col style="position:absolute;top:10px;left:0px;">
-								<img src="../../../assets/images/icons/tide.svg" height="25" alt="Buoy icon" />
-							</b-col>
-							<b-col cols="12" class="card-details">
+						<div style="position:absolute;top:10px;left:10px;">
+							<img src="../../../assets/images/icons/tide.svg" height="25" alt="Buoy icon" />
+						</div>
+						<div class="card-details-wrapper">
+							<div class="card-details">
 								<div class="d-flex justify-content-center">
 									<div
 					        			class="tide-direction ft-lg mr-15"
@@ -84,25 +90,31 @@
 										</div>
 										<div
 											class="ft-md"
-											style="position: relative; top: -5px;"
+											style="position:relative;top:-5px;"
 										>
 											 {{data.tide.direction}}
 										</div>
 									</div>
 					        	</div>
-							</b-col>
-						</b-row>
-						<div class="text-center ft-sm">
-							<div>{{data.tide.station_name}} - {{data.tide.time_local}}</div>
+							</div>
+							<div class="text-center ft-md">
+								<div class="d-block d-md-none">
+									<div>{{data.tide.station_name}}</div>
+									<div>{{data.tide.time_local}}</div>
+								</div>
+								<div class="d-none d-md-block">
+									<div>{{data.tide.station_name}} - {{data.tide.time_local}}</div>
+								</div>
+							</div>
 						</div>
 						<div
-							class="text-right ft-sm"
+							class="ft-sm"
 							v-on:click="expandCard"
 						>
-							<div><a id="tide" href="#">Chart</a></div>
+							<div class="card-expand"><a id="tide" href="#">Chart</a></div>
 						</div>
 
-						<div class="mt-3">
+						<div class="mt-40">
 							<table class="table table-sm table-bordered">
 								<tr>
 									<th>eadf</th>
@@ -126,11 +138,11 @@
 						class="card-body card-small"
 						v-bind:class="{ open: isOpen.wind }"
 					>
-						<b-row>
-							<b-col style="position:absolute;top:10px;left:0px;">
+						<div class="card-details-wrapper">
+							<div style="position:absolute;top:10px;left:10px;">
 								<img src="../../../assets/images/icons/wind.svg" height="25" alt="Buoy icon" />
-							</b-col>
-							<b-col cols="12" class="card-details">
+							</div>
+							<div class="card-details">
 								<div class="d-flex justify-content-center">
 									<div
 					        			class="swell-direction ft-lg mr-15"
@@ -147,22 +159,28 @@
 										</div>
 										<div
 											class="ft-md"
-											style="position: relative; top: -5px;"
+											style="position:relative;top:-5px;"
 										>
 											 {{data.weather[0].direction}}
 										</div>
 									</div>
 					        	</div>
-							</b-col>
-						</b-row>
-						<div class="text-center ft-sm">
-							<div>{{data.weather[0].name}} Station - {{data.buoy[0].time_local}}</div>
+							</div>
+						</div>
+						<div class="text-center ft-md">
+							<div class="d-block d-md-none">
+								<div>{{data.weather[0].name}} Station</div>
+								<div>{{data.buoy[0].time_local}}</div>
+							</div>
+							<div class="d-none d-md-block">
+								<div>{{data.weather[0].name}} Station - {{data.buoy[0].time_local}}</div>
+							</div>
 						</div>
 						<div
-							class="text-right ft-sm"
+							class="ft-sm"
 							v-on:click="expandCard"
 						>
-							<div><a id="wind" href="#">Historical</a></div>
+							<div class="card-expand"><a id="wind" href="#">Historical</a></div>
 						</div>
 					</div>
 				</div>
@@ -174,45 +192,37 @@
 						class="card-body card-small"
 						v-bind:class="{ open: isOpen.weather }"
 					>
-						<b-row>
-							<b-col style="position:absolute;top:10px;left:0px;">
+						<div class="card-details-wrapper">
+							<div style="position:absolute;top:10px;left:10px;">
 								<img src="../../../assets/images/icons/sun.svg" height="28" alt="Buoy icon" />
-							</b-col>
-							<b-col cols="12" class="card-details">
+							</div>
+							<div class="card-details">
 								<div class="d-flex justify-content-center">
-<!-- 						        	<div class="">
-										<div class="ft-lg">
-											{{data.weather[0].temp}}&deg;
-										</div>
-										<div
-											class="ft-md"
-											style="position: relative; top: -5px;"
-										>
-											 {{data.weather[0].text}}
-										</div>
-									</div> -->
 									<div>
 										<div class="ft-md">
-											Sunrise: {{data.weather[0].sunrise}}
+											<span style="font-weight: bold;">Sunrise</span>: {{data.weather[0].sunrise}}
 										</div>
 										<div
 											class="ft-md"
-											style="position: relative; top: -5px;"
+											style="position:relative;top:-5px;"
 										>
-											 Sunset: {{data.weather[0].sunset}}
+											 <span style="font-weight: bold;">Sunset</span>: {{data.weather[0].sunset}}
 										</div>
 									</div>
 					        	</div>
-							</b-col>
-						</b-row>
-						<div class="text-center ft-sm">
-							<div>{{data.weather[0].name}} Station - {{data.buoy[0].time_local}}</div>
+							</div>
+						</div>
+						<div class="text-center ft-md">
+							<div>
+								<img id="water-temp" src="../../../assets/images/icons/water.svg" alt="Water icon" />
+								{{data.buoy[0].water_temp}}&deg;
+							</div>
 						</div>
 						<div
-							class="text-right ft-sm"
+							class="ft-sm"
 							v-on:click="expandCard"
 						>
-							<div><a id="weather" href="#">Historical</a></div>
+							<div class="card-expand"><a id="weather" href="#">Historical</a></div>
 						</div>
 					</div>
 				</div>
@@ -284,6 +294,7 @@
         created () {},
         methods: {
         	expandCard: function(e) {
+        		e.preventDefault();
         		console.log(e.target.id);
         		let id = e.target.id;
 
@@ -304,5 +315,40 @@
 <style lang="scss" scoped>
 .card {
 	margin-bottom: 15px;
+	.card-expand {
+		position: absolute;
+		bottom: 6px;
+		right: 10px;
+	}
 }
+
+.card-details-wrapper {
+	margin-top: 0px;
+}
+
+@media (min-width: 576px) {
+	.card-details-wrapper {
+		margin-top: 0px;
+	}
+}
+
+@media (min-width: 768px) {
+	.card-details-wrapper {
+		margin-top: 15px;
+	}
+}
+
+@media (min-width: 992px) {
+	.card-details-wrapper {
+		margin-top: 0px;
+	}
+}
+
+@media (min-width: 1200px) {
+	.card-details-wrapper {
+		margin-top: 10px;
+	}
+}
+
+
 </style>
