@@ -13,10 +13,10 @@
 				<div class="card">
 					<div class="card-body card-small">
 						<b-row>
-							<b-col cols="2" offset-sm="">
+							<b-col style="position:absolute;top:10px;left:0px;">
 								<img src="../../../assets/images/icons/buoy.svg" height="30" alt="Buoy icon" />
 							</b-col>
-							<b-col cols="10">
+							<b-col cols="12" class="card-details">
 								<div class="d-flex justify-content-center">
 					        		<div
 					        			class="swell-direction ft-lg mr-15"
@@ -44,57 +44,19 @@
 						<div class="text-center ft-sm">
 							<div>{{data.buoy[0].name}} Buoy - {{data.buoy[0].time_local}}</div>
 						</div>
-						<div class="text-right"><div><a href="#">Historical</a></div></div>
+						<div class="text-right ft-md"><div><a href="#">Historical</a></div></div>
 					</div>
 				</div>
 			</b-col>
+			
 			<b-col cols="6" lg="3">
 				<div class="card">
 					<div class="card-body card-small">
 						<b-row>
-							<b-col cols="2" offset-sm="">
-								<img src="../../../assets/images/icons/wind.svg" height="25" alt="Buoy icon" />
-							</b-col>
-							<b-col cols="10">
-								<div class="d-flex justify-content-center">
-									<div
-					        			class="swell-direction ft-lg mr-15"
-					        			style="position:relative; top: 12px;"
-					        		>
-					        			<i
-						        			class="fa fa-arrow-down"
-						        			v-bind:class="data.weather[0].direction.toLowerCase().trim()">
-						        		</i>
-						        	</div>
-						        	<div>
-										<div class="ft-lg">
-											{{data.weather[0].speed}}mph
-										</div>
-										<div
-											class="ft-md"
-											style="position: relative; top: -5px;"
-										>
-											 {{data.weather[0].direction}}
-										</div>
-									</div>
-					        	</div>
-							</b-col>
-						</b-row>
-						<div class="text-center ft-sm">
-							<div>{{data.weather[0].name}} Station - {{data.buoy[0].time_local}}</div>
-						</div>
-						<div class="text-right"><div><a href="#">Historical</a></div></div>
-					</div>
-				</div>
-			</b-col>
-			<b-col cols="6" lg="3">
-				<div class="card">
-					<div class="card-body card-small">
-						<b-row>
-							<b-col cols="2" offset-sm="">
+							<b-col style="position:absolute;top:10px;left:0px;">
 								<img src="../../../assets/images/icons/tide.svg" height="25" alt="Buoy icon" />
 							</b-col>
-							<b-col cols="10">
+							<b-col cols="12" class="card-details">
 								<div class="d-flex justify-content-center">
 									<div
 					        			class="tide-direction ft-lg mr-15"
@@ -126,6 +88,47 @@
 					</div>
 				</div>
 			</b-col>
+
+			<b-col cols="6" lg="3">
+				<div class="card">
+					<div class="card-body card-small">
+						<b-row>
+							<b-col style="position:absolute;top:10px;left:0px;">
+								<img src="../../../assets/images/icons/wind.svg" height="25" alt="Buoy icon" />
+							</b-col>
+							<b-col cols="12" class="card-details">
+								<div class="d-flex justify-content-center">
+									<div
+					        			class="swell-direction ft-lg mr-15"
+					        			style="position:relative; top: 12px;"
+					        		>
+					        			<i
+						        			class="fa fa-arrow-down"
+						        			v-bind:class="data.weather[0].direction.toLowerCase().trim()">
+						        		</i>
+						        	</div>
+						        	<div>
+										<div class="ft-lg">
+											{{data.weather[0].speed}}mph
+										</div>
+										<div
+											class="ft-md"
+											style="position: relative; top: -5px;"
+										>
+											 {{data.weather[0].direction}}
+										</div>
+									</div>
+					        	</div>
+							</b-col>
+						</b-row>
+						<div class="text-center ft-sm">
+							<div>{{data.weather[0].name}} Station - {{data.buoy[0].time_local}}</div>
+						</div>
+						<div class="text-right ft-md"><div><a href="#">Historical</a></div></div>
+					</div>
+				</div>
+			</b-col>
+
 			<b-col cols="6" lg="3">
 				<div class="card">
 					<div class="card-body card-small">
