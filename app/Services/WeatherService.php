@@ -46,6 +46,10 @@ class WeatherService
                 'speed' => round($datum->speed, 0),
                 'angle' => round($datum->angle, 0),
                 'direction' => Helper::getDirection($datum->angle),
+                'temp' => $datum->temp,
+                'text' => $datum->text,
+                'sunrise' => $datum->sunrise,
+                'sunset' => $datum->sunset,
             ];
         }
 

@@ -25,6 +25,10 @@ class WeatherData extends Model
         'location_id',
 	    'angle',
 	    'speed',
+        'temp',
+        'text',
+        'sunrise',
+        'sunset'
     ];
 
     protected $appends = [

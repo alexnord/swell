@@ -48,7 +48,7 @@ class GetWeather extends Command
             $this->info("Scraping wind data for {$location->title}.");
 
             $baseUrl = config('apis.weather');
-            $yqlQuery = 'select wind from weather.forecast where woeid in (select woeid from geo.places(1) where text="('.$location->lat.', '.$location->lng.')")';
+            $yqlQuery = 'select wind, item.condition, astronomy from weather.forecast where woeid in (select woeid from geo.places(1) where text="('.$location->lat.', '.$location->lng.')")';
             $yqlQueryUrl = $baseUrl . "?q=" . urlencode($yqlQuery) . "&format=json";
             
             try {
@@ -61,9 +61,15 @@ class GetWeather extends Command
 
             $contents = json_decode($res->getBody());
 
+            // dd($contents);
+
             $timestamp = Carbon::parse($contents->query->created);
             $dir = $contents->query->results->channel->wind->direction;
             $speed = $contents->query->results->channel->wind->speed;
+            $temp = $contents->query->results->channel->item->condition->temp;
+            $text = $contents->query->results->channel->item->condition->text;
+            $sunrise = $contents->query->results->channel->astronomy->sunrise;
+            $sunset = $contents->query->results->channel->astronomy->sunset;
 
             // Skip duplicates
             if ($record = WeatherData::where('timestamp', $timestamp)->where('location_id', $location->id)->first()) {
@@ -76,6 +82,10 @@ class GetWeather extends Command
                     'location_id' => $location->id,
                     'angle' => $dir,
                     'speed' => $speed,
+                    'temp' => $temp,
+                    'text' => $text,
+                    'sunrise' => $sunrise,
+                    'sunset' => $sunset,
                 ]);
             } catch(\Exception $e) {
                 $this->error($e->getMessage());

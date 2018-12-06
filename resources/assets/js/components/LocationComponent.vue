@@ -10,8 +10,11 @@
 		</b-row>
 		<b-row>
 			<b-col cols="6" lg="3">
-				<div class="card">
-					<div class="card-body card-small">
+				<div class="card buoy">
+					<div
+						class="card-body card-small"
+						v-bind:class="{ open: isOpen.buoy }"
+					>
 						<b-row>
 							<b-col style="position:absolute;top:10px;left:0px;">
 								<img src="../../../assets/images/icons/buoy.svg" height="30" alt="Buoy icon" />
@@ -44,14 +47,22 @@
 						<div class="text-center ft-sm">
 							<div>{{data.buoy[0].name}} Buoy - {{data.buoy[0].time_local}}</div>
 						</div>
-						<div class="text-right ft-md"><div><a href="#">Historical</a></div></div>
+						<div
+							class="text-right ft-sm"
+							v-on:click="expandCard"
+						>
+							<div><a id="buoy" href="#">Historical</a></div>
+						</div>
 					</div>
 				</div>
 			</b-col>
-			
+
 			<b-col cols="6" lg="3">
-				<div class="card">
-					<div class="card-body card-small">
+				<div class="card tide">
+					<div
+						class="card-body card-small"
+						v-bind:class="{ open: isOpen.tide }"
+					>
 						<b-row>
 							<b-col style="position:absolute;top:10px;left:0px;">
 								<img src="../../../assets/images/icons/tide.svg" height="25" alt="Buoy icon" />
@@ -84,14 +95,37 @@
 						<div class="text-center ft-sm">
 							<div>{{data.tide.station_name}} - {{data.tide.time_local}}</div>
 						</div>
-						<div class="text-right"><div><a href="#">Chart</a></div></div>
+						<div
+							class="text-right ft-sm"
+							v-on:click="expandCard"
+						>
+							<div><a id="tide" href="#">Chart</a></div>
+						</div>
+
+						<div class="mt-3">
+							<table class="table table-sm table-bordered">
+								<tr>
+									<th>eadf</th>
+									<th>adfaf</th>
+									<th>adffa</th>
+								</tr>
+								<tr>
+									<td>adfdf</td>
+									<td>adfaf</td>
+									<td>asdfadf</td>
+								</tr>
+							</table>
+						</div>
 					</div>
 				</div>
 			</b-col>
 
 			<b-col cols="6" lg="3">
-				<div class="card">
-					<div class="card-body card-small">
+				<div class="card wind">
+					<div
+						class="card-body card-small"
+						v-bind:class="{ open: isOpen.wind }"
+					>
 						<b-row>
 							<b-col style="position:absolute;top:10px;left:0px;">
 								<img src="../../../assets/images/icons/wind.svg" height="25" alt="Buoy icon" />
@@ -124,18 +158,66 @@
 						<div class="text-center ft-sm">
 							<div>{{data.weather[0].name}} Station - {{data.buoy[0].time_local}}</div>
 						</div>
-						<div class="text-right ft-md"><div><a href="#">Historical</a></div></div>
+						<div
+							class="text-right ft-sm"
+							v-on:click="expandCard"
+						>
+							<div><a id="wind" href="#">Historical</a></div>
+						</div>
 					</div>
 				</div>
 			</b-col>
 
 			<b-col cols="6" lg="3">
-				<div class="card">
-					<div class="card-body card-small">
-						<h5 class="card-title">Weather</h5>
+				<div class="card weather">
+					<div
+						class="card-body card-small"
+						v-bind:class="{ open: isOpen.weather }"
+					>
+						<b-row>
+							<b-col style="position:absolute;top:10px;left:0px;">
+								<img src="../../../assets/images/icons/sun.svg" height="28" alt="Buoy icon" />
+							</b-col>
+							<b-col cols="12" class="card-details">
+								<div class="d-flex justify-content-center">
+<!-- 						        	<div class="">
+										<div class="ft-lg">
+											{{data.weather[0].temp}}&deg;
+										</div>
+										<div
+											class="ft-md"
+											style="position: relative; top: -5px;"
+										>
+											 {{data.weather[0].text}}
+										</div>
+									</div> -->
+									<div>
+										<div class="ft-md">
+											Sunrise: {{data.weather[0].sunrise}}
+										</div>
+										<div
+											class="ft-md"
+											style="position: relative; top: -5px;"
+										>
+											 Sunset: {{data.weather[0].sunset}}
+										</div>
+									</div>
+					        	</div>
+							</b-col>
+						</b-row>
+						<div class="text-center ft-sm">
+							<div>{{data.weather[0].name}} Station - {{data.buoy[0].time_local}}</div>
+						</div>
+						<div
+							class="text-right ft-sm"
+							v-on:click="expandCard"
+						>
+							<div><a id="weather" href="#">Historical</a></div>
+						</div>
 					</div>
 				</div>
 			</b-col>
+
 		</b-row>
 
 		<b-row>
@@ -191,10 +273,24 @@
         data () {
     		return {
 	            data: this.$props.initialdata,
+	            isOpen: {
+	            	buoy: false,
+	            	tide: false,
+	            	wind: false,
+	            	weather: false,
+	            },
             }
         },
         created () {},
-        methods: {},
+        methods: {
+        	expandCard: function(e) {
+        		console.log(e.target.id);
+        		let id = e.target.id;
+
+        		this.isOpen[id] = !this.isOpen[id];
+        		// this.isOpen = !this.isOpen;
+        	},
+        },
         mounted() {
         	console.log(this.$props.initialdata);
         },
