@@ -45,14 +45,20 @@ class LocationController extends Controller
         $location = $this->locationService->getLocationBySlug($location);
         $tz = $location->timezone;
 
-        $buoyData    = $this->buoyService->getLatestBuoyData($location->buoy, 10, $tz);
+        $buoyData    = $this->buoyService->getLatestBuoyData($location->buoy, 15, $tz);
         $tideData    = $this->tideService->getLatestTide($location->station, $tz);
         $weatherData = $this->weatherService->getWeatherData($location, 10, $tz);
 
-        $tides = [];
-
         $now = Carbon::now($tz);
         $todayMidnight = $now->startOfDay();
+
+        $todayTideChart = $this->tideService->getTidesForDay(
+            $todayMidnight->copy()->setTimezone('UTC'),
+            $todayMidnight->copy()->setTimezone('UTC')->addDays(1),
+            $tz,
+            $location->station->id
+        );
+
         $hourlyBreakdowns = $this->locationService->getHourlyBreakdownsForWeek($todayMidnight, $tz, $location->station->id);
 
         $data = [
@@ -60,7 +66,7 @@ class LocationController extends Controller
             'buoy' => $buoyData,
             'weather' => $weatherData,
             'tide' => $tideData,
-            'tides' => $tides,
+            'tideChart' => $todayTideChart,
             'predictions' => $hourlyBreakdowns,
         ];
 

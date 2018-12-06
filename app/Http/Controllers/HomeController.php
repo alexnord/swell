@@ -29,6 +29,8 @@ class HomeController extends Controller
         $this->locationService = $locationService;
     }
 
+    
+
     /**
      * Show the create entry form.
      *

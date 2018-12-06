@@ -51,6 +51,8 @@ class LocationService
      */
     public function getHourlyBreakdownsForWeek(Carbon $dayMidnight, $tz, $stationId) : array
     {
+        $nowUtc = Carbon::now()->setTimezone('UTC');
+
         $data = [];
         for ($i=0; $i < 7 ; $i++) {
 
@@ -58,22 +60,29 @@ class LocationService
 
             $hourData = [];
             foreach ($hours as $hour) {
-                $hourlyData['time_utc'] = $hour->copy()->format('g:i A');
-                $hourlyData['time_local'] = $hour->copy()->setTimezone($tz)->format('g:i A');
-                $hourlyData['time_local'] = $hour->copy()->setTimezone($tz)->format('g:i A');
 
-                $tideHeight = $this->tideService->getHeightAtHour($hour, $tz, $stationId);
-                $hourlyData['tide'] = $tideHeight;
+                if ($hour < $nowUtc) {
+                    // If the hour is before the current time, do nothing
+                    
+                } else {
+                    $hourlyData['time_utc'] = $hour->copy()->format('g:i A');
+                    $hourlyData['time_local'] = $hour->copy()->setTimezone($tz)->format('g:i A');
+                    $hourlyData['time_local'] = $hour->copy()->setTimezone($tz)->format('g:i A');
 
-                $swell = $this->predictionService->getBuoyAtHour($hour, $tz, $stationId);
-                $hourlyData['swell'] = $swell;
-                
-                $wind = $this->predictionService->getWindAtHour($hour, $tz, $stationId);
-                $hourlyData['wind'] = $wind;
+                    $tideHeight = $this->tideService->getHeightAtHour($hour, $tz, $stationId);
+                    $hourlyData['tide'] = $tideHeight;
 
-                $hourData[] = $hourlyData;
+                    $swell = $this->predictionService->getBuoyAtHour($hour, $tz, $stationId);
+                    $hourlyData['swell'] = $swell;
+                    
+                    $wind = $this->predictionService->getWindAtHour($hour, $tz, $stationId);
+                    $hourlyData['wind'] = $wind;
+
+                    $hourData[] = $hourlyData;
+                }
+
             }
-
+            
             // Add the direction of the tide to the array values
             foreach ($hourData as $index => $datum) {
                 $direction = '';

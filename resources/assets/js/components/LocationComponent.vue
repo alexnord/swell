@@ -59,6 +59,22 @@
 						>
 							<div class="card-expand"><a id="buoy" href="#">Historical</a></div>
 						</div>
+
+						<div class="mt-40 mb-25">
+							<table class="table table-sm table-bordered">
+								<tbody>
+									<th>Time</th>
+									<th>Height</th>
+									<th>Angle</th>
+									<tr v-for="item in data.buoy">
+										<td>{{item.time_local}}</td>
+										<td>{{item.wave_height}}ft &#64; {{item.dominant_period}}s</td>
+										<td>{{item.angle}}&deg; {{item.direction}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
 					</div>
 				</div>
 			</div>
@@ -114,18 +130,18 @@
 							<div class="card-expand"><a id="tide" href="#">Chart</a></div>
 						</div>
 
-						<div class="mt-40">
+						<div class="mt-40 mb-25">
 							<table class="table table-sm table-bordered">
-								<tr>
-									<th>eadf</th>
-									<th>adfaf</th>
-									<th>adffa</th>
-								</tr>
-								<tr>
-									<td>adfdf</td>
-									<td>adfaf</td>
-									<td>asdfadf</td>
-								</tr>
+								<tbody>
+									<th></th>
+									<th>Height</th>
+									<th>Time</th>
+									<tr v-for="items in data.tideChart">
+										<th scope="row">{{items.type}}</th>
+										<td>{{items.height}}ft</td>
+										<td>{{items.converted_time}}</td>
+									</tr>
+								</tbody>
 							</table>
 						</div>
 					</div>
@@ -222,7 +238,6 @@
 							class="ft-sm"
 							v-on:click="expandCard"
 						>
-							<div class="card-expand"><a id="weather" href="#">Historical</a></div>
 						</div>
 					</div>
 				</div>
@@ -230,41 +245,43 @@
 		</b-row>
 
 		<b-row>
-			<div class="card">
-		      <div class="card-body">
-		        <h3 class="card-title">Predicted Conditions</h3>
-		        	<carousel
-			        	:perPage="1"
-			        	:paginationEnabled="true"
-			        >
-				        <slide
-				        	v-for="items in data.predictions"
-				        	v-bind:key="data.predictions.index"
+			<div class="px-5" style="width:100%;">
+				<div class="card">
+			      <div class="card-body">
+			        <h3 class="card-title">Predicted Conditions</h3>
+			        	<carousel
+				        	:perPage="1"
+				        	:paginationEnabled="true"
 				        >
-				        	<h5>{{items.date}}</h5>
-						    <div class="mt-4">
-								<table class="table table-bordered table-striped">
-									<tbody>
-										<tr class="">
-											<th></th>
-											<th>NOAA</th>
-											<th>Tide</th>
-											<th>Wind</th>
-										</tr>
-										<tr v-for="datum in items.data">
-											<th scope="row">{{datum.time_local}}</th>
-											<td>Wave: {{datum.swell.wave_height}}ft &#64; {{datum.swell.wave_period}}s - {{datum.swell.swell_direction}}&deg; {{datum.swell.angle}} <br>
-												Swell: {{datum.swell.swell_height.toFixed(1)}}ft &#64; {{datum.swell.swell_period}}s</td>
-											<td>{{datum.tide.height}}ft {{datum.tide.direction}}</td>
-											<td>{{datum.wind.wind_speed}}mph {{datum.wind.angle}}</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</slide>
-					</carousel>
-			      </div>
-		    </div>
+					        <slide
+					        	v-for="items in data.predictions"
+					        	v-bind:key="data.predictions.index"
+					        >
+					        	<h5>{{items.date}}</h5>
+							    <div class="mt-4">
+									<table class="table table-bordered table-striped">
+										<tbody>
+											<tr class="">
+												<th></th>
+												<th>NOAA</th>
+												<th>Tide</th>
+												<th>Wind</th>
+											</tr>
+											<tr v-for="datum in items.data">
+												<th scope="row">{{datum.time_local}}</th>
+												<td>Wave: {{datum.swell.wave_height}}ft &#64; {{datum.swell.wave_period}}s - {{datum.swell.swell_direction}}&deg; {{datum.swell.angle}} <br>
+													Swell: {{datum.swell.swell_height.toFixed(1)}}ft &#64; {{datum.swell.swell_period}}s</td>
+												<td>{{datum.tide.height}}ft {{datum.tide.direction}}</td>
+												<td>{{datum.wind.wind_speed}}mph {{datum.wind.angle}}</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</slide>
+						</carousel>
+				      </div>
+			    </div>
+			</div>
 
 		</b-row>
     </b-container>

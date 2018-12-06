@@ -260,7 +260,8 @@ class TideService
 
         $heightDiff = abs($heightBefore - $heightAfter);
 
-        $ftPerMin = $heightDiff / $timeDiff;
+        $ftPerMin = $timeDiff === 0 ?
+            $heightDiff : $heightDiff / $timeDiff;
 
         $timeDiff = $requestedTime->diffInMinutes(Carbon::parse($timeBefore));
         $tideDiff = $timeDiff * $ftPerMin;

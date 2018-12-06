@@ -18,9 +18,9 @@
                         <i class="fa fa-map"></i> <span>Locations</span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/locations/ventura-point">Ventura Point</a>
-                        <a class="dropdown-item" href="/locations/point-dume">Point Dume</a>
-                        <a class="dropdown-item" href="/locations/el-porto">El Porto</a>
+                        @foreach($locations as $location)
+                            <a class="dropdown-item" href="/locations/{{ $location->slug }}">{{ $location->title }}</a>
+                        @endforeach
                     </div>
                 </li>
                 <li class="nav-item dropdown">
