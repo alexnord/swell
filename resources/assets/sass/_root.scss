@@ -86,6 +86,11 @@ body {
 	margin-right: 15px !important;
 }
 
+.px-5 {
+	padding-left: 5px !important;
+	padding-right: 5px !important;
+}
+
 .card-small {
 	padding: .75rem .75rem .25rem .75rem !important;
 	height: 140px;
@@ -110,10 +115,6 @@ body {
 	font-size: 10px;
 }
 
-img#water-temp {
-	height: 20px;
-}
-
 .card-small {
 	img {
 		height: 20px;
@@ -122,6 +123,15 @@ img#water-temp {
 	.card-details {
 		margin-top: 13px;
 	}
+}
+
+.card-container {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding-right: 5px;
+    padding-left: 5px;
 }
 
 @media (min-width: 576px) {
@@ -161,6 +171,15 @@ img#water-temp {
 		.card-details {
 			margin-top: 0px;
 		}
+	}
+
+	.card-container {
+	    -webkit-box-flex: 0;
+	    -ms-flex: 0 0 25%;
+	    flex: 0 0 25%;
+	    max-width: 25%;
+	    padding-right: 5px;
+	    padding-left: 5px;
 	}
 }
 

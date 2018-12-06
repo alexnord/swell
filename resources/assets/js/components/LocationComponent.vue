@@ -9,7 +9,7 @@
 			</b-col>
 		</b-row>
 		<b-row>
-			<b-col cols="6" lg="3">
+			<div class="card-container">
 				<div class="card buoy">
 					<div
 						class="card-body card-small"
@@ -61,9 +61,9 @@
 						</div>
 					</div>
 				</div>
-			</b-col>
+			</div>
 
-			<b-col cols="6" lg="3">
+			<div class="card-container">
 				<div class="card tide">
 					<div
 						class="card-body card-small"
@@ -130,9 +130,9 @@
 						</div>
 					</div>
 				</div>
-			</b-col>
+			</div>
 
-			<b-col cols="6" lg="3">
+			<div class="card-container">
 				<div class="card wind">
 					<div
 						class="card-body card-small"
@@ -184,9 +184,9 @@
 						</div>
 					</div>
 				</div>
-			</b-col>
+			</div>
 
-			<b-col cols="6" lg="3">
+			<div class="card-container">
 				<div class="card weather">
 					<div
 						class="card-body card-small"
@@ -226,48 +226,45 @@
 						</div>
 					</div>
 				</div>
-			</b-col>
-
+			</div>
 		</b-row>
 
 		<b-row>
-			<b-col cols="12">
-				<div class="card">
-			      <div class="card-body">
-			        <h3 class="card-title">Predicted Conditions</h3>
-			        	<carousel
-				        	:perPage="1"
-				        	:paginationEnabled="true"
+			<div class="card">
+		      <div class="card-body">
+		        <h3 class="card-title">Predicted Conditions</h3>
+		        	<carousel
+			        	:perPage="1"
+			        	:paginationEnabled="true"
+			        >
+				        <slide
+				        	v-for="items in data.predictions"
+				        	v-bind:key="data.predictions.index"
 				        >
-					        <slide
-					        	v-for="items in data.predictions"
-					        	v-bind:key="data.predictions.index"
-					        >
-					        	<h5>{{items.date}}</h5>
-							    <div class="mt-4">
-									<table class="table table-bordered table-striped">
-										<tbody>
-											<tr class="">
-												<th></th>
-												<th>NOAA</th>
-												<th>Tide</th>
-												<th>Wind</th>
-											</tr>
-											<tr v-for="datum in items.data">
-												<th scope="row">{{datum.time_local}}</th>
-												<td>Wave: {{datum.swell.wave_height}}ft &#64; {{datum.swell.wave_period}}s - {{datum.swell.swell_direction}}&deg; {{datum.swell.angle}} <br>
-													Swell: {{datum.swell.swell_height.toFixed(1)}}ft &#64; {{datum.swell.swell_period}}s</td>
-												<td>{{datum.tide.height}}ft {{datum.tide.direction}}</td>
-												<td>{{datum.wind.wind_speed}}mph {{datum.wind.angle}}</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</slide>
-						</carousel>
+				        	<h5>{{items.date}}</h5>
+						    <div class="mt-4">
+								<table class="table table-bordered table-striped">
+									<tbody>
+										<tr class="">
+											<th></th>
+											<th>NOAA</th>
+											<th>Tide</th>
+											<th>Wind</th>
+										</tr>
+										<tr v-for="datum in items.data">
+											<th scope="row">{{datum.time_local}}</th>
+											<td>Wave: {{datum.swell.wave_height}}ft &#64; {{datum.swell.wave_period}}s - {{datum.swell.swell_direction}}&deg; {{datum.swell.angle}} <br>
+												Swell: {{datum.swell.swell_height.toFixed(1)}}ft &#64; {{datum.swell.swell_period}}s</td>
+											<td>{{datum.tide.height}}ft {{datum.tide.direction}}</td>
+											<td>{{datum.wind.wind_speed}}mph {{datum.wind.angle}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</slide>
+					</carousel>
 			      </div>
-			    </div>
-			</b-col>
+		    </div>
 
 		</b-row>
     </b-container>
@@ -314,12 +311,18 @@
 
 <style lang="scss" scoped>
 .card {
-	margin-bottom: 15px;
+	margin-bottom: 10px;
+	padding-left: 5px;
+	padding-right: 5px;
 	.card-expand {
 		position: absolute;
 		bottom: 6px;
 		right: 10px;
 	}
+}
+
+img#water-temp {
+	height: 20px;
 }
 
 .card-details-wrapper {
