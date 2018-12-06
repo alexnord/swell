@@ -47,7 +47,11 @@ class PredictionService
         $prediction['time_utc'] = $hour->copy()->format('g:i A');
         $prediction['time_local'] = $hour->copy()->setTimezone($tz)->format('g:i A');
         $prediction['angle'] = Helper::getDirection($prediction['swell_direction']);
+        $prediction['swell_height'] = round($prediction['swell_height'], 1);
+        $prediction['swell_period'] = round($prediction['swell_period'], 0);
+        $prediction['swell_direction'] = round($prediction['swell_direction'], 0);
         $prediction['wave_height'] = round($prediction['wave_height'], 1);
+        $prediction['wave_period'] = round($prediction['wave_period'], 0);
 
         return $prediction;
     }

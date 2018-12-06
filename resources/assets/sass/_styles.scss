@@ -13,8 +13,7 @@
     margin-top: -1px;
 }
 
-.dashboard-swell-direction {
-	font-size: 55px;
+.swell-direction {
 	i {
 		&.nne { transform: rotate(22.5deg); }
 		&.ne { transform: rotate(45deg); }
@@ -31,6 +30,13 @@
 		&.wnw { transform: rotate(-69.5deg); }
 		&.nw { transform: rotate(-45deg); }
 		&.nnw { transform: rotate(-24.5deg);}
+	}
+}
+
+.tide-direction {
+	i {
+		&.falling { transform: rotate(0deg); }
+		&.rising { transform: rotate(180deg); }
 	}
 }
 

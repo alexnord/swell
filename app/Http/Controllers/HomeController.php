@@ -2,30 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use Validator;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use App\Helpers\Helper;
 use Carbon\Carbon;
 use App\Models\BuoyData;
-use App\Models\TideData;
 use App\Models\WeatherData;
 use App\Services\TideService;
+use App\Services\LocationService;
 
 class HomeController extends Controller
 {
     private $tideService;
+    private $locationService;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(TideService $tideService)
+    public function __construct(
+        TideService $tideService,
+        LocationService $locationService
+    )
     {
-        $this->middleware('auth');
         $this->tideService = $tideService;
+        $this->locationService = $locationService;
     }
 
     /**
@@ -35,7 +36,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $tz = Auth::user()->timezone;
+        $location = $this->locationService->getLocationBySlug('el-porto');
+        $tz = $location->timezone;
         $stationId = 1;
 
         $buoy    = $this->getBuoyData();

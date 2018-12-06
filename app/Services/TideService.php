@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Carbon\Carbon;
+use App\Models\NoaaStation;
 use App\Models\TideData;
 
 class TideService
@@ -14,6 +15,23 @@ class TideService
      */
     public function __construct()
     {
+    }
+
+    /**
+     * Get the current tide height for a locaiton.
+     *
+     * @param NoaaStation $station
+     * @param string $tz
+     * @return array
+     */
+    public function getLatestTide(NoaaStation $station, $tz) : array
+    {
+        $now = Carbon::now()->setTimezone('UTC');
+        $height = $this->getHeightAtHour($now, $tz, $station->id);
+
+        $height['height'] = round($height['height'], 1);
+        $height['station_name'] = $station->title;
+        return $height;
     }
 
     /**
@@ -67,10 +85,14 @@ class TideService
             $hour
         );
 
+        $direction = $tideBeforeStart < $tideAfterStart ?
+            'rising' : 'falling';
+
         $data = [
             'time_utc' => $hour->copy()->format('g:i A'),
             'time_local' => $hour->copy()->setTimezone($tz)->format('g:i A'),
             'height' => round($height, 2),
+            'direction' => $direction,
         ];
 
         return $data;
@@ -172,7 +194,7 @@ class TideService
 
             $tidesForDay = $this->getTidesForDay($start, $end, $tz, $stationId);
             $data = [
-                'day' => $day->copy()->toFormattedDateString(),
+                'day' => $day->copy()->format('l, F jS Y'),
                 'data' => $tidesForDay,
             ];
             $tides[] = $data;
@@ -207,7 +229,7 @@ class TideService
                 'timestamp' => $tide->timestamp,
                 'converted_time' => (new Carbon($tide->timestamp))->setTimezone($tz)->format('g:i A'),
                 'type' => $tide->type,
-                'height' => $tide->height,
+                'height' => round($tide->height, 1),
                 'station_id' => $tide->noaa_staiton_id,
             ];
             $tidesArray[] = $tideData;

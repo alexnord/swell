@@ -7,11 +7,15 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Services\LocationService;
 use App\Services\TideService;
+use App\Services\BuoyService;
+use App\Services\WeatherService;
 
 class LocationController extends Controller
 {
     private $locationService;
     private $tideService;
+    private $buoyService;
+    private $weatherService;
 
     /**
      * Create a new controller instance.
@@ -20,12 +24,15 @@ class LocationController extends Controller
      */
     public function __construct(
         LocationService $locationService,
-        TideService $tideService
+        TideService $tideService,
+        BuoyService $buoyService,
+        WeatherService $weatherService
     )
     {
         $this->locationService = $locationService;
         $this->tideService = $tideService;
-        // $this->middleware('auth');
+        $this->buoyService = $buoyService;
+        $this->weatherService = $weatherService;
     }
 
     /**
@@ -37,15 +44,28 @@ class LocationController extends Controller
     {
         $location = $this->locationService->getLocationBySlug($location);
         $tz = $location->timezone;
-        $stationId = $location->station->id;
+
+        $buoyData    = $this->buoyService->getLatestBuoyData($location->buoy, 10, $tz);
+        $tideData    = $this->tideService->getLatestTide($location->station, $tz);
+        $weatherData = $this->weatherService->getWeatherData($location, 10, $tz);
+
+        $tides = [];
 
         $now = Carbon::now($tz);
         $todayMidnight = $now->startOfDay();
+        $hourlyBreakdowns = $this->locationService->getHourlyBreakdownsForWeek($todayMidnight, $tz, $location->station->id);
 
-        $hourlyBreakdowns = $this->locationService->getHourlyBreakdownsForWeek($todayMidnight, $tz, $stationId);
+        $data = [
+            'location' => $location->title,
+            'buoy' => $buoyData,
+            'weather' => $weatherData,
+            'tide' => $tideData,
+            'tides' => $tides,
+            'predictions' => $hourlyBreakdowns,
+        ];
 
         return view('location')->with([
-            'data' => json_encode($hourlyBreakdowns),
+            'data' => json_encode($data),
         ]);
     }
 }

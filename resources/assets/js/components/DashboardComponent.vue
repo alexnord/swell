@@ -18,17 +18,17 @@
 			        	<div
 				        	style="top: 18px;position: relative;margin-right: 50px;"
 			        	>
-			        		<img src="../../../assets/images/icons/buoy.svg" height="50" alt="Buoy icon" />
+			        		<img src="../../../assets/images/icons/buoy.svg" height="25" alt="Buoy icon" />
 			        	</div>
 
-			        	<div class="dashboard-swell-direction" style="margin-right: 20px;">
+			        	<div class="swell-direction" style="margin-right: 20px;">
 			        		<div><i
 				        			class="fa fa-arrow-down"
 				        			v-bind:class="this.buoy.swell_direction.toLowerCase().trim()">
 				        		</i>
 				        	</div>
 			        	</div>
-			        	<div class="" style="font-size: 24px; position: relative; top: 8px;">
+			        	<div class="" style="font-size: 16px; position: relative; top: 8px;">
 					        <div style="margin-bottom: -8px;">{{this.buoy.wave_height.toFixed(1) }}ft &#64; {{this.buoy.dominant_period}}s</div>
 					        <div>{{this.buoy.angle}}&deg; {{ this.buoy.swell_direction }}</div>
 			        	</div>
@@ -39,17 +39,17 @@
 			        		<div
 					        	style="top:18px;position:relative;margin-right:50px;"
 				        	>
-				        		<img src="../../../assets/images/icons/wind.svg" height="50" alt="Wind icon" />
+				        		<img src="../../../assets/images/icons/wind.svg" height="25" alt="Wind icon" />
 				        	</div>
 
-				        	<div class="dashboard-swell-direction" style="margin-right: 20px;">
+				        	<div class="swell-direction" style="margin-right: 20px;">
 				        		<div><i
 					        			class="fa fa-arrow-down"
 					        			v-bind:class="this.weather.wind_direction.toLowerCase().trim()">
 					        		</i>
 					        	</div>
 				        	</div>
-				        	<div class="" style="font-size: 24px; position: relative; top: 8px;">
+				        	<div class="" style="font-size: 16px; position: relative; top: 8px;">
 						        <div style="margin-bottom: -8px;">{{this.weather.speed.toFixed(0) }}mph</div>
 						        <div>{{this.weather.angle}}&deg; {{ this.weather.wind_direction }}</div>
 				        	</div>

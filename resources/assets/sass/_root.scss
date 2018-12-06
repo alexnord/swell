@@ -7,12 +7,28 @@ body {
 	color: rgba(108, 117, 125, 0.43) !important;
 }
 
+.ft-14 {
+	font-size: 14px !important;
+}
+
 .ft-15 {
 	font-size: 15px !important;
 }
 
 .ft-16 {
 	font-size: 16px !important;
+}
+
+.ft-18 {
+	font-size: 18px !important;
+}
+
+.ft-22 {
+	font-size: 22px !important;
+}
+
+.ft-24 {
+	font-size: 24px !important;
 }
 
 .ft-bold {
@@ -31,6 +47,10 @@ body {
 .my-10 {
 	margin-top: 10px !important;
 	margin-bottom: 10px !important;
+}
+
+.mt-4px {
+	 margin-top: 4px !important;
 }
 
 .mt-10 {
@@ -56,4 +76,73 @@ body {
 
 .mb-30 {
 	margin-bottom: 30px !important;
+}
+
+.mr-15 {
+	margin-right: 15px !important;
+}
+
+.card-small {
+	padding: .75rem .75rem .25rem .75rem !important;
+	height: 122px;
+}
+
+.ft-lg {
+	font-size: 18px;
+}
+
+.ft-md {
+	font-size: 14px;
+}
+
+.ft-sm {
+	font-size: 10px;
+}
+
+@media (min-width: 576px) {
+	.ft-lg {
+		font-size: 18px;
+	}
+	.ft-md {
+		font-size: 14px;
+	}
+	.ft-sm {
+		font-size: 12px;
+	}
+}
+
+@media (min-width: 768px) {
+	.ft-lg {
+		font-size: 20px;
+	}
+	.ft-md {
+		font-size: 14px;
+	}
+	.ft-sm {
+		font-size: 12px;
+	}
+}
+
+@media (min-width: 992px) {
+	.ft-lg {
+		font-size: 20px;
+	}
+	.ft-md {
+		font-size: 16px;
+	}
+	.ft-sm {
+		font-size: 11px;
+	}
+}
+
+@media (min-width: 1200px) {
+	.ft-lg {
+		font-size: 22px;
+	}
+	.ft-md {
+		font-size: 16px;
+	}
+	.ft-sm {
+		font-size: 14px;
+	}
 }

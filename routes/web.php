@@ -12,11 +12,13 @@
 */
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/create', 'ReportController@create')->name('create');
-Route::get('/reports', 'ReportController@all')->name('all');
-Route::get('/report/{id}', 'ReportController@show')->name('show');
-
 Route::get('locations/{location}', 'LocationController@index');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/create', 'ReportController@create')->name('create');
+	Route::get('/reports', 'ReportController@all')->name('all');
+	Route::get('/report/{id}', 'ReportController@show')->name('show');
+});
 
 Auth::routes();
 
