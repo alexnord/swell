@@ -59,7 +59,7 @@ class LocationController extends Controller
             $location->station->id
         );
 
-        $hourlyBreakdowns = $this->locationService->getHourlyBreakdownsForWeek($todayMidnight, $tz, $location->station->id);
+        $hourlyBreakdowns = $this->locationService->getHourlyBreakdownsForWeek($todayMidnight, $tz, $location);
 
         $data = [
             'location' => $location->title,

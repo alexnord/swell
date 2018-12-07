@@ -46,17 +46,17 @@ class LocationService
      *
      * @param Carbon $dayMidnight
      * @param string $tz
-     * @param string $stationId
+     * @param Location $location
      * @return array
      */
-    public function getHourlyBreakdownsForWeek(Carbon $dayMidnight, $tz, $stationId) : array
+    public function getHourlyBreakdownsForWeek(Carbon $dayMidnight, $tz, $location) : array
     {
         $nowUtc = Carbon::now()->setTimezone('UTC');
 
         $data = [];
         for ($i=0; $i < 7 ; $i++) {
 
-            $hours = $this->getHours($dayMidnight->copy()->addDays($i), $tz, $stationId);
+            $hours = $this->getHours($dayMidnight->copy()->addDays($i), $tz, $location->station->id);
 
             $hourData = [];
             foreach ($hours as $hour) {
@@ -69,14 +69,14 @@ class LocationService
                     $hourlyData['time_local'] = $hour->copy()->setTimezone($tz)->format('g:i A');
                     $hourlyData['time_local'] = $hour->copy()->setTimezone($tz)->format('g:i A');
 
-                    $tideHeight = $this->tideService->getHeightAtHour($hour, $tz, $stationId);
+                    $tideHeight = $this->tideService->getHeightAtHour($hour, $tz, $location->station->id);
                     $hourlyData['tide'] = $tideHeight;
 
-                    $swell = $this->predictionService->getBuoyAtHour($hour, $tz, $stationId);
+                    $swell = $this->predictionService->getBuoyAtHour($hour, $tz, $location->station->id);
                     $hourlyData['swell'] = $swell;
                     
-                    $wind = $this->predictionService->getWindAtHour($hour, $tz, $stationId);
-                    $hourlyData['wind'] = $wind;
+                    $weather = $this->predictionService->getWeatherAtHour($hour, $tz, $location);
+                    $hourlyData['weather'] = $weather;
 
                     $hourData[] = $hourlyData;
                 }

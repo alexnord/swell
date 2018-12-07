@@ -189,7 +189,7 @@
 								<div>{{data.buoy[0].time_local}}</div>
 							</div>
 							<div class="d-none d-md-block">
-								<div>{{data.weather[0].name}} Station - {{data.buoy[0].time_local}}</div>
+								<div>{{data.weather[0].name}} Station - {{data.weather[0].time_local}}</div>
 							</div>
 						</div>
 						<div
@@ -286,7 +286,7 @@
 												<td>Wave: {{datum.swell.wave_height}}ft &#64; {{datum.swell.wave_period}}s - {{datum.swell.swell_direction}}&deg; {{datum.swell.angle}} <br>
 													Swell: {{datum.swell.swell_height.toFixed(1)}}ft &#64; {{datum.swell.swell_period}}s</td>
 												<td>{{datum.tide.height}}ft {{datum.tide.direction}}</td>
-												<td>{{datum.wind.wind_speed}}mph {{datum.wind.angle}}</td>
+												<td>{{datum.weather.wind_speed}}mph {{datum.weather.angle}}</td>
 											</tr>
 										</tbody>
 									</table>

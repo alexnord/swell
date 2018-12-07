@@ -5,6 +5,7 @@ namespace App\Services;
 use Carbon\Carbon;
 use App\Models\NoaaPrediction;
 use App\Services\TideService;
+use App\Models\WeatherForecast;
 use App\Helpers\Helper;
 
 class PredictionService
@@ -61,25 +62,39 @@ class PredictionService
      *
      * @param Carbon $hour
      * @param string $tz
-     * @param string $stationId
+     * @param Location $location
      * @return array
      */
-    public function getWindAtHour(Carbon $hour, $tz, $stationId) : array
+    public function getWeatherAtHour(Carbon $hour, $tz, $location) : array
     {
-        $selectFields = [
-            'wind_direction', 
-            'wind_speed'
-        ];
 
-        $prediction = NoaaPrediction::select($selectFields)
-            ->where('timestamp', '=', $hour)
-            ->where('noaa_station_id', $stationId)
-            ->first()->toArray();
+        // Get the forecast data from DarkSky if available
+        $prediction = WeatherForecast::where('timestamp', '=', $hour)
+            ->where('location_id', $location->id)
+            ->first();
 
-        $prediction['time_utc'] = $hour->copy()->format('g:i A');
-        $prediction['time_local'] = $hour->copy()->setTimezone($tz)->format('g:i A');
-        $prediction['angle'] = Helper::getDirection($prediction['wind_direction']);
-        $prediction['wind_speed'] = round($prediction['wind_speed'], 0);
+        if (isset($prediction)) {
+            $prediction = $prediction->toArray();
+            $prediction['time_utc'] = $hour->copy()->format('g:i A');
+            $prediction['time_local'] = $hour->copy()->setTimezone($tz)->format('g:i A');
+            $prediction['observation_time'] = $prediction['observation_time'];
+            $prediction['angle'] = Helper::getDirection($prediction['wind_direction']);
+            $prediction['wind_speed'] = round($prediction['speed'], 0);
+            $prediction['temperature'] = $prediction['temperature'];
+            $prediction['text'] = $prediction['text'];
+
+        } else {
+            // If DarkSky data is unavailable (it can only forecast 48 hours)
+            // then get the StormGlass prediction
+            $prediction = NoaaPrediction::where('timestamp', '=', $hour)
+                ->where('noaa_station_id', $location->station->id)
+                ->first()->toArray();
+
+            $prediction['time_utc'] = $hour->copy()->format('g:i A');
+            $prediction['time_local'] = $hour->copy()->setTimezone($tz)->format('g:i A');
+            $prediction['angle'] = Helper::getDirection($prediction['wind_direction']);
+            $prediction['wind_speed'] = round($prediction['wind_speed'], 0);
+        }
 
         return $prediction;
     }
