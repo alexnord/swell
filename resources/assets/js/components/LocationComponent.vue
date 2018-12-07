@@ -198,6 +198,20 @@
 						>
 							<div class="card-expand"><a id="wind" href="#">Historical</a></div>
 						</div>
+
+						<div class="mt-40 mb-25">
+							<table class="table table-sm table-bordered">
+								<tbody>
+									<th>Time</th>
+									<th>Data</th>
+									<tr v-for="item in data.weather">
+										<td>{{item.time_local}}</td>
+										<td>{{item.speed}}mph {{item.direction}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
 					</div>
 				</div>
 			</div>

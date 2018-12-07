@@ -11,7 +11,13 @@
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home');
+// Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', function() {
+	return redirect()->action(
+	    'LocationController@index', ['location' => 'malibu-1st-point']
+	);
+})->name('home');
+
 Route::get('locations/{location}', 'LocationController@index');
 
 Route::middleware(['auth'])->group(function () {
