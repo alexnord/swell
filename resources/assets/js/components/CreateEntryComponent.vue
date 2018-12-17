@@ -178,6 +178,17 @@
 			'initiallocations',
 			'initialconditions',
 		],
+		created() {
+			let records = [];
+			for (var item of this.$props.initiallocations) {
+				let record = {
+					value: item.id,
+					text: item.title,
+				};
+				records.push(record);
+			}
+			this.locations = records;
+		},
         data () {
     		return {
                 form: {
@@ -191,7 +202,7 @@
 	                notes: '',
 	            },
 	            userId: this.$props.initialuserid,
-	            locations: this.$props.initiallocations,
+	            locations: [],
 	            conditions: this.$props.initialconditions,
 	            ratings: [
 		            { text: 'Select One', value: null },
