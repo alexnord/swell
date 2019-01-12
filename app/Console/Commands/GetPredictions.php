@@ -122,6 +122,25 @@ class GetPredictions extends Command
                     $this->error($e->getMessage());
                     continue;
                 }
+
+                // $record = NoaaPrediction::updateOrCreate(
+                //     [
+                //         'timestamp' => $itemTime,
+                //         'noaa_station_id' => $station->id,
+                //     ],
+                //     [
+                //         'noaa_station_id' => $station->id,
+                //         'timestamp' => $itemTime,
+                //         'swell_direction' => $item->swellDirection[0]->value,
+                //         'swell_height' => $swellHeight,
+                //         'swell_period' => $item->swellPeriod[0]->value,
+                //         'wave_direction' => $item->waveDirection[0]->value,
+                //         'wave_height' => $waveHeight,
+                //         'wave_period' => $wavePeriod,
+                //         'wind_direction' => $windDirection,
+                //         'wind_speed' => $windSpeed,
+                //     ]
+                // );
             }
 
             $requestCount = $contents->meta->requestCount;

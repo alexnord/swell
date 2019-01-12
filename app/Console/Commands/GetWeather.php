@@ -105,7 +105,13 @@ class GetWeather extends Command
             'sunset' => $sunset,
         ];
 
-        $record = WeatherData::updateOrCreate($data);
+        $record = WeatherData::updateOrCreate(
+            [
+                'timestamp' => $data['timestamp'],
+                'location_id' => $data['location_id'],
+            ],
+            $data
+        );
 
         $forecasts = $this->updateForecast($location, $contents);
 
@@ -132,7 +138,13 @@ class GetWeather extends Command
                 'speed' => $hour->windSpeed,
             ];
 
-            $record = WeatherForecast::updateOrCreate($data);
+            $record = WeatherForecast::updateOrCreate(
+                [
+                    'timestamp' => $data['timestamp'],
+                    'location_id' => $data['location_id'],
+                ],
+                $data
+            );
         }
 
         return;

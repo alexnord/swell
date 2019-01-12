@@ -78,7 +78,7 @@ class PredictionService
             $prediction['time_utc'] = $hour->copy()->format('g:i A');
             $prediction['time_local'] = $hour->copy()->setTimezone($tz)->format('g:i A');
             $prediction['observation_time'] = $prediction['observation_time'];
-            $prediction['angle'] = Helper::getDirection($prediction['wind_direction']);
+            $prediction['angle'] = Helper::getDirection($prediction['angle']);
             $prediction['wind_speed'] = round($prediction['speed'], 0);
             $prediction['temperature'] = $prediction['temperature'];
             $prediction['text'] = $prediction['text'];
