@@ -17,8 +17,8 @@ An hourly breakdown of predictions for swell, tide and wind are available for ea
 
 ### Requirements
 
-PHP 7+
-Node 6+
+* PHP 7+
+* Node 6+
 
 ### Installation
 
@@ -37,5 +37,6 @@ Visit the admin page at `/admin`
 
 ### Packages used
 
-Laravel 5.7
+* Laravel 5.7
+* VueJS
 
