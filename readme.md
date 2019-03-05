@@ -1,5 +1,7 @@
 ## About Swell Diaries
 
+[http://surf.alexnordlinger.com](http://surf.alexnordlinger.com)
+
 This application allows a user to upload surfing reports after a session. Swell, tide, buoy, and wind conditions are automatically scraped via APIs across the web so that this data is automatically input when submitting a report. As of this version, only locations in the SoCal area are supported.
 
 ### Data is pulled from
@@ -11,40 +13,30 @@ This application allows a user to upload surfing reports after a session. Swell,
 
 Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
 
-## Learning Laravel
+### Predictions
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
+An hourly breakdown of predictions for swell, tide and wind are available for each location.
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+### Requirements
 
-## Laravel Sponsors
+PHP 7+
+Node 6+
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
+### Installation
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
+Clone this repo and run
+```bash
+$ composer install
+$ php artisan migrate --seed
+$ php artisan serve
+```
 
-## Contributing
+### Admin Access
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Visit the admin page at `/admin`
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Packages used
 
-## License
+Laravel 5.7
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
