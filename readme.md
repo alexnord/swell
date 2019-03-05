@@ -2,11 +2,15 @@
 
 [http://surf.alexnordlinger.com](http://surf.alexnordlinger.com)
 
+### Features
+
 This application allows a user to upload surfing reports after a session. Swell, tide, buoy, and wind conditions are automatically scraped via APIs across the web so that this data is automatically input when submitting a report. As of this version, only locations in the SoCal area are supported.
 
+An hourly breakdown of predictions for swell, tide and wind are available for each location as well.
+
 <div style="display: flex;">
-  <img src="https://d1vqe4bnlv6mwq.cloudfront.net/location.png" width="49%" />
   <img src="https://d1vqe4bnlv6mwq.cloudfront.net/report.png" width="49%" />
+  <img src="https://d1vqe4bnlv6mwq.cloudfront.net/location.png" width="49%" />
 </div>
 
 ### Data is pulled from
@@ -15,10 +19,6 @@ This application allows a user to upload surfing reports after a session. Swell,
 - [StormGlass](https://www.stormglass.io/) (NOAA predictions)
 - [DarkSky](https://darksky.net) (Weather)
 - [NDBC](https://www.ndbc.noaa.gov/) (Tide)
-
-### Predictions
-
-An hourly breakdown of predictions for swell, tide and wind are available for each location.
 
 ### Requirements
 
