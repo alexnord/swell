@@ -39,6 +39,25 @@ $ * * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>
 
 Visit the admin page at `/admin`
 
+### Server Commands
+
+* Scrape NDBC buoy data
+```bash
+$ php artisan data:ndbc
+```
+* Scrape data from Stormglass for NOAA wave predictions.
+```bash
+$ php artisan data:predictions
+```
+* Scrape tide predictions from NOAA tide and currents API.
+```bash
+$ php artisan data:tides
+```
+* Get weather data via an external API.
+```bash
+$ data:weather
+```
+
 
 ### Packages used
 
