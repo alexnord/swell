@@ -27,6 +27,8 @@ An hourly breakdown of predictions for swell, tide and wind are available for ea
 
 ### Installation
 
+Make sure to populate the `.env` file with the relevant environment variables. See [https://laravel.com/docs/5.7/installation](https://laravel.com/docs/5.7/installation) for in depth installation instructions.
+
 Clone this repo and run
 ```bash
 $ composer install
