@@ -4,6 +4,9 @@
 
 This application allows a user to upload surfing reports after a session. Swell, tide, buoy, and wind conditions are automatically scraped via APIs across the web so that this data is automatically input when submitting a report. As of this version, only locations in the SoCal area are supported.
 
+![Locations Example](https://d1vqe4bnlv6mwq.cloudfront.net/location.png)
+![Create Report Example](https://d1vqe4bnlv6mwq.cloudfront.net/report.png)
+
 ### Data is pulled from
 
 - [NOAA](https://www.ndbc.noaa.gov/) (Buoys)
