@@ -44,7 +44,11 @@ $ * * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>
 
 ### Admin Access
 
-Visit the admin page at `/admin`
+Visit the admin page at `/admin`.
+
+<div style="display: flex;">
+  <img src="https://d1vqe4bnlv6mwq.cloudfront.net/admin.png" width="50%" />
+</div>
 
 ### Server Commands
 
