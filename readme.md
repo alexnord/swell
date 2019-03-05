@@ -11,8 +11,6 @@ This application allows a user to upload surfing reports after a session. Swell,
 - [DarkSky](https://darksky.net) (Weather)
 - [NDBC](https://www.ndbc.noaa.gov/) (Tide)
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
-
 ### Predictions
 
 An hourly breakdown of predictions for swell, tide and wind are available for each location.
@@ -28,6 +26,7 @@ Clone this repo and run
 ```bash
 $ composer install
 $ php artisan migrate --seed
+$ npm run dev
 $ php artisan serve
 ```
 
