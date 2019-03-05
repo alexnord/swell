@@ -30,6 +30,11 @@ $ npm run dev
 $ php artisan serve
 ```
 
+To enabled API scraping, you must register the Laravel scheduler cron:
+```bash
+$ * * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1
+```
+
 ### Admin Access
 
 Visit the admin page at `/admin`
