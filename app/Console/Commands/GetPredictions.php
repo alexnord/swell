@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use App\Models\NoaaPrediction;
 use App\Models\NoaaStation;
+use App\Models\WeatherData;
+use App\Models\WeatherForecast;
 
 class GetPredictions extends Command
 {

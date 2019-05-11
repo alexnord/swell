@@ -14,6 +14,7 @@
         "laravel/framework": "5.6.*",
         "laravel/scout": "^4.0",
         "laravel/tinker": "^1.0",
+        "spatie/laravel-backup": "^5.0.0",
         "spatie/laravel-sluggable": "^2.1"
     },
     "require-dev": {

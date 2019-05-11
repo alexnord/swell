@@ -28,6 +28,11 @@ class Kernel extends ConsoleKernel
         $schedule->command('data:ndbc')->everyTenMinutes();
         $schedule->command('data:tides')->monthlyOn(24, '00:00');
         $schedule->command('data:weather')->hourly(0);
+
+        $schedule->command('db:clean')->weekly();
+
+        $schedule->command('backup:clean')->daily();
+        $schedule->command('backup:run')->daily();
     }
 
     /**
