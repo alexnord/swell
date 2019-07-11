@@ -91,8 +91,8 @@ class GetPredictions extends Command
                 $windDirection = isset($item->windDirection[0]->value) ? $item->windDirection[0]->value : null;
 
                 $windSpeed = isset($item->windSpeed[0]->value) ? $item->windSpeed[0]->value * 2.23694 : null;
-                $swellHeight = $item->swellHeight[0]->value * 3.28084;
-                $waveHeight = $item->waveHeight[0]->value * 3.28084;
+                $swellHeight = isset($item->swellHeight[0]->value) ? $item->swellHeight[0]->value * 3.28084 : null;
+                $waveHeight = isset($item->waveHeight[0]->value) ? $item->waveHeight[0]->value * 3.28084 : null;
 
                 try {
                     if ($record = NoaaPrediction::where('timestamp', $itemTime)->where('noaa_station_id', $station->id)->first()) {
