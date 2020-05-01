@@ -43,16 +43,28 @@ class PredictionService
         $prediction = NoaaPrediction::select($selectFields)
             ->where('timestamp', '=', $hour)
             ->where('noaa_station_id', $stationId)
-            ->first()->toArray();
+            ->first();
 
-        $prediction['time_utc'] = $hour->copy()->format('g:i A');
-        $prediction['time_local'] = $hour->copy()->setTimezone($tz)->format('g:i A');
-        $prediction['angle'] = Helper::getDirection($prediction['swell_direction']);
-        $prediction['swell_height'] = round($prediction['swell_height'], 1);
-        $prediction['swell_period'] = round($prediction['swell_period'], 0);
-        $prediction['swell_direction'] = round($prediction['swell_direction'], 0);
-        $prediction['wave_height'] = round($prediction['wave_height'], 1);
-        $prediction['wave_period'] = round($prediction['wave_period'], 0);
+        if ($prediction === null) {
+            $prediction['time_utc'] = '';
+            $prediction['time_local'] = '';
+            $prediction['angle'] = '';
+            $prediction['swell_height'] = 1;
+            $prediction['swell_period'] = '';
+            $prediction['swell_direction'] = '';
+            $prediction['wave_height'] = '';
+            $prediction['wave_period'] = '';
+        } else {
+            $prediction = $prediction->toArray();
+            $prediction['time_utc'] = $hour->copy()->format('g:i A');
+            $prediction['time_local'] = $hour->copy()->setTimezone($tz)->format('g:i A');
+            $prediction['angle'] = Helper::getDirection($prediction['swell_direction']);
+            $prediction['swell_height'] = round($prediction['swell_height'], 1);
+            $prediction['swell_period'] = round($prediction['swell_period'], 0);
+            $prediction['swell_direction'] = round($prediction['swell_direction'], 0);
+            $prediction['wave_height'] = round($prediction['wave_height'], 1);
+            $prediction['wave_period'] = round($prediction['wave_period'], 0);
+        }
 
         return $prediction;
     }
@@ -88,12 +100,21 @@ class PredictionService
             // then get the StormGlass prediction
             $prediction = NoaaPrediction::where('timestamp', '=', $hour)
                 ->where('noaa_station_id', $location->station->id)
-                ->first()->toArray();
+                ->first();
 
-            $prediction['time_utc'] = $hour->copy()->format('g:i A');
-            $prediction['time_local'] = $hour->copy()->setTimezone($tz)->format('g:i A');
-            $prediction['angle'] = Helper::getDirection($prediction['wind_direction']);
-            $prediction['wind_speed'] = round($prediction['wind_speed'], 0);
+            if ($prediction === null) {
+                $prediction['time_utc'] = '';
+                $prediction['time_local'] = '';
+                $prediction['angle'] = '';
+                $prediction['wind_speed'] = '';
+            } else {
+                $prediction = $prediction->toArray();
+                $prediction['time_utc'] = $hour->copy()->format('g:i A');
+                $prediction['time_local'] = $hour->copy()->setTimezone($tz)->format('g:i A');
+                $prediction['angle'] = Helper::getDirection($prediction['wind_direction']);
+                $prediction['wind_speed'] = round($prediction['wind_speed'], 0);
+            }
+
         }
 
         return $prediction;
